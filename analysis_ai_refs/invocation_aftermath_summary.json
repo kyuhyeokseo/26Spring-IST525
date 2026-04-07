@@ -1,0 +1,28 @@
+{
+  "n_invocations": 627,
+  "has_next_human_comment_rate_pct": 81.98,
+  "has_next_bot_comment_rate_pct": 97.45,
+  "merged_rate_pct": 70.33,
+  "n_invocations_before_merge": 438,
+  "invocation_before_merge_rate_pct": 69.86,
+  "median_latency_to_next_any_comment_hours": 0.057,
+  "mean_latency_to_next_any_comment_hours": 0.465,
+  "median_latency_to_next_human_comment_hours": 0.291,
+  "mean_latency_to_next_human_comment_hours": 9.342,
+  "median_latency_to_next_bot_comment_hours": 0.062,
+  "mean_latency_to_next_bot_comment_hours": 0.578,
+  "median_time_to_merge_after_invocation_hours": 7.334,
+  "mean_time_to_merge_after_invocation_hours": 45.507,
+  "median_time_to_merge_after_invocation_hours_valid": 7.392,
+  "mean_time_to_merge_after_invocation_hours_valid": 45.824,
+  "invocations_by_role": {
+    "other_commenter": 346,
+    "reviewer": 242,
+    "author": 39
+  },
+  "invocations_by_timing": {
+    "early": 322,
+    "late": 174,
+    "middle": 131
+  }
+}

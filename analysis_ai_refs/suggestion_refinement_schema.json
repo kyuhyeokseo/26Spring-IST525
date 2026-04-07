@@ -1,0 +1,23 @@
+{
+  "output_format": "json",
+  "fields": {
+    "mention_uid": "string, must exactly match the input mention_uid",
+    "suggestion_subtype": [
+      "Suggestion-Invocation",
+      "Suggestion-Recommendation",
+      "Suggestion-TaskDelegation",
+      "Suggestion-StepInstruction"
+    ],
+    "addressing_mode": [
+      "Talking-to-AI",
+      "Talking-about-AI",
+      "Mixed"
+    ],
+    "confidence": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "rationale": "short explanation, 1 sentence preferred"
+  }
+}

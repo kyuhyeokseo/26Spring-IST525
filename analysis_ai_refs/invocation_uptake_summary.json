@@ -1,0 +1,70 @@
+{
+  "n_rows": 100,
+  "n_labeled_rows": 100,
+  "uptake_label_counts": {
+    "positive_uptake": 62,
+    "corrective_critique": 33,
+    "continued_delegation": 4,
+    "no_clear_uptake": 1
+  },
+  "uptake_label_pct": {
+    "positive_uptake": 62.0,
+    "corrective_critique": 33.0,
+    "continued_delegation": 4.0,
+    "no_clear_uptake": 1.0
+  },
+  "uptake_by_role": {
+    "author": {
+      "continued_delegation": 0,
+      "corrective_critique": 2,
+      "no_clear_uptake": 0,
+      "positive_uptake": 9
+    },
+    "other_commenter": {
+      "continued_delegation": 2,
+      "corrective_critique": 19,
+      "no_clear_uptake": 0,
+      "positive_uptake": 31
+    },
+    "reviewer": {
+      "continued_delegation": 2,
+      "corrective_critique": 12,
+      "no_clear_uptake": 1,
+      "positive_uptake": 22
+    }
+  },
+  "uptake_by_timing": {
+    "early": {
+      "continued_delegation": 2,
+      "corrective_critique": 21,
+      "no_clear_uptake": 1,
+      "positive_uptake": 26
+    },
+    "late": {
+      "continued_delegation": 0,
+      "corrective_critique": 6,
+      "no_clear_uptake": 0,
+      "positive_uptake": 22
+    },
+    "middle": {
+      "continued_delegation": 2,
+      "corrective_critique": 6,
+      "no_clear_uptake": 0,
+      "positive_uptake": 14
+    }
+  },
+  "uptake_by_merged": {
+    "false": {
+      "continued_delegation": 3,
+      "corrective_critique": 16,
+      "no_clear_uptake": 0,
+      "positive_uptake": 13
+    },
+    "true": {
+      "continued_delegation": 1,
+      "corrective_critique": 17,
+      "no_clear_uptake": 1,
+      "positive_uptake": 49
+    }
+  }
+}

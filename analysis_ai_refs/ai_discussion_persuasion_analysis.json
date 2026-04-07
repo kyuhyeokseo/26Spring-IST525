@@ -1,0 +1,19 @@
+{
+  "discussion_structure": {
+    "median_participants_per_ai_pr": 2.0,
+    "mean_participants_per_ai_pr": 2.53,
+    "median_comments_per_ai_pr": 5.0,
+    "median_reviews_per_ai_pr": 0.0,
+    "median_review_comments_per_ai_pr": 0.0,
+    "corr_ai_mentions_vs_participants": 0.086
+  },
+  "persuasion_proxy": {
+    "n_ai_prs": 410,
+    "prs_with_approval_after_first_ai_mention": 52,
+    "prs_with_changes_requested_after_first_ai_mention": 21,
+    "approval_after_ai_rate_pct": 12.68,
+    "changes_requested_after_ai_rate_pct": 5.12,
+    "median_hours_from_first_ai_mention_to_merge": 0.81,
+    "mean_hours_from_first_ai_mention_to_merge": 20.281
+  }
+}

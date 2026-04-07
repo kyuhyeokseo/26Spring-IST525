@@ -1,0 +1,122 @@
+{
+  "n_rows": 925,
+  "n_labeled_rows": 925,
+  "primary_label_counts": {
+    "Suggestion": 739,
+    "Critique": 85,
+    "Explanation": 53,
+    "Other": 25,
+    "Justification": 17,
+    "Meta discussion": 5,
+    "Explaination": 1
+  },
+  "primary_label_pct": {
+    "Suggestion": 79.89,
+    "Critique": 9.19,
+    "Explanation": 5.73,
+    "Other": 2.7,
+    "Justification": 1.84,
+    "Meta discussion": 0.54,
+    "Explaination": 0.11
+  },
+  "confidence_counts": {
+    "1": 437,
+    "1.0": 316,
+    "0.8": 109,
+    "0.9": 25,
+    "high": 11,
+    "0.7": 11,
+    "0.75": 4,
+    "0.95": 2,
+    "0.85": 2,
+    "0": 1,
+    "0.6": 1
+  },
+  "primary_label_by_role": {
+    "author": {
+      "Critique": 5,
+      "Explaination": 1,
+      "Explanation": 27,
+      "Justification": 13,
+      "Meta discussion": 0,
+      "Other": 6,
+      "Suggestion": 49
+    },
+    "other_commenter": {
+      "Critique": 66,
+      "Explaination": 0,
+      "Explanation": 24,
+      "Justification": 4,
+      "Meta discussion": 3,
+      "Other": 16,
+      "Suggestion": 420
+    },
+    "reviewer": {
+      "Critique": 14,
+      "Explaination": 0,
+      "Explanation": 2,
+      "Justification": 0,
+      "Meta discussion": 2,
+      "Other": 3,
+      "Suggestion": 270
+    }
+  },
+  "primary_label_by_location": {
+    "issue_comment": {
+      "Critique": 78,
+      "Explaination": 1,
+      "Explanation": 49,
+      "Justification": 13,
+      "Meta discussion": 3,
+      "Other": 21,
+      "Suggestion": 664
+    },
+    "review": {
+      "Critique": 1,
+      "Explaination": 0,
+      "Explanation": 1,
+      "Justification": 0,
+      "Meta discussion": 1,
+      "Other": 1,
+      "Suggestion": 15
+    },
+    "review_comment": {
+      "Critique": 6,
+      "Explaination": 0,
+      "Explanation": 3,
+      "Justification": 4,
+      "Meta discussion": 1,
+      "Other": 3,
+      "Suggestion": 60
+    }
+  },
+  "primary_label_by_timing": {
+    "early": {
+      "Critique": 45,
+      "Explaination": 1,
+      "Explanation": 28,
+      "Justification": 7,
+      "Meta discussion": 2,
+      "Other": 7,
+      "Suggestion": 382
+    },
+    "late": {
+      "Critique": 30,
+      "Explaination": 0,
+      "Explanation": 22,
+      "Justification": 8,
+      "Meta discussion": 1,
+      "Other": 16,
+      "Suggestion": 202
+    },
+    "middle": {
+      "Critique": 10,
+      "Explaination": 0,
+      "Explanation": 3,
+      "Justification": 2,
+      "Meta discussion": 2,
+      "Other": 2,
+      "Suggestion": 155
+    }
+  }
+}

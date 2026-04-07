@@ -1,0 +1,61 @@
+{
+  "ai_reference_dataset": {
+    "label": "ai_reference",
+    "n_prs": 418,
+    "n_repos": 292,
+    "merged_rate_pct": 77.51,
+    "median_time_to_merge_hours": 0.395,
+    "median_total_comments_per_pr": 5.0,
+    "median_ai_reference_comments_per_pr": 2.0,
+    "mean_total_comments_per_pr": 17.38,
+    "mean_ai_reference_comments_per_pr": 9.02,
+    "comment_ai_reference_rate_pct": 51.92,
+    "review_ai_reference_rate_pct": 27.12,
+    "top_languages": {
+      "TypeScript": 142,
+      "Python": 110,
+      "JavaScript": 35,
+      "HTML": 17,
+      "Go": 16,
+      "Rust": 15,
+      "C#": 14,
+      "Shell": 12,
+      "C++": 9,
+      "Java": 7
+    }
+  },
+  "control_dataset": {
+    "label": "control",
+    "n_prs": 376,
+    "n_repos": 292,
+    "merged_rate_pct": 50.27,
+    "median_time_to_merge_hours": 0.002,
+    "median_total_comments_per_pr": 2.0,
+    "median_ai_reference_comments_per_pr": 0.0,
+    "mean_total_comments_per_pr": 13.38,
+    "mean_ai_reference_comments_per_pr": 0.0,
+    "comment_ai_reference_rate_pct": 0.0,
+    "review_ai_reference_rate_pct": 0.0,
+    "top_languages": {
+      "TypeScript": 88,
+      "0": 47,
+      "Python": 46,
+      "HTML": 40,
+      "Astro": 28,
+      "JavaScript": 25,
+      "Go": 14,
+      "Rust": 12,
+      "Java": 6,
+      "Nix": 6
+    }
+  },
+  "differences": {
+    "n_prs": 42,
+    "merged_rate_pct_points": 27.24,
+    "median_time_to_merge_hours": 0.393,
+    "median_total_comments_per_pr": 3.0,
+    "median_ai_reference_comments_per_pr": 2.0,
+    "comment_ai_reference_rate_pct_points": 51.92,
+    "review_ai_reference_rate_pct_points": 27.12
+  }
+}

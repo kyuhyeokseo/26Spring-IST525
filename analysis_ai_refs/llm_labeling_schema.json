@@ -1,0 +1,33 @@
+{
+  "output_format": "json",
+  "fields": {
+    "mention_uid": "string, must exactly match the input mention_uid",
+    "primary_label": [
+      "Justification",
+      "Explanation",
+      "Suggestion",
+      "Critique",
+      "Meta discussion",
+      "Other"
+    ],
+    "secondary_label": [
+      "Justification",
+      "Explanation",
+      "Suggestion",
+      "Critique",
+      "Meta discussion",
+      "Other",
+      ""
+    ],
+    "confidence": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "contains_multiple_functions": [
+      "true",
+      "false"
+    ],
+    "rationale": "short explanation, 1-2 sentences"
+  }
+}

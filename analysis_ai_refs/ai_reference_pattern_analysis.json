@@ -1,0 +1,241 @@
+{
+  "role_timing_location": {
+    "n_ai_mentions": 4034,
+    "speaker_role_counts": {
+      "other_commenter": 2289,
+      "reviewer": 927,
+      "author": 818
+    },
+    "speaker_role_pct": {
+      "other_commenter": 56.74,
+      "reviewer": 22.98,
+      "author": 20.28
+    },
+    "prs_with_ai_mentions_by_role": {
+      "author": 193,
+      "other_commenter": 304,
+      "reviewer": 148
+    },
+    "mention_location_counts": {
+      "issue_comment": 3493,
+      "review_comment": 279,
+      "review": 262
+    },
+    "mention_location_pct": {
+      "issue_comment": 86.59,
+      "review_comment": 6.92,
+      "review": 6.49
+    },
+    "timing_phase_counts": {
+      "early": 2096,
+      "late": 1186,
+      "middle": 752
+    },
+    "timing_phase_pct": {
+      "early": 51.96,
+      "late": 29.4,
+      "middle": 18.64
+    },
+    "mention_order_counts": {
+      "middle": 3358,
+      "first": 266,
+      "last": 266,
+      "single": 144
+    },
+    "mention_order_pct": {
+      "middle": 83.24,
+      "first": 6.59,
+      "last": 6.59,
+      "single": 3.57
+    }
+  },
+  "intensity_vs_outcomes": {
+    "correlation_ai_mentions_vs_total_comments": 0.857,
+    "correlation_ai_mentions_vs_changed_files": 0.203,
+    "correlation_ai_mentions_vs_additions": 0.028,
+    "merge_rate_by_ai_intensity_bin": {
+      "0": {
+        "n_prs": 9,
+        "merge_rate_pct": 66.67,
+        "median_time_to_merge_hours": 0.122,
+        "median_total_comments_per_pr": 1.0
+      },
+      "1": {
+        "n_prs": 174,
+        "merge_rate_pct": 85.06,
+        "median_time_to_merge_hours": 0.019,
+        "median_total_comments_per_pr": 1.0
+      },
+      "11+": {
+        "n_prs": 64,
+        "merge_rate_pct": 64.06,
+        "median_time_to_merge_hours": 6.539,
+        "median_total_comments_per_pr": 35.0
+      },
+      "2-3": {
+        "n_prs": 84,
+        "merge_rate_pct": 71.43,
+        "median_time_to_merge_hours": 0.597,
+        "median_total_comments_per_pr": 4.0
+      },
+      "4-5": {
+        "n_prs": 35,
+        "merge_rate_pct": 74.29,
+        "median_time_to_merge_hours": 1.203,
+        "median_total_comments_per_pr": 8.0
+      },
+      "6-10": {
+        "n_prs": 52,
+        "merge_rate_pct": 82.69,
+        "median_time_to_merge_hours": 1.7,
+        "median_total_comments_per_pr": 10.0
+      }
+    }
+  },
+  "repo_traits": {
+    "top_languages_with_ai_prs": {
+      "TypeScript": {
+        "n_prs": 142,
+        "median_ai_mentions": 2.0,
+        "merge_rate": 76.76
+      },
+      "Python": {
+        "n_prs": 110,
+        "median_ai_mentions": 2.0,
+        "merge_rate": 73.64
+      },
+      "JavaScript": {
+        "n_prs": 35,
+        "median_ai_mentions": 1.0,
+        "merge_rate": 80.0
+      },
+      "HTML": {
+        "n_prs": 17,
+        "median_ai_mentions": 2.0,
+        "merge_rate": 82.35
+      },
+      "Go": {
+        "n_prs": 16,
+        "median_ai_mentions": 7.5,
+        "merge_rate": 100.0
+      },
+      "Rust": {
+        "n_prs": 15,
+        "median_ai_mentions": 2.0,
+        "merge_rate": 80.0
+      },
+      "C#": {
+        "n_prs": 14,
+        "median_ai_mentions": 4.0,
+        "merge_rate": 92.86
+      },
+      "Shell": {
+        "n_prs": 12,
+        "median_ai_mentions": 3.5,
+        "merge_rate": 91.67
+      },
+      "C++": {
+        "n_prs": 9,
+        "median_ai_mentions": 4.0,
+        "merge_rate": 88.89
+      },
+      "Java": {
+        "n_prs": 7,
+        "median_ai_mentions": 27.0,
+        "merge_rate": 42.86
+      },
+      "Kotlin": {
+        "n_prs": 5,
+        "median_ai_mentions": 7.0,
+        "merge_rate": 100.0
+      },
+      "C": {
+        "n_prs": 4,
+        "median_ai_mentions": 1.0,
+        "merge_rate": 75.0
+      },
+      "0": {
+        "n_prs": 3,
+        "median_ai_mentions": 2.0,
+        "merge_rate": 0.0
+      },
+      "Dart": {
+        "n_prs": 3,
+        "median_ai_mentions": 3.0,
+        "merge_rate": 100.0
+      },
+      "Elixir": {
+        "n_prs": 3,
+        "median_ai_mentions": 4.0,
+        "merge_rate": 100.0
+      }
+    },
+    "repo_stars_distribution": {
+      "0": {
+        "n_prs": 215,
+        "median_ai_mentions": 1.0,
+        "median_comments": 3.0
+      },
+      "1-10": {
+        "n_prs": 111,
+        "median_ai_mentions": 3.0,
+        "median_comments": 8.0
+      },
+      "1000+": {
+        "n_prs": 42,
+        "median_ai_mentions": 2.0,
+        "median_comments": 6.5
+      },
+      "101-1000": {
+        "n_prs": 12,
+        "median_ai_mentions": 4.0,
+        "median_comments": 6.5
+      },
+      "11-100": {
+        "n_prs": 38,
+        "median_ai_mentions": 2.0,
+        "median_comments": 6.0
+      }
+    },
+    "median_repo_stars": 0.0,
+    "mean_repo_stars": 1414.3
+  },
+  "complexity": {
+    "median_changed_files": 6.0,
+    "median_additions": 288.0,
+    "median_deletions": 18.5,
+    "median_commits": 4.0,
+    "changed_files_bins": {
+      "0-1": {
+        "n_prs": 83,
+        "median_ai_mentions": 1.0,
+        "mean_ai_mentions": 2.01,
+        "merge_rate": 72.29
+      },
+      "11-20": {
+        "n_prs": 48,
+        "median_ai_mentions": 2.0,
+        "mean_ai_mentions": 5.6,
+        "merge_rate": 72.92
+      },
+      "2-5": {
+        "n_prs": 124,
+        "median_ai_mentions": 2.0,
+        "mean_ai_mentions": 3.98,
+        "merge_rate": 85.48
+      },
+      "21+": {
+        "n_prs": 89,
+        "median_ai_mentions": 8.0,
+        "mean_ai_mentions": 28.16,
+        "merge_rate": 73.03
+      },
+      "6-10": {
+        "n_prs": 74,
+        "median_ai_mentions": 2.0,
+        "mean_ai_mentions": 4.55,
+        "merge_rate": 78.38
+      }
+    }
+  }
+}

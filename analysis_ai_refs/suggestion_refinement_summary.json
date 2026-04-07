@@ -1,0 +1,137 @@
+{
+  "n_rows": 739,
+  "n_labeled_rows": 739,
+  "suggestion_subtype_counts": {
+    "Suggestion-Invocation": 627,
+    "Suggestion-TaskDelegation": 70,
+    "Suggestion-StepInstruction": 35,
+    "Suggestion-Recommendation": 7
+  },
+  "suggestion_subtype_pct": {
+    "Suggestion-Invocation": 84.84,
+    "Suggestion-TaskDelegation": 9.47,
+    "Suggestion-StepInstruction": 4.74,
+    "Suggestion-Recommendation": 0.95
+  },
+  "addressing_mode_counts": {
+    "Talking-to-AI": 732,
+    "Talking-about-AI": 6,
+    "Mixed": 1
+  },
+  "addressing_mode_pct": {
+    "Talking-to-AI": 99.05,
+    "Talking-about-AI": 0.81,
+    "Mixed": 0.14
+  },
+  "subtype_by_role": {
+    "author": {
+      "Suggestion-Invocation": 39,
+      "Suggestion-Recommendation": 1,
+      "Suggestion-StepInstruction": 2,
+      "Suggestion-TaskDelegation": 7
+    },
+    "other_commenter": {
+      "Suggestion-Invocation": 346,
+      "Suggestion-Recommendation": 6,
+      "Suggestion-StepInstruction": 23,
+      "Suggestion-TaskDelegation": 45
+    },
+    "reviewer": {
+      "Suggestion-Invocation": 242,
+      "Suggestion-Recommendation": 0,
+      "Suggestion-StepInstruction": 10,
+      "Suggestion-TaskDelegation": 18
+    }
+  },
+  "addressing_by_role": {
+    "author": {
+      "Mixed": 0,
+      "Talking-about-AI": 0,
+      "Talking-to-AI": 49
+    },
+    "other_commenter": {
+      "Mixed": 1,
+      "Talking-about-AI": 6,
+      "Talking-to-AI": 413
+    },
+    "reviewer": {
+      "Mixed": 0,
+      "Talking-about-AI": 0,
+      "Talking-to-AI": 270
+    }
+  },
+  "subtype_by_timing": {
+    "early": {
+      "Suggestion-Invocation": 322,
+      "Suggestion-Recommendation": 4,
+      "Suggestion-StepInstruction": 18,
+      "Suggestion-TaskDelegation": 38
+    },
+    "late": {
+      "Suggestion-Invocation": 174,
+      "Suggestion-Recommendation": 1,
+      "Suggestion-StepInstruction": 11,
+      "Suggestion-TaskDelegation": 16
+    },
+    "middle": {
+      "Suggestion-Invocation": 131,
+      "Suggestion-Recommendation": 2,
+      "Suggestion-StepInstruction": 6,
+      "Suggestion-TaskDelegation": 16
+    }
+  },
+  "addressing_by_timing": {
+    "early": {
+      "Mixed": 0,
+      "Talking-about-AI": 2,
+      "Talking-to-AI": 380
+    },
+    "late": {
+      "Mixed": 1,
+      "Talking-about-AI": 2,
+      "Talking-to-AI": 199
+    },
+    "middle": {
+      "Mixed": 0,
+      "Talking-about-AI": 2,
+      "Talking-to-AI": 153
+    }
+  },
+  "subtype_by_location": {
+    "issue_comment": {
+      "Suggestion-Invocation": 556,
+      "Suggestion-Recommendation": 7,
+      "Suggestion-StepInstruction": 35,
+      "Suggestion-TaskDelegation": 66
+    },
+    "review": {
+      "Suggestion-Invocation": 15,
+      "Suggestion-Recommendation": 0,
+      "Suggestion-StepInstruction": 0,
+      "Suggestion-TaskDelegation": 0
+    },
+    "review_comment": {
+      "Suggestion-Invocation": 56,
+      "Suggestion-Recommendation": 0,
+      "Suggestion-StepInstruction": 0,
+      "Suggestion-TaskDelegation": 4
+    }
+  },
+  "addressing_by_location": {
+    "issue_comment": {
+      "Mixed": 1,
+      "Talking-about-AI": 6,
+      "Talking-to-AI": 657
+    },
+    "review": {
+      "Mixed": 0,
+      "Talking-about-AI": 0,
+      "Talking-to-AI": 15
+    },
+    "review_comment": {
+      "Mixed": 0,
+      "Talking-about-AI": 0,
+      "Talking-to-AI": 60
+    }
+  }
+}
