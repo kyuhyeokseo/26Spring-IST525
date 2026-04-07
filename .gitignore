@@ -1,2 +1,5 @@
 .venv/
+.venv_py39_backup_20260316/
 .env
+__pycache__/
+.vscode/settings.json
