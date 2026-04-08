@@ -148,13 +148,3 @@ Based on the outputs currently included in this repository:
 - In a 100-row uptake coding sample, `positive_uptake` accounts for 62% and `corrective_critique` for 33%.
 
 These results should be interpreted as exploratory descriptive findings rather than causal claims.
-
-## Notes
-
-- The `papers/` directory contains background literature used for framing the project.
-- Some analysis files include pilot annotations, manually coded samples, and intermediate outputs.
-- The repository includes generated CSV and JSON artifacts so the analysis can be inspected without rerunning the full pipeline.
-
-## Suggested GitHub Description
-
-Research pipeline for collecting AI references in GitHub PR discussions and analyzing collaboration patterns, functions, and uptake against a control group.
