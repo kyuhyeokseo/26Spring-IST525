@@ -1,0 +1,848 @@
+mention_uid,repo_name,pr_number,user_login,timing_phase,mention_location,mention_body,llm_primary_label,accountability_label,accountability_rationale
+567-labs/instructor#1976:issue_comment:3706021773,567-labs/instructor,1976,hsaeed3,middle,issue_comment,"added implementation for Claude models, but still needs further handling to support gemini/vertex/etc. models directly, the `examples/toon/run.py` tests responses from openai, anthropic as well as comparing token output between JSON, MD_JSON, TOOLS, compared to toon.",Explanation,other,"AI is product of repo (implementing Claude model support), not the tool used"
+AWeber-Imbi/imbi-api#148:issue_comment:3702943449,AWeber-Imbi/imbi-api,148,gmr,late,issue_comment,"🤖 *This comment was posted by Claude on behalf of @gmr*
+
+## PR Monitor Summary - Monitoring iteration #1 of 10
+
+### CI/CD Status
+✅ All checks passing:
+- OSSAR-Scan: success
+- test (3.12, 3.13, 3.14): all success
+- CodeRabbit: success
+
+### Code Review Feedback Addressed
+
+#### ✅ Docstring References (Already Fixed in 6aeb818)
+The incorrect references to `aj.errors.DatabaseError` were already corrected to `DatabaseError` in commit 6aeb818. No further action needed.
+
+#### ✅ Resilient Error Handling (Implemented in 7c952ea)
+Implemented CodeRabbit's suggestions for robust `asyncio.gather` error handling in `src/imbi/app.py`:
+
+**Startup initialization:**
+- Added `return_exceptions=True` to prevent task cancellation on failure
+- Implemented cleanup logic to close successfully initialized services before re-raising exceptions
+- Added error logging for failed service initialization
+
+**Shutdown:**
+- Added `return_exceptions=True` to ensure all services get cleanup opportunity
+- Implemented warning-level logging for shutdown failures (non-blocking)
+- Ensures graceful degradation during shutdown
+
+This prevents resource leaks and ensures proper cleanup in both successful and failed scenarios (confidence: ~95%).
+
+#### ✅ Version Constraints Discussion (Already Resolved)
+The thread about adding version constraints to new dependencies (`clickhouse-connect`, `orjson`, `sentry-sdk`) was resolved through discussion. Since the project uses `uv.lock` for reproducibility, leaving dependencies unpinned in `pyproject.toml` is consistent with the project's existing pattern.
+
+### Review Threads Resolved
+- ✅ Resolved: `src/imbi/app.py:23` - asyncio.gather startup error handling
+- ✅ Resolved: `src/imbi/app.py:45` - asyncio.gather shutdown error handling
+- ✅ Already Resolved: Docstring reference corrections
+- ✅ Already Resolved: Version constraints discussion
+
+### Test Results
+All 261 tests pass with 95% coverage. The error handling improvements maintain full test coverage.
+
+### Status
+🟢 **All issues addressed.** The PR is ready for review - all CI checks passing, all actionable code review feedback implemented, and all review threads resolved.",Explanation,provenance_only,'Posted by Claude on behalf of @gmr' tag + routine status
+AWeber-Imbi/imbi-api#148:issue_comment:3702945466,AWeber-Imbi/imbi-api,148,gmr,late,issue_comment,"🤖 *This comment was posted by Claude on behalf of @gmr*
+
+## PR Monitor Update - Monitoring iteration #2 of 10
+
+### CI/CD Status Update
+✅ **All CI checks passing after latest commit (7c952ea):**
+- OSSAR-Scan: success
+- test (3.12): success ✅
+- test (3.13): success ✅
+- test (3.14): success ✅
+- bandit: success
+- binskim: success
+- eslint: success
+
+### Review Status
+✅ All review threads resolved
+✅ No new comments or issues detected
+✅ No unresolved review feedback
+
+### Exit Condition Met
+🟢 **Monitoring complete** - All CI checks passing AND all review threads resolved. The PR is in excellent shape and ready for merge.",Justification,provenance_only,same template: posted-by-Claude prefix + status
+AndyMik90/Auto-Claude#417:issue_comment:3698032464,AndyMik90/Auto-Claude,417,sumca1,early,issue_comment,"## Summary
+
+This PR adds complete Hebrew (he) translation support to the Auto-Claude UI, including:
+
+### Translation Coverage
+- ✅ 30+ translation JSON files (en + he locales)
+- ✅ All UI components, dialogs, settings, and features
+- ✅ RTL (Right-to-Left) support with proper text direction
+- ✅ i18next v23+ with namespace support and pluralization
+
+### Code Quality Fixes
+- Added `type=""button""` to prevent unintended form submissions
+- Fixed JSON syntax error (extra closing brace in `settings.json`)
+- Implemented proper i18next pluralization (removed manual logic)
+- Added missing translation keys for consistency
+- Used IPC constants instead of hardcoded strings
+- **Enhanced AI responses**: Added instruction for AI to respond in user's language
+
+### Technical Details
+- Framework: i18next with React hooks (`useTranslation`)
+- Structure: Organized by feature domain (common, settings, tasks, etc.)
+- Language detection: Auto-detects from system locale with manual override
+- Tested locally and working correctly
+
+---
+
+### Note on Workflow Approvals
+I notice that 7 workflows are awaiting approval from maintainers. As a first-time contributor, I don't have permission to trigger these checks myself. The code is ready for review, and I'm happy to make any additional changes based on feedback.
+
+Looking forward to your review! 🙏",Explanation,other,PR description for Hebrew translation; AI is product context
+AndyMik90/Auto-Claude#417:issue_comment:3703057163,AndyMik90/Auto-Claude,417,sumca1,early,issue_comment,לא זה נוצר על ידי copilot אבל רק עבור יהודים,Critique,provenance_only,brief Hebrew note disclosing Copilot was used
+JoA-MoS/garage#189:issue_comment:3702999646,JoA-MoS/garage,189,JoA-MoS,late,issue_comment,"### Code review
+
+No issues found. Checked for bugs and CLAUDE.md compliance.
+
+🤖 Generated with [Claude Code](https://claude.ai/code)",Explanation,provenance_only,'Generated with Claude Code' tag on routine review
+JoA-MoS/garage#190:issue_comment:3703028783,JoA-MoS/garage,190,JoA-MoS,late,issue_comment,"### Code review
+
+No issues found. Checked for bugs and CLAUDE.md compliance.
+
+🤖 Generated with [Claude Code](https://claude.ai/code)",Explanation,provenance_only,"same template as #5, different PR"
+LudovicRousseau/CCID#178:issue_comment:3703061440,LudovicRousseau/CCID,178,hnampally,early,issue_comment,"> How is the author of `src/libusb_shim.h` and `src/libusb_shim_qnx.c`? I only find `Copyright (C) 2025` in the file headers but with no name of the copyright holder.
+
+Thanks for the review! I’ll get that copyright header updated. Just as a heads-up, I used GitHub Copilot (Claude 4.5 Haiku) to help develop this patch, and I'll be sure to include that in the commit message.",Suggestion,provenance_only,heads-up disclosure of Copilot use; commits to add to commit msg
+NVIDIA-NeMo/Automodel#1002:issue_comment:3702998663,NVIDIA-NeMo/Automodel,1002,HuiyingLi,early,issue_comment,"> LGTM but can you just run the finetuning example for Qwen3 moe 30b llm to make sure there's no regression?
+
+Hi @hemildesai 
+Here is the run with
+```
+torchrun --nproc-per-node 8 \
+  examples/llm_finetune/finetune.py \
+  --config examples/llm_finetune/qwen/qwen3_moe_30b_te_packed_sequence.yaml
+```
+https://wandb.ai/Nemo-automodel/huiyingl_workspace/runs/vdocmzum?nw=nwuserhuiyingl",Critique,other,false positive: 'LLM' appears only in qwen3_moe filename
+Scetrov/evefrontier-rs#51:issue_comment:3703062938,Scetrov/evefrontier-rs,51,Scetrov,late,issue_comment,"## Review Comments Addressed
+
+All 5 Copilot review comments have been addressed in commit e913659:
+
+### 1. Spec Documentation (spec.md)
+✅ **Addressed**: Updated feature spec to document fuel color styling (orange for hop cost, magenta for remaining) and padding fixes as core feature requirements (FR-3, FR-4) and acceptance criteria.
+
+### 2. Dead Code in output.rs (calculate_route_fuel)
+✅ **Addressed**: Added clarifying Rustdoc comment in `attach_fuel()` explaining the architectural decision:
+- `attach_fuel()` uses inline gate step handling for performance in CLI/Lambda scenarios
+- `calculate_route_fuel()` remains exported and is actively used in tests and public API for complete route fuel calculations with static/dynamic mass modes
+- No dead code issue; the design is intentional for different use cases
+
+### 3. CHANGELOG.md Documentation
+✅ **Addressed**: Enhanced CHANGELOG entries to highlight:
+- Color-coded fuel display (orange/magenta distinction)
+- Padding alignment fixes for planet/moon labels
+These visual enhancements are now clearly documented for user awareness.
+
+### 4. Spec 015 Task Status (tasks.md)
+✅ **Addressed**: T024 (security audit) was already marked completed; verified in commit.
+
+### 5. Duplicate Heading (docs/fixtures/README.md)
+✅ **Addressed**: Removed duplicate ""### Routing Examples"" section and normalized ship_data.csv section heading.
+
+### Test Results
+All checks pass:
+- ✅ `cargo fmt --all --check`
+- ✅ `nx run-many --target=build --all` (12 projects)
+- ✅ `nx run-many --target=clippy --all` (12 projects)
+- ✅ `nx run-many --target=test --all` (47 tests)
+- ✅ `cargo audit` (1 allowed warning on yanked cmov 0.3.1)",Justification,process_documentation,describes how each of 5 Copilot review comments was processed
+ardallie/plan-and-jam-with-claude-code#2:issue_comment:3702971609,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,issue_comment,"## Review response
+
+All review comments have been addressed.
+
+---
+
+### Medium severity
+
+**[x] Missing subagent type specification** (.claude/commands/plan-create.md:13)
+- **Modified:** `.claude/commands/plan-create.md`
+- **Change:** Added explicit `subagent_type: ""plan-create""` parameter to the Task tool invocation instruction
+
+**[x] Redundant issue fetch in plan-validate** (.claude/commands/plan-validate.md:15-18)
+- **Modified:** `.claude/commands/plan-validate.md`
+- **Change:** Replaced defensive note with conditional instruction to use existing context if already loaded via `/plan-resume`, otherwise fetch
+
+**[x] Inconsistent issue number syntax**
+- **Modified:** `.claude/commands/plan-prompt.md`
+- **Change:** Added `(e.g., 85)` example to usage line to match other commands
+
+---
+
+### Low severity
+
+**[x] Title heading inconsistency** (.claude/commands/plan-prompt.md:1)
+- **Modified:** `.claude/commands/plan-prompt.md`
+- **Change:** Changed title from ""Save a reusable prompt from the conversation"" to ""Synthesise a revised prompt from the conversation""
+
+**[x] Hardcoded path in agent file** (.claude/agents/plan-create.md:12)
+- **Modified:** `.claude/agents/plan-create.md`
+- **Change:** Added note under step 1 documenting that path must match where plan mode writes files
+
+**[x] Missing repository context** (multiple files)
+- **Modified:** `.claude/agents/plan-create.md`
+- **Change:** Added requirement documenting that `gh` command must be run from within a git repository
+
+**[x] Inconsistent error handling granularity**
+- **Modified:** `.claude/commands/plan-create.md`, `.claude/agents/plan-create.md`
+- **Change:** Enhanced error handling sections to include permission issues, matching detail level of other commands",Explanation,process_documentation,itemized response to Copilot/Claude review in claude-coded repo
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655936915,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,"[x] Resolved - Added explicit `subagent_type: ""plan-create""` parameter to line 13 in .claude/commands/plan-create.md",Justification,other,resolution note; AI appears only in filename path
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655936991,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,"[x] Resolved - Changed title to ""Synthesise a revised prompt from the conversation"" in .claude/commands/plan-prompt.md:1",Justification,other,resolution note; AI appears only in filename path
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655937140,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,[x] Resolved - Added note documenting that path must match where plan mode writes files in .claude/agents/plan-create.md:13,Explanation,other,resolution note; AI appears only in filename path
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655937255,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,"[x] Resolved - Changed to conditional instruction: use existing context if already loaded via `/plan-resume`, otherwise fetch. Removed defensive parenthetical in .claude/commands/plan-validate.md:15",Justification,other,resolution note; AI appears only in filename path
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655937347,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,"[x] Resolved - Enhanced error handling in .claude/commands/plan-create.md and .claude/agents/plan-create.md to include permission issues and more detail, matching the comprehensive level across all commands",Explanation,other,resolution note; AI appears only in filename path
+franaraujo77/investments-planner#25:issue_comment:3703053676,franaraujo77/investments-planner,25,franaraujo77,early,issue_comment,"> ## Code Review - PR #25: Epic 4 Stories 4-2, 4-5, 4-6
+> ### Overview
+> This PR implements three stories from Epic 4 focused on investment strategy configuration and historical surplus scoring. The implementation shows excellent adherence to project standards with comprehensive test coverage (4548 tests passing). Overall, this is **high-quality work** with good architectural decisions and documentation.
+> 
+> ## ✅ Strengths
+> ### 1. **Excellent Test Coverage**
+> * **320 new tests** for surplus-scoring logic (`tests/unit/calculations/surplus-scoring.test.ts`)
+> * **351 tests** for SurplusScoreDetail component (`tests/unit/components/scores/surplus-score-detail.test.tsx`)
+> * **252 tests** for IncompleteDataNotice component
+> * **1225 E2E tests** for criteria management (`tests/e2e/criteria.spec.ts`)
+> * All acceptance criteria have corresponding test coverage
+> 
+> ### 2. **Strong Type Safety**
+> * Proper TypeScript types throughout (e.g., `SurplusScoreResult`, `SurplusHistoryData`)
+> * Type alias for `SkippedReason` added for better type safety (mentioned in PR description)
+> * Well-defined interfaces in `surplus-score-detail.tsx:31-46`
+> 
+> ### 3. **Consistent Use of Decimal.js**
+> * All financial calculations use Decimal.js for precision (`surplus-scoring.ts:108`, `quick-calc.ts:578-605`)
+> * Matches project standards from `project-context.md`
+> * Fixed in `quick-calc.ts` as noted in PR description
+> 
+> ### 4. **Good Code Organization**
+> * Barrel export for scores components (`src/components/scores/index.ts`)
+> * Clear separation of concerns (scoring logic vs. UI components)
+> * Comprehensive documentation with AC references in comments
+> 
+> ### 5. **ESLint Rule Implementation**
+> * Custom ESLint rule prevents `.toFixed()`, `.toLocaleString()` misuse (`eslint.config.mjs:53-82`)
+> * Enforces `useNumberFormat()` hook usage per Epic 3 retrospective
+> * Good developer experience with clear error messages
+> 
+> ### 6. **Accessibility Considerations**
+> * ARIA labels throughout (`surplus-score-detail.tsx:115`, `incomplete-data-notice.tsx:131`)
+> * Semantic HTML with proper roles
+> * Good use of color coding with text fallbacks
+> 
+> ## 🔍 Issues & Concerns
+> ### **CRITICAL: Potential Type Mismatch in Schema** ⚠️
+> **Location:** `src/lib/db/schema.ts:20-21`
+> 
+> The PR adds:
+> 
+> ```ts
+> export type SkippedReason = ""incomplete-data"" | ""skipped-by-user"";
+> ```
+> 
+> However, I don't see this field added to any table schema in the diff. **Questions:**
+> 
+> * Where is `skippedReason` stored in the database?
+> * Is there a missing migration for adding this column?
+> * Should this be part of `assetScores` table?
+> 
+> **Recommendation:** Verify that the database schema includes the `skippedReason` column, or add it if missing. Document which table it belongs to.
+> 
+> ### **HIGH: Number Formatting in Mock Data**
+> **Location:** `src/lib/mocks/fundamentals.ts:72` (newly added file)
+> 
+> While the ESLint rule prevents `.toFixed()` in components, mock data files are not restricted. If mock data is used in components, ensure numbers are pre-formatted correctly or components apply formatting.
+> 
+> **Recommendation:** Add a comment in the mock file explaining that numbers should be raw values, not pre-formatted strings.
+> 
+> ### **MEDIUM: Component Complexity**
+> **Location:** `src/components/scores/surplus-score-detail.tsx:89-215`
+> 
+> The `SurplusScoreDetail` component is 215 lines with multiple conditional rendering paths. While well-structured, it could benefit from extraction.
+> 
+> **Recommendation:** Consider extracting:
+> 
+> * `CompactSurplusView` (lines 110-129)
+> * `DetailedSurplusView` (lines 131-214)
+> 
+> This would improve testability and readability.
+> 
+> ### **MEDIUM: Inconsistent Return Type Handling**
+> **Location:** `src/lib/calculations/surplus-scoring.ts:99-104`
+> 
+> ```ts
+> if (missingYears === 0) {
+>   return {
+>     penaltyPoints: 0,  // Not -0
+>     missingYears: 0,
+>     yearsAvailable,
+>   };
+> }
+> ```
+> 
+> While the comment says ""not -0"", JavaScript's `0` and `-0` are distinct values. This is handled correctly, but the comment could be clearer.
+> 
+> **Recommendation:** Change comment to: `// Return positive 0 (not negative 0 from multiplication)`
+> 
+> ### **LOW: Magic Numbers**
+> **Location:** Multiple files
+> 
+> Constants are well-defined at the top of files, but some inline numbers exist:
+> 
+> * `incomplete-data-notice.tsx:91`: String interpolation could use constants
+> * `surplus-score-detail.tsx:158-161`: Hardcoded `5` for expected years
+> 
+> **Recommendation:** Import `EXPECTED_YEARS_OF_DATA` constant from `surplus-scoring.ts` into components that reference ""5 years"" in UI text.
+> 
+> ### **LOW: Potential N+1 Query Pattern**
+> **Location:** E2E tests (`tests/e2e/criteria.spec.ts` - 1225 new tests)
+> 
+> With 1225 E2E tests, watch for potential database query performance issues in test suite. While not a production concern, slow tests impact developer productivity.
+> 
+> **Recommendation:** Consider test data factories and transaction rollback strategies if E2E suite becomes slow.
+> 
+> ## 🎯 Code Quality Observations
+> ### **Documentation: Excellent** ✅
+> * Every function has clear JSDoc comments with AC references
+> * Component props are well-documented
+> * Dev notes in story files are comprehensive
+> 
+> ### **Error Handling: Good** ✅
+> * Try-catch blocks in `quick-calc.ts:577-605`
+> * Null checks throughout
+> * Fallback values provided (`createEmptySurplusScore()`)
+> 
+> ### **Performance: Good** ✅
+> * Proper use of Decimal.js (no premature optimization)
+> * Preview calculations target <500ms (per `quick-calc.ts:686`)
+> * Efficient data structures (Map usage in quick-calc)
+> 
+> ### **Security: No Concerns** ✅
+> * No SQL injection risks (using Drizzle ORM)
+> * No XSS vulnerabilities detected
+> * Input validation present
+> 
+> ## 📋 Checklist Review (from CLAUDE.md)
+> Based on the PR Review Checklist from `CLAUDE.md`:
+> 
+> Check	Status	Notes
+> No console.log/error	✅	ESLint enforces this
+> No explicit `any` types	✅	All types are specific
+> Unused vars prefixed with `_`	✅	ESLint configured correctly
+> Standardized API responses	⚠️	Not applicable (no new API routes in this diff)
+> No direct number formatting	✅	**ESLint rule added** to prevent this!
+> Foreign key constraints	⚠️	Need to verify `skippedReason` schema
+> Test coverage	✅	**Excellent** - 4548 tests pass
+> Build verification	✅	Per PR description
+> ## 🚀 Recommendations
+> ### **Before Merge:**
+> 1. ✅ **Verify `SkippedReason` database schema** - Ensure column exists or add migration
+> 2. ⏸️ **Consider extracting compact/detailed views** - Optional refactor for maintainability
+> 3. ⏸️ **Import constants in UI components** - Replace hardcoded ""5 years"" references
+> 
+> ### **Future Enhancements:**
+> 1. Add Storybook stories for `SurplusScoreDetail` and `IncompleteDataNotice` components
+> 2. Consider adding visual regression tests for color-coded score displays
+> 3. Monitor E2E test suite performance as it grows
+> 
+> ## 📊 Summary
+> **Overall Assessment: APPROVE ✅ (with minor verification needed)**
+> 
+> This PR demonstrates:
+> 
+> * ✅ Excellent test coverage and quality
+> * ✅ Strong adherence to project standards
+> * ✅ Good architectural decisions (Decimal.js, ESLint rules)
+> * ✅ Comprehensive documentation
+> * ⚠️ One critical item to verify: `SkippedReason` schema
+> 
+> **Recommendation:** Approve after verifying the `SkippedReason` type has corresponding database schema. All other concerns are minor and can be addressed in future PRs if desired.
+> 
+> **Great work on this implementation!** The ESLint rule addition is particularly valuable for preventing future i18n issues. The comprehensive test coverage and clear documentation make this code very maintainable.
+> 
+> _Review conducted using repository's CLAUDE.md guidelines and PRD v2.0 standards._
+
+For the issue #1: this is intentional JSONB storage, not a missing column. Documenting it",Explanation,other,body consists mainly of quoted Copilot review text
+frankbria/narrative-modeling-app#131:issue_comment:3702875913,frankbria/narrative-modeling-app,131,frankbria,early,issue_comment,"## Update: Package Lock and Workflow Files
+
+Added commit `6ff59be` with the following changes:
+
+### Package Management
+- **Updated `package-lock.json`** after running `npm install`
+  - Ensures dependency versions are locked for the new `@types/jest` package
+  - Resolves any transitive dependency updates
+
+### Workflow Files (.claude-flow/)
+Added 38 workflow orchestration files:
+- Agent specifications and coordination guides
+- Memory architecture and implementation tracking
+- GitHub issue #75 implementation planning
+- Progress hooks and artifact tracking
+- Metrics and performance monitoring
+
+**Note**: The `.claude-flow/` directory contains workflow orchestration files for automated development processes. These files track implementation progress, agent coordination, and quality gates for the feature store implementation.
+
+### Files Added
+- 38 `.claude-flow/` files (workflow orchestration)
+- 2 `package-lock.json` updates (frontend dependency locking)
+
+**Total commits in PR**: 2
+1. `d9f4c28` - Code quality improvements (linting/type-checking)
+2. `6ff59be` - Package lock and workflow files",Explanation,process_documentation,describes .claude-flow/ workflow orchestration files and their purpose
+freenet/freenet-core#2520:issue_comment:3702980269,freenet/freenet-core,2520,sanity,early,issue_comment,"Closing this PR as the proposed fix (using mold linker) doesn't work on all self-hosted runners.
+
+**Findings:**
+- The Test job ran on ""lyra"" which has an older clang that doesn't support `-fuse-ld=mold` or `-fuse-ld=/path/to/mold`
+- Different self-hosted runners have different toolchain configurations
+
+**Options to fix properly:**
+1. **Install mold on all self-hosted runners** - requires runner administration
+2. **Add a CI step to install mold** - adds build time overhead
+3. **Keep current behavior** - re-running CI works around the transient LLVM bug
+
+Given this is a transient issue that re-running CI resolves, option 3 seems most pragmatic. The issue can be revisited if the frequency increases.
+
+[AI-assisted - Claude]",Other,provenance_only,[AI-assisted - Claude] tag on PR closure explanation
+freenet/freenet-core#2520:issue_comment:3703035407,freenet/freenet-core,2520,sanity,middle,issue_comment,"Installed mold on all self-hosted runners:
+- **nova**: mold 2.30.0 (already installed)
+- **technic**: mold 2.40.4 (newly installed)
+- **lyra**: mold 2.40.4 (newly installed)
+
+Updated CI config to use simple `-fuse-ld=mold` syntax. Retrying CI.
+
+[AI-assisted - Claude]",Justification,provenance_only,[AI-assisted - Claude] tag on short status update
+freenet/freenet-core#2521:issue_comment:3702976317,freenet/freenet-core,2521,sanity,early,issue_comment,"## Review Fixes Applied (5d29e56b)
+
+Addressed all critical issues identified in the three parallel reviews:
+
+### 1. TOCTOU Race + Rate Limit Bypass (Critical)
+**Problem:** The version mismatch flag was cleared *before* calling `check_if_update_available()`. If rate limiting kicked in, the flag was lost and new mismatches would be ignored until the next mismatch occurred.
+
+**Fix:** Introduced `UpdateCheckResult` enum with three variants:
+- `Skipped` - rate limited, flag NOT cleared (preserved for later)
+- `NoUpdateAvailable` - checked GitHub, no update, flag cleared
+- `UpdateAvailable(version)` - update available, flag cleared
+
+Now the flag is only cleared when we actually perform a GitHub check.
+
+### 2. Graceful Shutdown Before Exit 42
+**Problem:** The node would return `UpdateNeededError` without properly closing peer connections.
+
+**Fix:** Added `shutdown_handle.shutdown().await` before returning the error, ensuring peer connections are properly closed.
+
+### 3. macOS Wrapper Backoff
+**Problem:** The wrapper had only `sleep 2` after update, risking rapid restart loops on repeated failures.
+
+**Fix:** Added exponential backoff (10s → 300s max) for both update failures and non-zero exit codes. Resets on successful update or successful run.
+
+### 4. Broken Test
+**Problem:** Test asserted `Restart=on-failure` but code was changed to `Restart=always`.
+
+**Fix:** Updated test to expect `Restart=always` and added assertion for `ExecStopPost`.
+
+### Note on `record_update_failure()`
+The function is marked `#[allow(dead_code)]` with a comment. Wiring it up requires modifying the update command to detect failures, which should be a follow-up. The current backoff mechanisms in the wrapper scripts provide protection in the meantime.
+
+[AI-assisted - Claude]",Explanation,provenance_only,[AI-assisted - Claude] tag on detailed fix writeup
+freenet/freenet-core#2521:issue_comment:3703008881,freenet/freenet-core,2521,sanity,late,issue_comment,"## CI Failure Analysis & Fix
+
+### Debugging Process
+
+The `test_small_network_get_failure` test was failing with:
+```
+[ERROR freenet::transport::connection_handler] Failed to establish gateway connection 
+  error=decryption error peer_addr=127.0.0.1:56810 direction=""inbound""
+```
+
+**Systematic investigation:**
+1. Identified the failing test was `test_small_network_get_failure` - a second GET operation times out after repeated ""decryption error"" failures
+2. Checked other open PRs for related fixes
+3. Found PR #2522 addresses **exactly this issue** - a race condition in gateway handshake completion
+4. Verified PR #2522 passes all CI tests
+5. Confirmed my changes don't touch the affected code (lines 662-668 in `connection_handler.rs`)
+
+**Root cause:** Race condition between `ongoing_gw_connections.remove()` and `remote_connections.insert()`. When packets arrive in the gap, they fall through to RSA decryption when they should use symmetric encryption → ""decryption error"".
+
+### Fix Applied
+
+Rebased this PR on top of PR #2522 (`fix-2517-gw-handshake-race`), which fixes the race by reordering the operations.
+
+This PR's changes (version mismatch signaling at lines 697-700 and 748-756) are completely separate from the handshake race fix.
+
+[AI-assisted - Claude]",Explanation,provenance_only,[AI-assisted - Claude] tag on CI debugging report
+freenet/freenet-core#2523:issue_comment:3703006768,freenet/freenet-core,2523,sanity,early,issue_comment,"## Addressing Review Feedback
+
+Thanks for the thorough reviews! Here's my response to the key concerns:
+
+### 1. `state: None` vs `state: Some(Completed)` for intermediate nodes
+
+The reviewers correctly spotted that I changed from `state: Some(Completed)` to `state: None` for intermediate nodes forwarding Subscribed responses. 
+
+**This is intentional and correct.** Looking at the existing NotFound forwarding path (lines 916-924), intermediate nodes already use `state: None` when forwarding responses. The pattern is:
+- **Intermediate nodes forwarding responses**: `state: None` (operation continues at requester's side)
+- **Originator receiving final response**: `state: Some(...)` (operation terminates, needs state for `to_host_result()`)
+
+The original code having `state: Some(Completed)` for intermediate nodes was actually the inconsistency. My change aligns with the established pattern.
+
+### 2. Fourth `get_peer_location_by_addr()` call site not updated (line 787)
+
+This is **intentional**. The call at line 787 is for `set_upstream()` - registering who we get updates FROM (not who wants updates from us). If this lookup fails:
+- The subscription still succeeds
+- We just won't have the upstream source cached initially
+- The next update from upstream will establish it
+
+This is a best-effort optimization that doesn't affect the subscribed/not-subscribed response. The critical bug was returning `Subscribed` without registering **downstream** subscribers.
+
+### 3. `NotFound` semantic overloading
+
+Valid concern. Ideally we'd have a distinct `SubscribeMsgResult::TransientFailure` variant. However:
+- This requires protocol changes (stdlib update, version coordination)
+- The practical effect is the same: client should retry
+- The 5-retry with 3.1s total delay makes this failure mode extremely rare
+
+I'll file a follow-up issue for cleaner semantics if this becomes problematic in practice.
+
+### 4. 3.1s total timeout
+
+The exponential backoff (100+200+400+800+1600ms) matches the existing `CONTRACT_WAIT_TIMEOUT_MS` pattern in this file. The worst case only triggers when a peer remains transient for the entire duration, which indicates a more serious connection issue. In healthy networks, the fast path (immediate success) is the common case.
+
+[AI-assisted - Claude]",Justification,provenance_only,[AI-assisted - Claude] tag on review-response argument
+freenet/freenet-core#2523:issue_comment:3703033385,freenet/freenet-core,2523,sanity,late,issue_comment,"Filed follow-up issue #2524 for cleaner NotFound semantics (adding distinct TransientFailure variant).
+
+[AI-assisted - Claude]",Other,provenance_only,[AI-assisted - Claude] tag on follow-up issue filing
+fzymgc-house/router-hosts#195:issue_comment:3702954054,fzymgc-house/router-hosts,195,seanb4t,late,issue_comment,"## 🤖 Review Comments Processed
+
+I've addressed the following feedback:
+
+### Required Changes (1 addressed)
+- ✅ Updated `cog.toml` comment to reference release-please instead of release-plz - 2f53eec
+
+### Optional Suggestions (skipped per standard practice)
+- ⏭️ workflow_dispatch trigger - not required for this workflow
+- ⏭️ Align changelog section visibility - current configuration is intentional
+
+All changes have been committed and pushed. Ready for re-review.
+
+---
+🤖 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",Explanation,process_documentation,structured 'Review Comments Processed' + Co-Authored-By: Claude
+fzymgc-house/router-hosts#195:issue_comment:3702956689,fzymgc-house/router-hosts,195,seanb4t,late,issue_comment,"## 🤖 Review Response
+
+### Re: Chart.yaml Version Quoting
+
+Verified this is **not needed**. YAML parses semver strings correctly:
+
+```bash
+$ echo 'version: 0.8.0' | yq -e '.version | type'
+!!str
+```
+
+The `0.8.0` pattern has multiple dots, so YAML interprets it as a string, not a float. Only single-dot numbers like `0.8` would be parsed as floats.
+
+### Status
+- ✅ cog.toml comment already fixed (2f53eec)
+- ✅ Chart.yaml versions are fine as-is
+- ⏭️ Optional suggestions noted for future consideration
+
+Ready to merge when CI passes.
+
+---
+🤖 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",Explanation,provenance_only,'Co-Authored-By: Claude' tag dominates; technical content incidental
+influxdata/docs-v2#6622:issue_comment:3647740861,influxdata/docs-v2,6622,jstirnaman,early,issue_comment,"## Code review
+
+Found 1 issue:
+
+1. Inline JavaScript in `rapidoc.html` violates the documented JavaScript component pattern (DOCS-CONTRIBUTING.md says: ""The InfluxData documentation UI uses TypeScript and JavaScript with ES6+ syntax and `assets/js/main.js` as the entry point to import modules from `assets/js`. **Only `assets/js/main.js` should be imported in HTML files.**"")
+
+   The file contains ~310 lines of inline JavaScript (lines 97-408) for theme detection, DOM manipulation, and event handling. This should be refactored into a TypeScript component in `assets/js/components/` and registered in `main.js`, similar to how `scalar.html` uses the `api-scalar.ts` component.
+
+https://github.com/influxdata/docs-v2/blob/90044bd0c5495c72e4703bb2de20953b84b2a9d9/layouts/partials/api/rapidoc.html#L95-L110
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+<sub>- If this code review was useful, please react with 👍. Otherwise, react with 👎.</sub>",Explanation,provenance_only,'Generated with Claude Code' tag on code review
+jkoelker/oneiro#62:issue_comment:3702989792,jkoelker/oneiro,62,jkoelker,middle,issue_comment,"@dobbyphus review this again, also check out the resolved comments from copilot to see if they were really resolved. ignore the one it said about AGENTS.md",Critique,fault_to_ai,'ignore the one it said about AGENTS.md' — Copilot got a comment wrong
+joshlebed/claude-extras#11:issue_comment:3702965995,joshlebed/claude-extras,11,joshlebed,early,issue_comment,"* **#12** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/12?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a>
+* **#11** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a> 👈 <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-view-in-graphite"" target=""_blank"">(View in Graphite)</a>
+* `main`
+
+
+<h2></h2>
+
+This stack of pull requests is managed by <a href=""https://graphite.dev?utm-source=stack-comment""><b>Graphite</b></a>. Learn more about <a href=""https://stacking.dev/?utm_source=stack-comment"">stacking</a>.
+<!-- Current dependencies on/for this PR: -->",Explanation,other,Graphite stack comment; AI keyword only in repo name 'claude-extras'
+joshlebed/claude-extras#11:issue_comment:3702996792,joshlebed/claude-extras,11,joshlebed,late,issue_comment,"### Merge activity
+
+* **Dec 31, 10:55 PM UTC**: A user started a stack merge that includes this pull request via [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/11).
+* **Dec 31, 10:55 PM UTC**: @joshlebed merged this pull request with [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/11).",Other,other,merge activity notification; AI keyword only in repo name
+joshlebed/claude-extras#12:issue_comment:3702995801,joshlebed/claude-extras,12,joshlebed,early,issue_comment,"* **#12** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/12?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a> 👈 <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/12?utm_source=stack-comment-view-in-graphite"" target=""_blank"">(View in Graphite)</a>
+* **#11** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a>
+* `main`
+
+
+<h2></h2>
+
+This stack of pull requests is managed by <a href=""https://graphite.dev?utm-source=stack-comment""><b>Graphite</b></a>. Learn more about <a href=""https://stacking.dev/?utm_source=stack-comment"">stacking</a>.
+<!-- Current dependencies on/for this PR: -->",Explanation,other,Graphite stack comment; AI keyword only in repo name
+joshlebed/claude-extras#12:issue_comment:3702996794,joshlebed/claude-extras,12,joshlebed,middle,issue_comment,"### Merge activity
+
+* **Dec 31, 10:55 PM UTC**: A user started a stack merge that includes this pull request via [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/12).
+* **Dec 31, 10:56 PM UTC**: [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/12) rebased this pull request as part of a merge.
+* **Dec 31, 10:57 PM UTC**: @joshlebed merged this pull request with [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/12).",Explanation,other,merge activity notification; AI keyword only in repo name
+joshsmithxrm/ppds-tools#10:issue_comment:3702998355,joshsmithxrm/ppds-tools,10,joshsmithxrm,late,issue_comment,"## Addressing Review Feedback
+
+Thanks for the thorough reviews! I've addressed the feedback in commit 1e23be9:
+
+### Fixed Issues
+
+1. **README path mismatch** (Gemini) ✅
+   - Added explicit `-OutputPath ""./registrations.json""` to make the example clearer
+
+2. **CHANGELOG version terminology** (Gemini) ✅  
+   - Changed ""v2.x Pattern"" → ""v1.2.x Pattern"" for consistency with version 1.2.0
+
+3. **Redundant Export-ModuleMember -Alias** (Gemini) ✅
+   - Removed from psm1, centralized alias creation with `New-Alias` + `Export-ModuleMember`
+
+4. **Redundant Set-Alias -Scope Global** (Gemini/Copilot) ✅
+   - Removed from Copy-DataverseData.ps1, centralized in psm1
+
+5. **PSAvoidUsingUsernameAndPasswordParams lint failure** ✅
+   - Added rule exclusion with comment explaining rationale (CLI wrapper pattern)
+
+### Intentionally Not Changed
+
+6. **--deviceCode camelCase** (Copilot)
+   - This matches the PAC CLI auth parameters intentionally for user familiarity. When switching between `pac auth` and `ppds auth`, users don't have to remember different parameter naming conventions. This was a deliberate design decision to reduce cognitive load for Power Platform developers already familiar with PAC CLI.
+
+7. **All auth args camelCase** (Copilot)
+   - Same rationale as above - consistency with PAC CLI.
+
+8. **Secrets in command line** (Copilot)
+   - Valid concern, but this is inherent to CLI wrappers. The CLI itself handles credential storage securely (DPAPI-encrypted profiles). The `Write-Verbose` logging could potentially be improved to redact secrets in a future enhancement, but for now this matches the standard CLI wrapper pattern used by other PowerShell modules.
+
+9. **Missing null handling for Get-DataverseProfile** (Copilot)
+   - This is already handled - line 258 has `Write-Warning ""Could not determine profile name""` when the profile can't be determined.",Explanation,defensive_justification,'Intentionally Not Changed' section defending decisions against AI reviewer critique
+juspay/neurolink#735:review_comment:2655486514,juspay/neurolink,735,murdore,early,review_comment,"Fixed in latest commit. Updated description to: ""Token budget for extended thinking - Anthropic Claude and Gemini 2.5+ models (5000-100000)""",Other,other,describes product feature description that mentions Claude/Gemini models
+juspay/neurolink#735:issue_comment:3702946475,juspay/neurolink,735,murdore,late,issue_comment,"**Item 6: Test File Provider Heuristic - ✅ FIXED**
+
+In `zod-schema-test-function.ts`:
+- Changed `isGeminiProvider` to `isGeminiModel`
+- Now checks MODEL name for 'gemini' instead of provider name
+- Correctly handles Vertex provider running Claude models (which support tools + JSON schema)",Explanation,other,describes code fix in file that interacts with Claude/Gemini models
+link-assistant/hive-mind#1050:issue_comment:3702887329,link-assistant/hive-mind,1050,konard,early,issue_comment,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can be actually done in 10-15 minutes. So user is free to do other things while AI solver is working, that means user can keep creating and starting issues execution, that means our AI solver feels like a team of hired developers. With massively parallelizable issues execution, with a cost of only $200 per month.
+- Claude MAX $200 subscription is now at 50% discount, so actually it has $400 value, that is the reason it beats almost all other solutions on market, as our solution is specifically dedicated to usage o best offer on the marked on value/quality balance.
+
+Make sure we expand on these points.
+
+And also add COMPARISON.md - first with focus of comparision of product categories - like hiring developers, IDEs, vibe coding IDEs, vibe coding websites and so on.
+
+At the moment I think this solution has highest possible efficiency of the flow, meaning we give user back as much free time as possible.
+
+Our solution is generalist or general AI (mini AGI), that is capable of working on wide range of tasks (almost all which can be done with files in repository, not only just programming).",Explaination,other,"philosophical defense of AI autonomy as product design, not accountability for this PR"
+link-assistant/hive-mind#1050:issue_comment:3702897064,link-assistant/hive-mind,1050,konard,early,issue_comment,"## 🤖 Solution Draft Log
+This log file contains the complete execution trace of the AI solution draft process.
+
+### Changes Made
+
+Based on the feedback in the PR comments, I've made the following updates:
+
+1. **Created `docs/COMPARISON.md`** - A comprehensive comparison document that covers:
+   - Product categories overview (hiring developers, IDEs, AI-assisted IDEs, vibe coding websites, AI agents)
+   - Detailed comparison tables for each category
+   - Cost comparison showing Hive Mind's value proposition
+   - ""Time Freedom"" analysis showing how Hive Mind saves 85-95% of user time
+   - ""Team of Developers"" effect with parallel execution
+   - When to choose Hive Mind vs other solutions
+
+2. **Expanded `docs/FEATURES.md`** with all the points from feedback:
+   - Generalist AI (mini-AGI) capable of any file-based task
+   - Full autonomous mode with sudo access = creative freedom
+   - Runs on dedicated VMs or Docker containers
+   - AI can install packages thanks to internet + sudo access
+   - Mobile programming with /solve and /hive commands
+   - Time freedom: 10-25 min vs 2-8 hours human work
+   - Team of developers effect with ~$200/month cost
+   - Claude MAX $200 subscription (50% off = $400 value)
+
+3. **Updated `README.md`** with enhanced ""Why Hive Mind?"" section linking to both documents
+
+All CI checks are passing. Ready for review!
+
+---
+*Now working session is ended, feel free to review and add any feedback on the solution draft.*",Explanation,provenance_only,AI-generated 'Solution Draft Log' posting on author's behalf
+link-assistant/hive-mind#1050:issue_comment:3703019479,link-assistant/hive-mind,1050,konard,late,issue_comment,"- `Good for defined problems`, our agent also has high level of creativity if requirements are not defined, I think it is indistinguishable from most (average) programmers. But of course the more detailed the problem definition the better the result. By I think it is the same with people, also bot and people both can ask questions if problem is not defined enough.
+- `Broad but may need guidance` - as a regular programmer AI can search information online, and has much more diverse knowledge in almost all areas. Yes, programmer can have practical experience, but AI is much faster in gathering information and testing hypothesis, so I think AI solver easily compensates its lack of experience.
+- We also use our system message, that improves quality of result, by guiding AI to not repeat its common mistakes, so it compensates for typical areas that are hard for AI.
+- `Always available` - Always available on demand, instantly.
+- At the moment hive mind excels on small tasks, so if you ask our system to plan/decompose tasks, or use any other AI for task decomposition you can get best results from our system. Best hired programmers can do decomposition themselves. We will handle it later with introduction of not only a worker AI solver, but also architect, which will focus on making tasks and decomposition, and also final review and acceptance of results. It is not yet implemented as worker is.
+- `AI-Assisted IDEs` here we don't account for human time cost it is not only the subscription price.
+- `Works on your existing repos` Hive mind can work on new empty repositories, so it is good for both.
+- `Vibe Coding Websites` with vibecoding websites you will still be dependent on GitHub for serious development, so why not only depend only on GitHub?
+- `Any stack (10+ runtimes installed)` preinstalled, but Hive Mind can decide to install more if needed.
+- `Your infrastructure` our or your infrastructure.
+- We also 100% open-source and have public domain license (so we not only better than all closed source projects, but also better than most open source projects).
+- `Basic or manual setup` agentic AI in cloud usually don't allow to install anything as their ENVs are quite restrictive. They also usually don't have full access to GitHub, for example you cannot ask AI agent in the cloud to actually create issues on GitHub. And if agentic AI works locally you risk your own machine to be damaged.
+- Also we recommend to use GitHub Actions CI/CD to actually access production, with no direct access from AI agent, as it can accidentally delete database or damage production system.
+- `VM per task, reinstall if broken` it is not per task, isolation is VM or/and docker. And this environment is easy to restore, as AI agent does not stores any data or result in its execution environment, all results go to GitHub as Pull Request.
+- ` Use your phone for other tasks` just `Do other tasks`, or even sleep. We can actually can have slogan - `The code is written while you sleep` or something similar. As it actually possible produce drafts for all your tasks/issues backlog while you sleep in handreds of tasks per night.
+- `Unlimited Claude usage for Hive Mind` - almost unlimited, it takes tens of users to actually use 100% of subscription limit.
+- `**You have defined issues** - Clear requirements in GitHub issues` not only defined, it will ask questions, and also you can see first draft, leave comment and restart AI solver to work on Pull Request, meaning you can redirect it or clarify requirements on the go. And sometimes the AI just does the best thing from the first go.
+- `**Mobile access matters** - Control from phone via Telegram` - Mobile access is enough. But you can use any device.
+- `**Budget is limited** - $200/month vs hiring costs` - Not only limited budged, also large workloads or tasks backlogs.
+- `8. **Existing codebase** - Works with your repos, CI/CD, workflows` not only, existing codebase, Hive Mind can just start from scratch as any other programmer.
+- `- **Hiring**: Strategic projects, deep domain expertise, team building` I think it is more about critical systems development or how it is better call - choose. Like medical, space, and other areas, where we need lowest possible error rate, and highest quality possible.
+
+Please continue to expand on these and other points, make sure all files are consistent, and describe single product but from different angles.
+
+Double check other facts you wrote against the code base.",Explanation,other,philosophical comparison of AI vs human programmers; product advocacy
+link-assistant/hive-mind#1050:issue_comment:3703035073,link-assistant/hive-mind,1050,konard,late,issue_comment,"## 🤖 Solution Draft Log
+This log file contains the complete execution trace of the AI solution draft process.
+
+### Changes Made
+
+Based on the detailed feedback in the PR comments, I've made comprehensive updates to all documentation files:
+
+**COMPARISON.md updates:**
+- Fixed creativity description: AI is ""indistinguishable from average programmers"" and asks questions when unclear
+- Fixed expertise: AI searches online and compensates lack of experience with speed
+- Added system message improvements note (guides AI to avoid common mistakes)
+- Fixed ""Always available"" to ""on demand, instantly""
+- Added note about Hive Mind excelling on small tasks, future architect AI for decomposition
+- Added human time cost note for AI-Assisted IDEs (not just subscription price)
+- Fixed repository support: works on existing repos OR starts from scratch
+- Added vibe coding GitHub dependency note
+- Fixed tech stacks: 10+ runtimes preinstalled but AI can install more
+- Fixed infrastructure: ""our or your infrastructure""
+- Added 100% open source with Unlicense (public domain)
+- Fixed cloud agents description: restrictive ENVs, limited GitHub access, local agents risk your machine
+- Added recommendation to use GitHub Actions CI/CD for production access
+- Fixed isolation: VM or Docker, easy to restore if broken
+- Added ""The code is written while you sleep"" slogan (can produce hundreds of drafts overnight)
+- Fixed ""almost unlimited"" Claude usage (tens of users to use 100% of limit)
+- Fixed defined issues: AI asks questions, clarify on the go via PR comments
+- Fixed mobile access: any device works, not just phone
+- Fixed budget: includes large workloads/task backlogs
+- Fixed hiring recommendation: focus on critical systems (medical, space, high-stakes)
+
+**FEATURES.md updates:**
+- Added creativity and system message info in intro
+- Added CI/CD production recommendation in safety section
+- Fixed runtimes: preinstalled but AI can install more
+- Fixed Telegram section: any device, mobile access is enough
+- Updated comparison table with all new points
+- Added ""The code is written while you sleep"" slogan
+
+**README.md updates:**
+- Updated feature table with new points
+- Added 100% Open Source row
+- Added creativity description
+- Fixed ""almost unlimited"" usage
+- Added slogan in Time Freedom row
+
+All CI checks are passing. Ready for review!
+
+---
+*Now working session is ended, feel free to review and add any feedback on the solution draft.*",Explanation,provenance_only,AI-generated 'Solution Draft Log' posting on author's behalf
+mmtuentertainment/wvwo-storefront#77:issue_comment:3702959489,mmtuentertainment/wvwo-storefront,77,mmtuentertainment,middle,issue_comment,"## Review Feedback Addressed
+
+### Fixed
+- **water-safety.ts:347** - Wrapped `console.warn` in `import.meta.env?.DEV` check to prevent production log pollution
+- **tasks.md:6** - Fixed task count discrepancy (288 → 320 to match summary table)
+
+### Clarification on adventure.ts Color Comment
+
+The color changes in `adventure.ts` are explicitly allowed per CLAUDE.md:
+
+> **Color Exceptions (Industry Standards):**
+> **IMPORTANT: Industry safety/danger colors OVERRIDE WVWO brand palette in adventure contexts.**
+>
+> ```
+> HIKING/TRAIL DIFFICULTY (International Standard):
+> - Green (#2E7D32 / sign-green) = Easy (● circle)
+> - Blue (#1976D2 / blue-700) = Intermediate (■ square)
+> - Red (#B71C1C / red-900) = Challenging (▲ triangle)
+> - Black (#000000 / black) = Rugged/Expert (◆ diamond)
+> ```
+>
+> **Why industry colors take precedence:**
+> Outdoor enthusiasts are trained to recognize these colors instantly - it's muscle memory.
+> Using WVWO brand colors for safety-critical info would confuse users and CREATE SAFETY HAZARDS.
+> Brand aesthetics NEVER override safety communication standards.
+
+The blue-700 is specifically for **trail difficulty indicators** which are safety-critical, not decorative elements.",Justification,other,defends a color decision by citing CLAUDE.md rules; AI aspect incidental
+piwi3910/nebulaio#133:issue_comment:3703688609,piwi3910/nebulaio,133,piwi3910,late,issue_comment,"## Code Review Recommendations Fixed
+
+Fixed the following issues identified in claude-review comments:
+
+### 1. ✅ Configuration Contradiction Fixed
+- **Issue**: `gocognit` appeared in both disable and enable lists  
+- **Fix**: Removed from disable list (line 32) - it should be enabled with min-complexity: 20
+- **Impact**: Eliminates linter configuration error
+
+### 2. ✅ Canonical HTTP Header Violations Fixed  
+- **Issue**: Using lowercase `x-amz-meta-` instead of canonical `X-Amz-Meta-`
+- **Locations Fixed**:
+  - `internal/api/s3/handler.go`: 3 instances (lines 594, 717, 1262)
+  - `internal/replication/cross_region.go`: 1 instance (line 696)
+- **Standard**: Per CLAUDE.md, ALWAYS use canonical HTTP header format (Title-Case)
+
+### 3. ✅ Linter Compatibility Fixed
+- **Issue**: `modernize` linter not available in all golangci-lint versions
+- **Fix**: Removed from disable list to ensure compatibility across CI and local environments
+
+All changes pushed in commit dd47d98. CI checks are now running to verify the fixes.",Explanation,process_documentation,itemized fixes in response to claude-review comments
+thedotmack/claude-mem#509:issue_comment:3702987321,thedotmack/claude-mem,509,james5294,late,issue_comment,"Closing this PR after discussion with the maintainer.
+
+The current behavior (exit code 3 + stderr) is **intentional** - it's a workaround to display messages to users without adding them to Claude's context. This is a valuable feature for showing localhost UI links, update notices, etc. without wasting context tokens.
+
+The ""Plugin hook error"" label is a limitation in Claude Code's hooks API, not a bug in claude-mem. I'm filing a feature request on [anthropics/claude-code](https://github.com/anthropics/claude-code) to add proper support for ""informational user messages that don't affect context.""
+
+See discussion in #508 for details.",Justification,other,defends product behavior (exit code 3) as intentional; AI is product context
+tuvens/enfold-llm#39:issue_comment:3702984755,tuvens/enfold-llm,39,tuvens,middle,issue_comment,"## Gemini Review Addressed
+
+Thank you for the thorough review\! I'll address each comment:
+
+### Critical Issues:
+- ✅ **GitHub secret names**: Will fix to use correct names (USERNAME/APP_PASSWORD)
+- ✅ **Configuration file structure**: Will update to match templates/.claude-wp.json structure
+
+### High Priority:
+- ✅ **Copy command**: Will change to use `cp -r /tmp/enfold-llm/templates/. .` to include hidden files
+- ✅ **Troubleshooting secret names**: Will update to use correct secret names
+
+### Medium Priority:
+- ✅ **Final newline**: Will add missing newline at end of file
+
+All issues will be fixed before merging.",Other,process_documentation,commits to address each Gemini review comment with planned fixes
+tuvens/enfold-llm#39:issue_comment:3702986152,tuvens/enfold-llm,39,tuvens,late,issue_comment,"## Fixes Applied
+
+I've implemented all the changes requested by Gemini Code Assist:
+
+### Changes Made:
+1. **Fixed GitHub secret names** - Changed from WP_USERNAME/WP_APP_PASSWORD to USERNAME/APP_PASSWORD to match the actual workflow file expectations
+2. **Updated configuration structure** - Replaced the simplified JSON structure with the complete template structure from templates/.claude-wp.json
+3. **Fixed copy command** - Changed `cp -r /tmp/enfold-llm/templates/* .` to `cp -r /tmp/enfold-llm/templates/. .` to ensure hidden files (.github) are copied
+4. **Added missing newline** - Added newline at end of file per convention
+
+These fixes ensure the installation guide will work correctly and prevent users from encountering authentication errors or incomplete setups.
+
+All issues have been resolved and the PR is ready for final merge.",Explanation,process_documentation,itemized changes made in response to Gemini Code Assist review
+tuvens/enfold-llm#44:issue_comment:3702996278,tuvens/enfold-llm,44,tuvens,late,issue_comment,"## Gemini Review Response
+
+Great catch on the consistency issues\! I'll address all points:
+
+### High Priority Issues:
+1. ✅ **Fix secret names consistency** - Will change to USERNAME/APP_PASSWORD to match all other docs
+2. ✅ **Add missing .claude-wp.json step** - Critical omission, will add between steps 4-5
+
+### Medium Priority:
+3. ✅ **Clarify plugin upload** - Will specify zip requirement for WordPress upload
+
+Implementing all fixes to ensure Quick Start accuracy.",Explanation,process_documentation,itemized fixes promised in response to Gemini review
+vectorize-io/hindsight#83:issue_comment:3703050696,vectorize-io/hindsight,83,bjornslib,early,issue_comment,"Don't think this is a must-have, and you may reject this PR, considering that this is a parameter that will affect performance. But after looking at the number of observations in my memory banks, which were created from Serena memories collected over many months of Claude Code usage, the hardcoded values of 5 for min facts and top entities weren't at the right level and I changed and re-ran it with the updated parameters and generated more observations.",Justification,process_documentation,explains that Claude Code usage over months revealed parameter needs

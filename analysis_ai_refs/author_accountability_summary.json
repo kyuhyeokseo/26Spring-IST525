@@ -1,0 +1,72 @@
+{
+  "n_total": 46,
+  "counts": {
+    "other": 19,
+    "provenance_only": 16,
+    "process_documentation": 9,
+    "fault_to_ai": 1,
+    "defensive_justification": 1
+  },
+  "pct": {
+    "other": 41.3,
+    "provenance_only": 34.78,
+    "process_documentation": 19.57,
+    "fault_to_ai": 2.17,
+    "defensive_justification": 2.17
+  },
+  "n_excluding_other": 27,
+  "pct_excluding_other": {
+    "provenance_only": 59.26,
+    "process_documentation": 33.33,
+    "fault_to_ai": 3.7,
+    "defensive_justification": 3.7
+  },
+  "cross_with_timing": {
+    "middle": {
+      "other": 3,
+      "provenance_only": 1,
+      "fault_to_ai": 1,
+      "process_documentation": 1
+    },
+    "late": {
+      "provenance_only": 8,
+      "process_documentation": 6,
+      "other": 9,
+      "defensive_justification": 1
+    },
+    "early": {
+      "other": 7,
+      "provenance_only": 7,
+      "process_documentation": 2
+    }
+  },
+  "cross_with_llm_function": {
+    "Explanation": {
+      "other": 10,
+      "provenance_only": 9,
+      "process_documentation": 6,
+      "defensive_justification": 1
+    },
+    "Justification": {
+      "provenance_only": 3,
+      "process_documentation": 2,
+      "other": 5
+    },
+    "Critique": {
+      "provenance_only": 1,
+      "other": 1,
+      "fault_to_ai": 1
+    },
+    "Suggestion": {
+      "provenance_only": 1
+    },
+    "Other": {
+      "provenance_only": 2,
+      "other": 2,
+      "process_documentation": 1
+    },
+    "Explaination": {
+      "other": 1
+    }
+  }
+}

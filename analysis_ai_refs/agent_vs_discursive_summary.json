@@ -1,0 +1,222 @@
+{
+  "all_human_mentions": {
+    "overall": {
+      "total": 925,
+      "agent_commanding": 819,
+      "discursive": 106,
+      "agent_commanding_pct": 88.54,
+      "discursive_pct": 11.46
+    },
+    "agent_commanding": {
+      "n": 819,
+      "addressing_counts": {},
+      "role_counts": {
+        "other_commenter": 481,
+        "reviewer": 283,
+        "author": 55
+      },
+      "timing_counts": {
+        "early": 425,
+        "late": 228,
+        "middle": 166
+      },
+      "location_counts": {
+        "issue_comment": 737,
+        "review_comment": 67,
+        "review": 15
+      },
+      "function_counts": {
+        "Suggestion": 736,
+        "Critique": 73,
+        "Justification": 5,
+        "Meta discussion": 2,
+        "Explanation": 2,
+        "Other": 1
+      },
+      "function_pct": {
+        "Suggestion": 89.87,
+        "Critique": 8.91,
+        "Justification": 0.61,
+        "Meta discussion": 0.24,
+        "Explanation": 0.24,
+        "Other": 0.12
+      },
+      "role_pct": {
+        "other_commenter": 58.73,
+        "reviewer": 34.55,
+        "author": 6.72
+      },
+      "timing_pct": {
+        "early": 51.89,
+        "late": 27.84,
+        "middle": 20.27
+      },
+      "location_pct": {
+        "issue_comment": 89.99,
+        "review_comment": 8.18,
+        "review": 1.83
+      }
+    },
+    "discursive": {
+      "n": 106,
+      "addressing_counts": {},
+      "role_counts": {
+        "other_commenter": 52,
+        "author": 46,
+        "reviewer": 8
+      },
+      "timing_counts": {
+        "late": 51,
+        "early": 47,
+        "middle": 8
+      },
+      "location_counts": {
+        "issue_comment": 92,
+        "review_comment": 10,
+        "review": 4
+      },
+      "function_counts": {
+        "Explanation": 51,
+        "Other": 24,
+        "Justification": 12,
+        "Critique": 12,
+        "Meta discussion": 3,
+        "Suggestion": 3,
+        "Explaination": 1
+      },
+      "function_pct": {
+        "Explanation": 48.11,
+        "Other": 22.64,
+        "Justification": 11.32,
+        "Critique": 11.32,
+        "Meta discussion": 2.83,
+        "Suggestion": 2.83,
+        "Explaination": 0.94
+      },
+      "role_pct": {
+        "other_commenter": 49.06,
+        "author": 43.4,
+        "reviewer": 7.55
+      },
+      "timing_pct": {
+        "late": 48.11,
+        "early": 44.34,
+        "middle": 7.55
+      },
+      "location_pct": {
+        "issue_comment": 86.79,
+        "review_comment": 9.43,
+        "review": 3.77
+      }
+    }
+  },
+  "suggestion_subset": {
+    "overall": {
+      "total": 739,
+      "agent_commanding": 736,
+      "discursive": 3,
+      "agent_commanding_pct": 99.59,
+      "discursive_pct": 0.41
+    },
+    "agent_commanding": {
+      "n": 736,
+      "addressing_counts": {
+        "Talking-to-AI": 730,
+        "Talking-about-AI": 5,
+        "Mixed": 1
+      },
+      "role_counts": {
+        "other_commenter": 419,
+        "reviewer": 269,
+        "author": 48
+      },
+      "timing_counts": {
+        "early": 380,
+        "late": 201,
+        "middle": 155
+      },
+      "location_counts": {
+        "issue_comment": 662,
+        "review_comment": 60,
+        "review": 14
+      },
+      "subtype_counts": {
+        "Suggestion-Invocation": 625,
+        "Suggestion-TaskDelegation": 69,
+        "Suggestion-StepInstruction": 35,
+        "Suggestion-Recommendation": 7
+      },
+      "subtype_pct": {
+        "Suggestion-Invocation": 84.92,
+        "Suggestion-TaskDelegation": 9.38,
+        "Suggestion-StepInstruction": 4.76,
+        "Suggestion-Recommendation": 0.95
+      },
+      "addressing_pct": {
+        "Talking-to-AI": 99.18,
+        "Talking-about-AI": 0.68,
+        "Mixed": 0.14
+      },
+      "role_pct": {
+        "other_commenter": 56.93,
+        "reviewer": 36.55,
+        "author": 6.52
+      },
+      "timing_pct": {
+        "early": 51.63,
+        "late": 27.31,
+        "middle": 21.06
+      },
+      "location_pct": {
+        "issue_comment": 89.95,
+        "review_comment": 8.15,
+        "review": 1.9
+      }
+    },
+    "discursive": {
+      "n": 3,
+      "addressing_counts": {
+        "Talking-to-AI": 2,
+        "Talking-about-AI": 1
+      },
+      "role_counts": {
+        "author": 1,
+        "reviewer": 1,
+        "other_commenter": 1
+      },
+      "timing_counts": {
+        "early": 2,
+        "late": 1
+      },
+      "location_counts": {
+        "issue_comment": 2,
+        "review": 1
+      },
+      "subtype_counts": {
+        "Suggestion-Invocation": 2,
+        "Suggestion-TaskDelegation": 1
+      },
+      "subtype_pct": {
+        "Suggestion-Invocation": 66.67,
+        "Suggestion-TaskDelegation": 33.33
+      },
+      "addressing_pct": {
+        "Talking-to-AI": 66.67,
+        "Talking-about-AI": 33.33
+      },
+      "role_pct": {
+        "author": 33.33,
+        "reviewer": 33.33,
+        "other_commenter": 33.33
+      },
+      "timing_pct": {
+        "early": 66.67,
+        "late": 33.33
+      },
+      "location_pct": {
+        "issue_comment": 66.67,
+        "review": 33.33
+      }
+    }
+  }
+}

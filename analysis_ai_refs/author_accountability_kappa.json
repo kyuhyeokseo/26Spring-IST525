@@ -1,0 +1,33 @@
+{
+  "n": 14,
+  "raw_agreement": 0.7143,
+  "expected_agreement": 0.2551,
+  "kappa": 0.6164,
+  "categories": [
+    "defensive_justification",
+    "fault_to_ai",
+    "other",
+    "process_documentation",
+    "provenance_only"
+  ],
+  "confusion_matrix_c1_x_c2": {
+    "defensive_justification": {
+      "process_documentation": 1
+    },
+    "fault_to_ai": {
+      "fault_to_ai": 1
+    },
+    "other": {
+      "other": 4
+    },
+    "process_documentation": {
+      "other": 1,
+      "process_documentation": 3
+    },
+    "provenance_only": {
+      "provenance_only": 2,
+      "defensive_justification": 1,
+      "process_documentation": 1
+    }
+  }
+}

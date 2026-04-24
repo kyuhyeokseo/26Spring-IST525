@@ -1,0 +1,105 @@
+{
+  "function": {
+    "n": 56,
+    "raw_agreement": 0.5893,
+    "expected_agreement": 0.1712,
+    "kappa": 0.5044,
+    "categories": [
+      "Critique",
+      "Explanation",
+      "Justification",
+      "Meta discussion",
+      "Other",
+      "Suggestion"
+    ],
+    "confusion_matrix_llm_x_coder2": {
+      "Critique": {
+        "Critique": 5,
+        "Other": 3,
+        "Suggestion": 2
+      },
+      "Explanation": {
+        "Meta discussion": 1,
+        "Explanation": 8,
+        "Other": 2
+      },
+      "Justification": {
+        "Explanation": 3,
+        "Justification": 3,
+        "Other": 2,
+        "Suggestion": 2
+      },
+      "Meta discussion": {
+        "Meta discussion": 3,
+        "Suggestion": 2
+      },
+      "Other": {
+        "Explanation": 1,
+        "Suggestion": 1,
+        "Meta discussion": 3,
+        "Other": 5
+      },
+      "Suggestion": {
+        "Suggestion": 9,
+        "Critique": 1
+      }
+    },
+    "n_per_label_llm": {
+      "Critique": 10,
+      "Explanation": 11,
+      "Justification": 10,
+      "Meta discussion": 5,
+      "Other": 10,
+      "Suggestion": 10
+    },
+    "n_per_label_coder2": {
+      "Critique": 6,
+      "Other": 12,
+      "Suggestion": 16,
+      "Meta discussion": 7,
+      "Explanation": 12,
+      "Justification": 3
+    }
+  },
+  "uptake": {
+    "n": 25,
+    "raw_agreement": 0.6,
+    "expected_agreement": 0.232,
+    "kappa": 0.4792,
+    "categories": [
+      "continued_delegation",
+      "corrective_critique",
+      "no_clear_uptake",
+      "positive_uptake"
+    ],
+    "confusion_matrix_llm_x_coder2": {
+      "continued_delegation": {
+        "continued_delegation": 4
+      },
+      "corrective_critique": {
+        "corrective_critique": 7,
+        "continued_delegation": 3
+      },
+      "no_clear_uptake": {
+        "no_clear_uptake": 1
+      },
+      "positive_uptake": {
+        "positive_uptake": 3,
+        "continued_delegation": 3,
+        "no_clear_uptake": 4
+      }
+    },
+    "n_per_label_llm": {
+      "continued_delegation": 4,
+      "corrective_critique": 10,
+      "no_clear_uptake": 1,
+      "positive_uptake": 10
+    },
+    "n_per_label_coder2": {
+      "continued_delegation": 10,
+      "corrective_critique": 7,
+      "no_clear_uptake": 5,
+      "positive_uptake": 3
+    }
+  }
+}

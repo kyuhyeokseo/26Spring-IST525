@@ -1,0 +1,2666 @@
+source,repo_name,pr_number,user_login,is_bot,created_at,pattern,snippet,body
+comment,algesten/str0m,810,algesten,False,2026-01-01T09:26:41Z,vibe_coding,vibe code,"@xnorpx exciting stuff!
+
+I think the SPED part is something I'd prefer to hand roll (as opposed to vibe code), since it is important to maintain a clear idea of separation-of-concerns throughout the code base at the same time as you're mashing the layers together.
+
+It might require some refactoring on the top level `Rtc`, since the code base expects to be able to poll one thing at a time. I'm a bit unclear on whether this requires us to change the DTLS API to inform us whether a payload is like TLS flight 1, 2, 3 etc?"
+comment,algesten/str0m,810,xnorpx,False,2026-01-01T12:59:16Z,vibe_coding,vibe code,"> @xnorpx exciting stuff!
+> 
+> I think the SPED part is something I'd prefer to hand roll (as opposed to vibe code), since it is important to maintain a clear idea of separation-of-concerns throughout the code base at the same time as you're mashing the layers together.
+> 
+> It might require some refactoring on the top level `Rtc`, since the code base expects to be able to poll one thing at a time. I'm a bit unclear on whether this requires us to change the DTLS API to inform us whether a payload is like TLS flight 1, 2, 3 etc?
+
+@algesten after reviewing the SNAP changes I think those needs to be hand rolled as well. This was mostly to get a POC and see what the effort was.
+
+I will try to make SCTP-PROTO change and a direct api change for SNAP. The changes seems to be fairly straight forward it's more about getting the API right for SNAP that we would need to iterate on.
+
+SPED looks like it needs @algesten surgery to be feasible :)"
+comment,rwalker123/draco,676,claude[bot],True,2026-01-01T00:51:55Z,policy_or_guideline,"guideline.
+
+---
+
+## 🚀 **Before Merging**
+
+Per CLAUDE","## PR Review: Golf League Feature Implementation
+
+This is a **substantial feature addition** introducing a complete golf league management system. The PR adds 64,293 lines and removes 16,366 lines across 104 files. Here's my comprehensive review:
+
+---
+
+## ✅ **Strengths**
+
+### 1. **Excellent Architecture & Design Patterns**
+- **Repository Pattern**: Clean separation with well-defined interfaces (`IGolfCourseRepository`, `IGolfScoreRepository`, etc.)
+- **Service Layer**: Services properly inject repositories via constructor, with sensible defaults via `RepositoryFactory`
+- **Response Formatters**: Consistent data transformation layer separating DB models from API responses
+- **DRY Principles**: Good reuse of utility functions (e.g., `sanitizeOptionalString`, `buildPrismaParData`)
+
+### 2. **Robust Database Design**
+- **Proper Indexing**: Composite indexes on `golfmatchscores` (`idx_golfmatchscores_match_team`) and `golfscore` (`idx_golfscore_golfer_dateplayed`)
+- **Referential Integrity**: Appropriate cascading deletes and proper foreign key constraints
+- **Data Integrity**: Unique constraints prevent duplicate roster entries (`uq_golfroster_golfer_team`)
+
+### 3. **Comprehensive Test "
+comment,onyx-dot-app/onyx,7152,greptile-apps[bot],True,2025-12-31T23:50:27Z,ai_disclosure_required,mark.skip`. These tests were added in PR #6830 to verify automatic LLM,"<h3>Greptile Summary</h3>
+
+
+Disables the `test_auto_llm_update.py` integration tests using `pytestmark = pytest.mark.skip`. These tests were added in PR #6830 to verify automatic LLM model updates from GitHub config.
+
+**Key Changes:**
+- Adds module-level skip marker with reason ""Auto LLM update tests temporarily disabled""
+- Both test functions (`test_auto_mode_provider_gets_synced_from_github_config` and `test_manual_mode_provider_not_affected_by_auto_sync`) are now skipped
+
+**Considerations:**
+- The tests rely on celery background tasks, time-based polling (up to 60s), and GitHub API access
+- The CI environment sets `AUTO_LLM_UPDATE_INTERVAL_SECONDS=1` (line 313 in `.github/workflows/pr-integration-tests.yml`)
+- Tests may be failing due to timing issues, GitHub URL accessibility in CI, or flakiness with the celery beat scheduler
+
+<h3>Confidence Score: 3/5</h3>
+
+
+- Temporarily disabling flaky tests is reasonable for unblocking CI, but requires follow-up
+- The change is minimal and safe (just adding a skip marker), but disabling tests that were just added suggests underlying issues that need investigation. The tests are integration tests that verify critical functionality (auto LLM "
+comment,onyx-dot-app/onyx,7152,greptile-apps[bot],True,2025-12-31T23:50:27Z,verify_before_merge,verify automatic LLM,"<h3>Greptile Summary</h3>
+
+
+Disables the `test_auto_llm_update.py` integration tests using `pytestmark = pytest.mark.skip`. These tests were added in PR #6830 to verify automatic LLM model updates from GitHub config.
+
+**Key Changes:**
+- Adds module-level skip marker with reason ""Auto LLM update tests temporarily disabled""
+- Both test functions (`test_auto_mode_provider_gets_synced_from_github_config` and `test_manual_mode_provider_not_affected_by_auto_sync`) are now skipped
+
+**Considerations:**
+- The tests rely on celery background tasks, time-based polling (up to 60s), and GitHub API access
+- The CI environment sets `AUTO_LLM_UPDATE_INTERVAL_SECONDS=1` (line 313 in `.github/workflows/pr-integration-tests.yml`)
+- Tests may be failing due to timing issues, GitHub URL accessibility in CI, or flakiness with the celery beat scheduler
+
+<h3>Confidence Score: 3/5</h3>
+
+
+- Temporarily disabling flaky tests is reasonable for unblocking CI, but requires follow-up
+- The change is minimal and safe (just adding a skip marker), but disabling tests that were just added suggests underlying issues that need investigation. The tests are integration tests that verify critical functionality (auto LLM "
+comment,onyx-dot-app/onyx,7152,greptile-apps[bot],True,2025-12-31T23:50:27Z,verify_before_merge,verify critical functionality (auto LLM,"<h3>Greptile Summary</h3>
+
+
+Disables the `test_auto_llm_update.py` integration tests using `pytestmark = pytest.mark.skip`. These tests were added in PR #6830 to verify automatic LLM model updates from GitHub config.
+
+**Key Changes:**
+- Adds module-level skip marker with reason ""Auto LLM update tests temporarily disabled""
+- Both test functions (`test_auto_mode_provider_gets_synced_from_github_config` and `test_manual_mode_provider_not_affected_by_auto_sync`) are now skipped
+
+**Considerations:**
+- The tests rely on celery background tasks, time-based polling (up to 60s), and GitHub API access
+- The CI environment sets `AUTO_LLM_UPDATE_INTERVAL_SECONDS=1` (line 313 in `.github/workflows/pr-integration-tests.yml`)
+- Tests may be failing due to timing issues, GitHub URL accessibility in CI, or flakiness with the celery beat scheduler
+
+<h3>Confidence Score: 3/5</h3>
+
+
+- Temporarily disabling flaky tests is reasonable for unblocking CI, but requires follow-up
+- The change is minimal and safe (just adding a skip marker), but disabling tests that were just added suggests underlying issues that need investigation. The tests are integration tests that verify critical functionality (auto LLM "
+comment,piwi3910/nebulaio,133,claude[bot],True,2026-01-01T10:03:49Z,ai_inverse_human,Claude Code using automated code analysis and manual review,"## PR Review: Phase 2 Complexity Refactoring (#132)
+
+### Executive Summary
+
+**Recommendation: ✅ APPROVE with commendation**
+
+This PR represents **exceptionally high-quality refactoring work** that genuinely improves code maintainability while fixing all 127 cyclomatic complexity violations. The refactoring goes beyond mere mechanical compliance—it makes the codebase more readable, testable, and maintainable.
+
+---
+
+### Code Quality Assessment
+
+I conducted a thorough review of the highest-complexity refactorings (the ones that were 25-34 complexity before refactoring) and found:
+
+#### ✅ Excellent Refactoring Examples
+
+**1. `internal/firewall/firewall.go` - Evaluate function**
+- **Before:** Complex nested conditionals evaluating firewall rules
+- **After:** Clean chain of responsibility pattern with early returns
+- **Quality:** Each helper function (`checkIPBlocklist`, `checkIPAllowlist`, `evaluateRules`, etc.) does ONE thing and does it well
+- **Readability:** The main function now reads like natural language: ""Check blocklist, check allowlist, check connection limits...""
+
+```go
+func (fw *Firewall) Evaluate(ctx context.Context, req *Request) *Decision {
+    if !fw.config.Enabled {
+   "
+comment,piwi3910/nebulaio,133,claude[bot],True,2026-01-01T10:32:33Z,policy_or_guideline,"rule)
+
+Per CLAUDE","# PR #133 Code Review: Phase 2 Complexity Refactoring
+
+## Executive Summary
+
+**Overall Assessment: APPROVE WITH MINOR RECOMMENDATIONS** ✅
+
+This PR successfully achieves its primary objective of eliminating all 127 complexity violations (cyclop, gocyclo, gocognit) across 27 files. The refactoring demonstrates solid software engineering practices with well-structured helper function extraction and improved code organization.
+
+**Key Metrics:**
+- ✅ **127 violations fixed** (100% resolution)
+- ✅ **27 files refactored** with consistent patterns
+- ✅ **16 test files updated** (tests maintained)
+- ✅ **Max complexity reduced** from 34 → <15
+- ✅ **All existing tests passing**
+
+---
+
+## Strengths 💪
+
+### 1. Excellent Refactoring Patterns
+
+The PR demonstrates best-in-class complexity reduction techniques:
+
+**Orchestration Pattern** (`internal/metadata/dragonboat_fsm.go`):
+```go
+// Clean dispatch pattern - textbook example
+func (sm *stateMachine) processCommand(cmd *command) error {
+    handler, exists := sm.getCommandHandler(cmd.Type)
+    if !exists {
+        return fmt.Errorf(""unknown command type: %s"", cmd.Type)
+    }
+    return handler(cmd.Data)
+}
+```
+
+**Phase Decomposition** (`internal/policy"
+comment,piwi3910/nebulaio,133,claude[bot],True,2026-01-01T10:32:33Z,policy_or_guideline,"rule)
+
+```go
+// ❌ Not following CLAUDE","# PR #133 Code Review: Phase 2 Complexity Refactoring
+
+## Executive Summary
+
+**Overall Assessment: APPROVE WITH MINOR RECOMMENDATIONS** ✅
+
+This PR successfully achieves its primary objective of eliminating all 127 complexity violations (cyclop, gocyclo, gocognit) across 27 files. The refactoring demonstrates solid software engineering practices with well-structured helper function extraction and improved code organization.
+
+**Key Metrics:**
+- ✅ **127 violations fixed** (100% resolution)
+- ✅ **27 files refactored** with consistent patterns
+- ✅ **16 test files updated** (tests maintained)
+- ✅ **Max complexity reduced** from 34 → <15
+- ✅ **All existing tests passing**
+
+---
+
+## Strengths 💪
+
+### 1. Excellent Refactoring Patterns
+
+The PR demonstrates best-in-class complexity reduction techniques:
+
+**Orchestration Pattern** (`internal/metadata/dragonboat_fsm.go`):
+```go
+// Clean dispatch pattern - textbook example
+func (sm *stateMachine) processCommand(cmd *command) error {
+    handler, exists := sm.getCommandHandler(cmd.Type)
+    if !exists {
+        return fmt.Errorf(""unknown command type: %s"", cmd.Type)
+    }
+    return handler(cmd.Data)
+}
+```
+
+**Phase Decomposition** (`internal/policy"
+comment,piwi3910/nebulaio,133,claude[bot],True,2026-01-01T12:20:54Z,policy_or_guideline,"Forbidden Functions: `fmt.Print` Usage** (8 files)
+
+Per CLAUDE","# Pull Request #133 Review: Phase 2 Complexity Refactoring
+
+## Executive Summary
+
+**Overall Assessment**: ✅ **APPROVE WITH MINOR FIXES**
+
+This is an **outstanding** refactoring effort that systematically eliminates 127 complexity violations across 27 files. The code quality is excellent, patterns are consistent, and the changes maintain backward compatibility.
+
+**Score**: 9.5/10
+
+---
+
+## ✅ Strengths
+
+### 1. **Excellent Refactoring Patterns**
+
+The PR demonstrates consistent, high-quality patterns:
+
+#### **Dispatch Table Pattern** (Best Practice)
+Replaces massive switch/if-else chains with clean map lookups:
+
+```go
+// internal/api/s3/handler.go - EXCELLENT
+func (h *Handler) getBucketPutHandler(query url.Values) func(...) {
+    handlers := map[string]func(http.ResponseWriter, *http.Request){
+        ""versioning"": h.PutBucketVersioning,
+        ""policy"":      h.PutBucketPolicy,
+        ""tagging"":     h.PutBucketTagging,
+        // ... 14+ more
+    }
+    for param, handler := range handlers {
+        if _, ok := query[param]; ok {
+            return handler
+        }
+    }
+    return h.CreateBucket
+}
+```
+
+**Impact**: Reduces O(n) if-else chains to O(1) lookups, improves extensibility.
+
+"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T01:54:45Z,ai_disclosure_required,"label=|<.*>.*[A-Z].*<)"" | head -20
+```
+
+Repository: AndyMik90/Auto-Claude","_⚠️ Potential issue_ | _🔴 Critical_
+
+<details>
+<summary>🧩 Analysis chain</summary>
+
+🏁 Script executed:
+
+```shell
+# First, verify that the translation files exist
+echo ""=== Checking translation files ===""
+if [ -f ""apps/frontend/src/shared/i18n/locales/en/changelog.json"" ]; then
+  echo ""✓ en/changelog.json exists""
+else
+  echo ""✗ en/changelog.json is MISSING""
+fi
+
+if [ -f ""apps/frontend/src/shared/i18n/locales/fr/changelog.json"" ]; then
+  echo ""✓ fr/changelog.json exists""
+else
+  echo ""✗ fr/changelog.json is MISSING""
+fi
+
+echo """"
+echo ""=== Comparing key counts ===""
+if [ -f ""apps/frontend/src/shared/i18n/locales/en/changelog.json"" ] && [ -f ""apps/frontend/src/shared/i18n/locales/fr/changelog.json"" ]; then
+  en_keys=$(jq -r 'paths(scalars) | join(""."")' apps/frontend/src/shared/i18n/locales/en/changelog.json 2>/dev/null | wc -l)
+  fr_keys=$(jq -r 'paths(scalars) | join(""."")' apps/frontend/src/shared/i18n/locales/fr/changelog.json 2>/dev/null | wc -l)
+  echo ""EN keys: $en_keys, FR keys: $fr_keys""
+  if [ ""$en_keys"" -eq ""$fr_keys"" ]; then
+    echo ""✓ Key counts match""
+  else
+    echo ""✗ Key counts DO NOT match""
+  fi
+fi
+```
+
+Repository: AndyMik90/Auto-Claude
+
+Length of output: 187
+
+---
+
+🏁 Scrip"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T03:35:24Z,ai_disclosure_required,"label"": ""Format:""
+}
+```
+</details>
+
+<details>
+<summary>🤖 Prompt for AI","_⚠️ Potential issue_ | _🟡 Minor_
+
+**Hardcoded string ""Format:"" should use translation.**
+
+Per coding guidelines, never use hardcoded strings in JSX/TSX files for user-facing text. This label should use the `useTranslation()` hook.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+```diff
++import { useTranslation } from 'react-i18next';
++
+ export function FormattingToolbar({ onFormat, className }: FormattingToolbarProps) {
++  const { t } = useTranslation('common');
+   return (
+     <div className={cn('flex items-center gap-1 p-2 border-b border-border bg-muted/30', className)}>
+-      <span className=""text-xs text-muted-foreground mr-2"">Format:</span>
++      <span className=""text-xs text-muted-foreground mr-2"">{t('formatting.label')}</span>
+```
+
+You'll also need to add the key to locale files:
+```json
+// en/common.json
+""formatting"": {
+  ""label"": ""Format:""
+}
+```
+</details>
+
+<details>
+<summary>🤖 Prompt for AI Agents</summary>
+
+```
+In apps/frontend/src/renderer/components/FormattingToolbar.tsx around line 48,
+the hardcoded user-facing string ""Format:"" must be internationalized; use the
+useTranslation() hook (e.g. const { t } = useTranslation('common')) at the top
+of the component, replac"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T03:35:25Z,ai_disclosure_required,"label"": ""Preferred IDE"",
+       ""description"": ""Auto Claude","_⚠️ Potential issue_ | _🔴 Critical_
+
+**Critical: Duplicate `devtools` key in JSON.**
+
+The `devtools` key is defined twice in this file (lines 147-170 and lines 211-228). In JSON, when a key is defined multiple times, only the last definition takes effect, meaning the first definition (lines 147-170) will be ignored. This causes data loss for fields like `detecting`, `customPath`, `customPathPlaceholder`, `detectedSummary`, and `noToolsDetected`.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+Merge both definitions or remove the duplicate. If lines 211-228 represent the intended structure, delete lines 147-170. Otherwise, merge unique keys from both sections:
+
+```diff
+   ""devtools"": {
+     ""title"": ""Developer Tools"",
+     ""description"": ""Configure your preferred IDE and terminal for working with worktrees"",
++    ""detecting"": ""Detecting installed tools..."",
+     ""detectAgain"": ""Detect Again"",
+     ""ide"": {
+       ""label"": ""Preferred IDE"",
+       ""description"": ""Auto Claude will open worktrees in this editor"",
+-      ""placeholder"": ""Select IDE..."",
+-      ""customPath"": ""Custom IDE Path"",
+-      ""customPathPlaceholder"": ""/path/to/your/ide""
++      ""placeholder"": ""Select IDE...""
+     },"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T03:35:25Z,ai_disclosure_required,"label"": ""Preferred Terminal"",
+       ""description"": ""Auto Claude","_⚠️ Potential issue_ | _🔴 Critical_
+
+**Critical: Duplicate `devtools` key in JSON.**
+
+The `devtools` key is defined twice in this file (lines 147-170 and lines 211-228). In JSON, when a key is defined multiple times, only the last definition takes effect, meaning the first definition (lines 147-170) will be ignored. This causes data loss for fields like `detecting`, `customPath`, `customPathPlaceholder`, `detectedSummary`, and `noToolsDetected`.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+Merge both definitions or remove the duplicate. If lines 211-228 represent the intended structure, delete lines 147-170. Otherwise, merge unique keys from both sections:
+
+```diff
+   ""devtools"": {
+     ""title"": ""Developer Tools"",
+     ""description"": ""Configure your preferred IDE and terminal for working with worktrees"",
++    ""detecting"": ""Detecting installed tools..."",
+     ""detectAgain"": ""Detect Again"",
+     ""ide"": {
+       ""label"": ""Preferred IDE"",
+       ""description"": ""Auto Claude will open worktrees in this editor"",
+-      ""placeholder"": ""Select IDE..."",
+-      ""customPath"": ""Custom IDE Path"",
+-      ""customPathPlaceholder"": ""/path/to/your/ide""
++      ""placeholder"": ""Select IDE...""
+     },"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T03:35:25Z,ai_disclosure_required,"label"": ""Preferred IDE"",
+-      ""description"": ""Auto Claude","_⚠️ Potential issue_ | _🔴 Critical_
+
+**Critical: Duplicate `devtools` key in JSON.**
+
+The `devtools` key is defined twice in this file (lines 147-170 and lines 211-228). In JSON, when a key is defined multiple times, only the last definition takes effect, meaning the first definition (lines 147-170) will be ignored. This causes data loss for fields like `detecting`, `customPath`, `customPathPlaceholder`, `detectedSummary`, and `noToolsDetected`.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+Merge both definitions or remove the duplicate. If lines 211-228 represent the intended structure, delete lines 147-170. Otherwise, merge unique keys from both sections:
+
+```diff
+   ""devtools"": {
+     ""title"": ""Developer Tools"",
+     ""description"": ""Configure your preferred IDE and terminal for working with worktrees"",
++    ""detecting"": ""Detecting installed tools..."",
+     ""detectAgain"": ""Detect Again"",
+     ""ide"": {
+       ""label"": ""Preferred IDE"",
+       ""description"": ""Auto Claude will open worktrees in this editor"",
+-      ""placeholder"": ""Select IDE..."",
+-      ""customPath"": ""Custom IDE Path"",
+-      ""customPathPlaceholder"": ""/path/to/your/ide""
++      ""placeholder"": ""Select IDE...""
+     },"
+comment,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,2025-12-30T03:35:25Z,ai_disclosure_required,"label"": ""Preferred Terminal"",
+-      ""description"": ""Auto Claude","_⚠️ Potential issue_ | _🔴 Critical_
+
+**Critical: Duplicate `devtools` key in JSON.**
+
+The `devtools` key is defined twice in this file (lines 147-170 and lines 211-228). In JSON, when a key is defined multiple times, only the last definition takes effect, meaning the first definition (lines 147-170) will be ignored. This causes data loss for fields like `detecting`, `customPath`, `customPathPlaceholder`, `detectedSummary`, and `noToolsDetected`.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+Merge both definitions or remove the duplicate. If lines 211-228 represent the intended structure, delete lines 147-170. Otherwise, merge unique keys from both sections:
+
+```diff
+   ""devtools"": {
+     ""title"": ""Developer Tools"",
+     ""description"": ""Configure your preferred IDE and terminal for working with worktrees"",
++    ""detecting"": ""Detecting installed tools..."",
+     ""detectAgain"": ""Detect Again"",
+     ""ide"": {
+       ""label"": ""Preferred IDE"",
+       ""description"": ""Auto Claude will open worktrees in this editor"",
+-      ""placeholder"": ""Select IDE..."",
+-      ""customPath"": ""Custom IDE Path"",
+-      ""customPathPlaceholder"": ""/path/to/your/ide""
++      ""placeholder"": ""Select IDE...""
+     },"
+comment,dhusmann/cutandrun,1,chatgpt-codex-connector[bot],True,2026-01-01T04:07:04Z,ai_disclosure_required,flag does nothing and the report is generated,"**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Honor dump_scale_factors flag when emitting spike-in reports**
+
+The spike-in normalization path always writes `NORMALISATION_FACTORS_REPORT`, but the `--dump_scale_factors` flag (still present in `nextflow.config` and the schema) is no longer referenced. As a result, enabling the flag does nothing and the report is generated unconditionally, so users cannot request or suppress the scale-factor output as documented. Please gate the report emission on `params.dump_scale_factors` (or remove the flag if it is meant to be deprecated).
+
+Useful? React with 👍 / 👎."
+comment,arcade-cabinet/protocol-silent-night,64,claude[bot],True,2025-12-31T15:01:56Z,ai_disclosure_required,"flag is expected (repeated test patterns across character classes)
+- Previous Claude","**Claude finished @dependabot[bot]'s task in 2m 26s** —— [View job](https://github.com/arcade-cabinet/protocol-silent-night/actions/runs/20621532005)
+
+---
+### PR Review: @react-three/fiber Dependency Update
+
+#### Todo List
+- [x] Review dependency update changes
+- [x] Analyze E2E test modifications
+- [x] Review LoadingScreen CSS changes
+- [x] Assess CI failure patterns
+- [x] Provide final recommendations
+
+---
+
+## Summary
+
+This PR updates `@react-three/fiber` from **9.4.2 → 9.5.0** to add React 19.2 compatibility. The dependency update itself is **safe and straightforward**. However, the PR includes 7 additional commits attempting to fix E2E test timing issues that appear to be CI environment-related rather than code defects.
+
+---
+
+## Review Findings
+
+### ✅ Dependency Update (Safe)
+
+**Changes:**
+- `@react-three/fiber`: 9.4.2 → 9.5.0
+- Purpose: React 19.2 compatibility with bundled reconciler
+- Peer dependencies: Now supports `>=19 <19.3` (current: 19.2.3 ✅)
+
+**Assessment:**
+- ✅ No breaking API changes
+- ✅ Backward compatible with existing R3F hooks (`useFrame`, `useThree`, `extend`)
+- ✅ All ecosystem packages remain compatible (`@react-three/drei`, `@react-three/postprocessing`, `@re"
+comment,MatheusVBLima/rastaflix,47,coderabbitai[bot],True,2025-12-31T23:28:47Z,policy_or_guideline,"rule and added "".claude","<!-- This is an auto-generated comment: summarize by coderabbit.ai -->
+<!-- This is an auto-generated comment: failure by coderabbit.ai -->
+
+> [!CAUTION]
+> ## Review failed
+> 
+> The pull request is closed.
+
+<!-- end of auto-generated comment: failure by coderabbit.ai -->
+
+<!-- walkthrough_start -->
+
+<details>
+<summary>📝 Walkthrough</summary>
+
+## Walkthrough
+
+This pull request introduces Twitch webhook management infrastructure via PowerShell scripts and guides, refactors award voting nominee displays into card layouts with optional images and descriptions, updates CI/CD permissions to enable Supabase CLI access, and adjusts gitignore to exclude the `.claude` directory while allowing the `scripts` directory.
+
+## Changes
+
+| Cohort / File(s) | Summary |
+|---|---|
+| **Twitch Webhook Management** <br> `scripts/install-twitch-cli.md`, `scripts/REGISTER_WEBHOOKS_GUIDE.md` | New guides documenting Twitch CLI installation on Windows and webhook registration via REST API without CLI, covering prerequisites, multiple methods (PowerShell, curl, Postman), OAuth token retrieval, subscription creation, and troubleshooting. |
+| **Twitch Webhook Scripts** <br> `scripts/register-twitch-webhooks-api."
+comment,klaushofrichter/een-api-toolkit,35,gemini-code-assist[bot],True,2025-12-31T23:23:26Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @klaushofrichter, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly expands the `vue-media` example application by introducing a dedicated page for viewing recorded camera images. It establishes a shared state mechanism for camera selection, ensuring a consistent user experience when switching between live and recorded views. The changes aim to provide a more complete demonstration of the EEN Media API's capabilities for both real-time and historical media access.
+
+### Highlights
+
+* **New Recorded Image Page**: Introduced a new `RecordedImage.vue` page, allowing users to browse recorded camera images with a date/time picker and previous/next navigation.
+* **Shared Camera Selection**: Implemented a `useSelectedCamera` composable to manage and persist the selected camera ID across different pages (Live and Recorded) using `localStorage`.
+* **Enhanced Navigation and Routing**: Updated `App.vue` and `Home.vue` to include navigation links to the new Recorded Images page, and added a"
+comment,Open-Source-Legal/OpenContracts,764,claude[bot],True,2026-01-01T01:39:00Z,explicit_ban,No Claude,"## Code Review Summary
+
+This is an excellent PR that implements a major landing page redesign with corpus categories. The implementation is well-architected, follows project conventions, and includes comprehensive tests.
+
+## ✅ Strengths
+
+### Backend Implementation
+1. Strong security posture: system user uses defense-in-depth with is_active=False AND unusable password
+2. Excellent permission model: categories correctly use no individual permissions (globally visible structural data)
+3. N+1 query optimization: smart use of .annotate(_corpus_count=...) in resolver
+4. Well-designed migrations: proper forward/reverse migration pattern with get_or_create
+5. DRY improvements: fixed code duplication in config/graphql/base.py:172
+
+### Frontend Implementation  
+1. Clean component design using @os-legal/ui library consistently
+2. Good error handling: CategorySelector handles loading, error, and empty states
+3. DRY utility: extracted arraysEqualUnordered to shared utils
+4. Type safety: proper TypeScript types, removed 'as any' casts
+5. Deep linking: GetStarted component supports ?create=true param
+
+### Testing
+1. Comprehensive coverage: 878 lines covering models, GraphQL, mutations, permission"
+comment,constellos/claude-code-actions,3,claude[bot],True,2025-12-31T23:27:29Z,verify_before_merge,"verify the review workflow works
+   - Test @claude","## Pull Request Review: Claude Code GitHub Workflows
+
+Thank you for adding the Claude Code integration to this repository! I've reviewed the workflow files and have the following feedback:
+
+---
+
+### ✅ **Strengths**
+
+**1. Security Implementation**
+- ✅ Properly uses GitHub secrets for API tokens (`CLAUDE_CODE_OAUTH_TOKEN`)
+- ✅ Follows principle of least privilege with minimal permissions
+- ✅ Correctly implements conditional execution to prevent unauthorized triggers
+- ✅ Uses `id-token: write` for secure token handling
+
+**2. Code Quality**
+- ✅ Clean, readable YAML structure
+- ✅ Well-commented configuration options
+- ✅ Consistent formatting across workflows
+- ✅ Uses latest stable action versions (`actions/checkout@v4`)
+
+**3. Best Practices**
+- ✅ Shallow clone (`fetch-depth: 1`) for performance
+- ✅ Clear job and step naming conventions
+- ✅ Appropriate use of `ubuntu-latest` runner
+- ✅ Documentation links provided for customization
+
+---
+
+### 🔍 **Code Analysis**
+
+#### **`.github/workflows/claude.yml`** (Interactive Claude Agent)
+
+**Purpose:** Triggers Claude when mentioned in comments/issues
+
+**Strengths:**
+- Comprehensive trigger coverage (issue comments, PR comments, reviews, new issues"
+comment,gestrich/claude-step,142,github-actions[bot],True,2025-12-31T23:23:35Z,ai_disclosure_required,"mark ""Task 1"" as complete in the `spec.md` file for the `claude","## AI-Generated Summary
+
+The changes made in this pull request mark ""Task 1"" as complete in the `spec.md` file for the `claude-step/e2e-test-project`. This change updates the task tracking progress for this test project, indicating that the first task has now been completed.
+
+The purpose of this change is to update the status of the test project tasks as development progresses, ensuring that the project specifications are accurately reflected. This helps maintain visibility into the overall project status and progress.
+
+There are no other notable implementation details in this small, straightforward change.
+
+---
+*Generated by ClaudeStep • [View workflow run](https://github.com/gestrich/claude-step/actions/runs/20628933958)*"
+comment,arcade-cabinet/protocol-silent-night,70,jbdevprimary,False,2025-12-31T19:41:05Z,verify_before_merge,"verify
+```bash
+pnpm typecheck
+```
+
+---
+<sub>🤖 Generated","## 🔧 CI Fix Suggestion
+
+**Branch:** sentinel-seeded-random-security-12463160577482274073
+
+### 1. Root cause
+The TypeScript build failed because `src/__tests__/unit/SeededRandom.test.ts` contains an unused `@ts-expect-error` directive and a declared but unused variable `_rng`.
+
+### 2. Suggested fix
+In `src/__tests__/unit/SeededRandom.test.ts`:
+1.  At line 50, remove the `// @ts-expect-error` comment, as the code it suppresses no longer produces a type error.
+2.  At line 55, remove the declaration of the unused variable `_rng: const _rng = ...;`.
+
+### 3. Commands to verify
+```bash
+pnpm typecheck
+```
+
+---
+<sub>🤖 Generated by Ecosystem Fixer using Ollama GLM 4.6</sub>"
+comment,arcade-cabinet/protocol-silent-night,70,jbdevprimary,False,2026-01-02T14:53:19Z,verify_before_merge,"verify
+```bash
+pnpm typecheck
+```
+
+---
+<sub>🤖 Generated","## 🔧 CI Fix Suggestion
+
+**Branch:** sentinel-seeded-random-security-12463160577482274073
+
+### Root cause
+The type check failed due to two issues: incorrect mocking of a Zustand store in test files (type incompatibility between `UseBoundStore` and Jest's `Mock` type) and a missing required `checksum` property in a test object.
+
+### Suggested fix
+
+**For MessageOverlay.test.tsx:**
+```typescript
+// Change the mock implementation to properly type the store mock
+jest.mock('@/store/gameStore', () => ({
+  useGameStore: jest.fn() as unknown as jest.Mock
+}));
+```
+
+**For security.test.ts (line 50):**
+```typescript
+// Ensure checksum is always provided
+const testData = {
+  data: { name: 'John', role: 'user' },
+  checksum: 'some-checksum-value' // Add this required property
+};
+```
+
+### Commands to verify
+```bash
+pnpm typecheck
+```
+
+---
+<sub>🤖 Generated by Ecosystem Fixer using Ollama GLM 4.6</sub>"
+comment,arcade-cabinet/protocol-silent-night,69,jbdevprimary,False,2026-01-01T21:11:09Z,verify_before_merge,Verify AI,"## 🤖 AI Code Review
+
+### Summary of Changes
+- Migrated from Node.js to Python runtime for all GitHub Actions
+- Replaced `agentic-control` npm package with `vendor-connectors` Python package
+- Added support for Cursor AI agent as an alternative to Google Jules
+- Simplified CI resolution to fetch failure logs and delegate to AI agents
+- Removed custom agent instruction files and metaprompts
+- Streamlined AI curator workflow to use control-center reusable workflow
+
+### Issues Found
+🔴 **Critical**: No authentication for `vendor-connectors` package installation
+- The action installs `vendor-connectors` from PyPI without pinning a version or verifying integrity
+- Could lead to supply chain attacks if package is compromised
+
+🟠 **High**: Missing error handling for AI agent calls
+- Both Cursor and Jules API calls lack proper error handling
+- Silent failures could mask issues
+
+🟠 **High**: Sensitive data in environment variables
+- API keys passed directly to subprocesses without sanitization
+- Risk of exposure in logs or error messages
+
+🟡 **Medium**: Inconsistent environment variable naming
+- Mix of `JULES_API_KEY` and `GOOGLE_JULES_API_KEY` usage
+- Could cause confusion
+
+### Suggestions for "
+comment,arcade-cabinet/protocol-silent-night,69,google-labs-jules[bot],True,2026-01-01T21:16:37Z,verify_before_merge,Verify AI,"> ## 🤖 AI Code Review
+> 
+> ### Summary of Changes
+> - Migrated from Node.js to Python runtime for all GitHub Actions
+> - Replaced `agentic-control` npm package with `vendor-connectors` Python package
+> - Added support for Cursor AI agent as an alternative to Google Jules
+> - Simplified CI resolution to fetch failure logs and delegate to AI agents
+> - Removed custom agent instruction files and metaprompts
+> - Streamlined AI curator workflow to use control-center reusable workflow
+> 
+> ### Issues Found
+> 🔴 **Critical**: No authentication for `vendor-connectors` package installation
+> - The action installs `vendor-connectors` from PyPI without pinning a version or verifying integrity
+> - Could lead to supply chain attacks if package is compromised
+> 
+> 🟠 **High**: Missing error handling for AI agent calls
+> - Both Cursor and Jules API calls lack proper error handling
+> - Silent failures could mask issues
+> 
+> 🟠 **High**: Sensitive data in environment variables
+> - API keys passed directly to subprocesses without sanitization
+> - Risk of exposure in logs or error messages
+> 
+> 🟡 **Medium**: Inconsistent environment variable naming
+> - Mix of `JULES_API_KEY` and `GOOGLE_JULES_API_KEY` u"
+comment,arcade-cabinet/protocol-silent-night,69,jbdevprimary,False,2026-01-02T14:02:34Z,explicit_ban,No AI,"## 🤖 AI Code Review
+
+### Summary of Changes
+The diff refactors GitHub Actions from Node.js to Python, replacing custom npm-based tooling with a unified `vendor-connectors` CLI. It removes agent instruction files and metaprompts, simplifying the AI curation workflow to use control-center. Key changes include:
+- Switch from Node.js to Python 3.12
+- Replace `agentic-control` npm package with `vendor-connectors` Python package
+- Add support for Cursor AI agent alongside Jules
+- Remove `.github/agents/` and `.github/metaprompts/` directories
+- Simplify AI curator workflow to call control-center reusable workflow
+
+### Issues Found
+🔴 **Critical**: No error handling for `vendor-connectors` installation failure
+🔴 **Critical**: Missing validation for required API keys before attempting agent calls
+🟠 **High**: Hardcoded log limit (500 lines) may truncate important error details
+🟠 **High**: No retry mechanism for failed API calls to AI agents
+🟡 **Medium**: Inconsistent environment variable naming (`GOOGLE_JULES_API_KEY` vs `JULES_API_KEY`)
+🟡 **Medium**: Silent failure in `gh run view` command masks log fetching issues
+
+### Suggestions for Improvement
+1. Add error handling for pip install:
+```b"
+comment,arcade-cabinet/protocol-silent-night,69,google-labs-jules[bot],True,2026-01-02T14:12:45Z,explicit_ban,No AI,"> ## 🤖 AI Code Review
+> 
+> ### Summary of Changes
+> The diff refactors GitHub Actions from Node.js to Python, replacing custom npm-based tooling with a unified `vendor-connectors` CLI. It removes agent instruction files and metaprompts, simplifying the AI curation workflow to use control-center. Key changes include:
+> - Switch from Node.js to Python 3.12
+> - Replace `agentic-control` npm package with `vendor-connectors` Python package
+> - Add support for Cursor AI agent alongside Jules
+> - Remove `.github/agents/` and `.github/metaprompts/` directories
+> - Simplify AI curator workflow to call control-center reusable workflow
+> 
+> ### Issues Found
+> 🔴 **Critical**: No error handling for `vendor-connectors` installation failure
+> 🔴 **Critical**: Missing validation for required API keys before attempting agent calls
+> 🟠 **High**: Hardcoded log limit (500 lines) may truncate important error details
+> 🟠 **High**: No retry mechanism for failed API calls to AI agents
+> 🟡 **Medium**: Inconsistent environment variable naming (`GOOGLE_JULES_API_KEY` vs `JULES_API_KEY`)
+> 🟡 **Medium**: Silent failure in `gh run view` command masks log fetching issues
+> 
+> ### Suggestions for Improvement
+> 1. "
+comment,arcade-cabinet/protocol-silent-night,69,jbdevprimary,False,2026-01-03T18:14:47Z,verify_before_merge,verify AI,"## 🤖 AI Code Review
+
+## Summary of Changes
+- Migrated from Node.js to Python for all agentic actions
+- Replaced direct API calls with `vendor-connectors` CLI tool
+- Added support for Cursor AI agent alongside Google Jules
+- Simplified CI resolution workflow to fetch failure logs and delegate to AI agents
+- Removed custom agent instructions and metaprompts
+- Streamlined AI Curator workflow to use control-center reusable workflow
+
+## Issues Found
+🔴 **Critical**: No error handling for `vendor-connectors` installation failures
+🔴 **Critical**: CI resolution action doesn't validate required inputs before processing
+🟠 **High**: Hardcoded log limit (500 lines) may truncate important error context
+🟠 **High**: No retry mechanism for AI agent API failures
+🟡 **Medium**: Fallback between Cursor and Jules may mask configuration issues
+🟡 **Medium**: PR review action doesn't handle missing `jq` gracefully
+
+## Suggestions for Improvement
+1. Add input validation at the start of CI resolution action
+2. Implement proper error handling for `vendor-connectors` commands
+3. Add retry logic with exponential backoff for AI agent calls
+4. Make log limit configurable via input parameter
+5. Add debug logging f"
+comment,arcade-cabinet/protocol-silent-night,69,google-labs-jules[bot],True,2026-01-03T18:27:24Z,verify_before_merge,verify AI,"> ## 🤖 AI Code Review
+> 
+> ## Summary of Changes
+> - Migrated from Node.js to Python for all agentic actions
+> - Replaced direct API calls with `vendor-connectors` CLI tool
+> - Added support for Cursor AI agent alongside Google Jules
+> - Simplified CI resolution workflow to fetch failure logs and delegate to AI agents
+> - Removed custom agent instructions and metaprompts
+> - Streamlined AI Curator workflow to use control-center reusable workflow
+> 
+> ## Issues Found
+> 🔴 **Critical**: No error handling for `vendor-connectors` installation failures
+> 🔴 **Critical**: CI resolution action doesn't validate required inputs before processing
+> 🟠 **High**: Hardcoded log limit (500 lines) may truncate important error context
+> 🟠 **High**: No retry mechanism for AI agent API failures
+> 🟡 **Medium**: Fallback between Cursor and Jules may mask configuration issues
+> 🟡 **Medium**: PR review action doesn't handle missing `jq` gracefully
+> 
+> ## Suggestions for Improvement
+> 1. Add input validation at the start of CI resolution action
+> 2. Implement proper error handling for `vendor-connectors` commands
+> 3. Add retry logic with exponential backoff for AI agent calls
+> 4. Make log limit configura"
+comment,arcade-cabinet/protocol-silent-night,69,jbdevprimary,False,2026-01-04T00:38:48Z,explicit_ban,No AI,"## 🤖 AI Code Review
+
+## Summary
+Migrates from Node.js to Python runtime, replaces direct API calls with vendor-connectors CLI, and adds Cursor AI support alongside Jules. Removes agent instruction files and simplifies AI curator workflow.
+
+## Issues Found
+
+🔴 **Critical**: 
+- No authentication validation for vendor-connectors calls
+- Missing error handling for CLI failures
+- No verification that vendor-connectors installed successfully
+
+🟠 **High**:
+- Hardcoded log limit (500 lines) may truncate important errors
+- No retry mechanism for failed API calls
+- Missing input validation for workflow_run_id
+
+🟡 **Medium**:
+- Inconsistent environment variable naming (JULES_API_KEY vs GOOGLE_JULES_API_KEY)
+- No timeout for gh run view command
+- Fallback logic may mask actual failures
+
+⚪ **Low**:
+- Removed helpful agent documentation files
+- Inconsistent comment styles
+
+## Suggestions
+
+1. Add validation after pip install:
+```bash
+pip install vendor-connectors || { echo ""Failed to install vendor-connectors""; exit 1; }
+```
+
+2. Add authentication checks:
+```bash
+if [ -z ""$CURSOR_API_KEY"" ] && [ -z ""$GOOGLE_JULES_API_KEY"" ]; then
+  echo ""Error: No AI provider configured""
+  exit 1
+fi
+```
+
+3. Add erro"
+comment,arcade-cabinet/protocol-silent-night,69,google-labs-jules[bot],True,2026-01-04T00:56:29Z,explicit_ban,No AI,"> ## 🤖 AI Code Review
+> 
+> ## Summary
+> Migrates from Node.js to Python runtime, replaces direct API calls with vendor-connectors CLI, and adds Cursor AI support alongside Jules. Removes agent instruction files and simplifies AI curator workflow.
+> 
+> ## Issues Found
+> 
+> 🔴 **Critical**: 
+> - No authentication validation for vendor-connectors calls
+> - Missing error handling for CLI failures
+> - No verification that vendor-connectors installed successfully
+> 
+> 🟠 **High**:
+> - Hardcoded log limit (500 lines) may truncate important errors
+> - No retry mechanism for failed API calls
+> - Missing input validation for workflow_run_id
+> 
+> 🟡 **Medium**:
+> - Inconsistent environment variable naming (JULES_API_KEY vs GOOGLE_JULES_API_KEY)
+> - No timeout for gh run view command
+> - Fallback logic may mask actual failures
+> 
+> ⚪ **Low**:
+> - Removed helpful agent documentation files
+> - Inconsistent comment styles
+> 
+> ## Suggestions
+> 
+> 1. Add validation after pip install:
+> ```bash
+> pip install vendor-connectors || { echo ""Failed to install vendor-connectors""; exit 1; }
+> ```
+> 
+> 2. Add authentication checks:
+> ```bash
+> if [ -z ""$CURSOR_API_KEY"" ] && [ -z ""$GOOGLE_JULES_API_KEY"" ]; the"
+comment,badMade/mothership,929,gemini-code-assist[bot],True,2025-12-31T14:52:11Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @badMade, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request focuses on enhancing the robustness and compatibility of the stock retrieval system. It addresses inconsistencies in output path handling across different retriever types, improves the flexibility and testability of ticker loading, and refines Notion integration for better data representation and checkpointing. The changes also introduce more graceful error handling for API keys and ensure backward compatibility with legacy period processing.
+
+### Highlights
+
+* **Output Path Synchronization**: The production and Notion stock retrievers now consistently synchronize their output directories with module-level overrides, ensuring all saved files and checkpoints adhere to the intended paths.
+* **Enhanced Ticker Loading and Test Resilience**: Ticker loading has been normalized, introducing a `TickerList` class that allows for test-friendly comparisons (e.g., comparing a list to its length) while improving error messaging for file loading "
+comment,DamienLove/pulselink,311,claude[bot],True,2025-12-30T19:47:29Z,explicit_ban,No CLAUDE,"# Pull Request Review - #311
+
+## Summary
+This PR addresses two separate issues: adding a missing CSS class for the web client and re-enabling the Android Crash Detection feature. Overall, the changes are straightforward and achieve their stated goals, but there are several important concerns that should be addressed.
+
+---
+
+## 🔴 Critical Issues
+
+### 1. Missing Foreground Service Type Declaration (Android 14+ Compatibility)
+**Severity: HIGH**
+
+The `CrashDetectionService` uses accelerometer data for crash detection, which may require location permissions when deployed as a foreground service on Android 14+ (API 34). The service declaration in `AndroidManifest.xml:515-517` is missing the required `android:foregroundServiceType` attribute.
+
+**Impact:** On Android 14+, this service will crash when started without a proper foreground service type.
+
+**Recommendation:**
+```xml
+<service
+    android:name="".service.CrashDetectionService""
+    android:enabled=""true""
+    android:exported=""false""
+    android:foregroundServiceType=""location"" />
+```
+
+Additionally, you'll need to add this permission to the manifest:
+```xml
+<uses-permission android:name=""android.permission.FOREGROUND_SERVICE_LOCATION"""
+comment,DamienLove/pulselink,311,DamienLove,False,2025-12-31T22:59:30Z,explicit_ban,No CLAUDE,"@jules.google.com
+🔴 Critical Issues
+1. Missing Foreground Service Type Declaration (Android 14+ Compatibility)
+Severity: HIGH
+
+The CrashDetectionService uses accelerometer data for crash detection, which may require location permissions when deployed as a foreground service on Android 14+ (API 34). The service declaration in AndroidManifest.xml:515-517 is missing the required android:foregroundServiceType attribute.
+
+Impact: On Android 14+, this service will crash when started without a proper foreground service type.
+
+Recommendation:
+
+<service
+    android:name="".service.CrashDetectionService""
+    android:enabled=""true""
+    android:exported=""false""
+    android:foregroundServiceType=""location"" />
+Additionally, you'll need to add this permission to the manifest:
+
+<uses-permission android:name=""android.permission.FOREGROUND_SERVICE_LOCATION"" />
+References:
+
+androidApp/src/main/AndroidManifest.xml:515
+Similar pattern found in ringersong/src/main/AndroidManifest.xml:65 which correctly declares foregroundServiceType=""mediaPlayback""
+2. Missing Runtime Permission Checks
+Severity: MEDIUM-HIGH
+
+The MainActivity.kt:750-758 code starts the CrashDetectionService withou"
+comment,DamienLove/pulselink,311,google-labs-jules[bot],True,2025-12-31T23:13:22Z,explicit_ban,No CLAUDE,"> @jules.google.com
+> 🔴 Critical Issues
+> 1. Missing Foreground Service Type Declaration (Android 14+ Compatibility)
+> Severity: HIGH
+> 
+> The CrashDetectionService uses accelerometer data for crash detection, which may require location permissions when deployed as a foreground service on Android 14+ (API 34). The service declaration in AndroidManifest.xml:515-517 is missing the required android:foregroundServiceType attribute.
+> 
+> Impact: On Android 14+, this service will crash when started without a proper foreground service type.
+> 
+> Recommendation:
+> 
+> <service
+>     android:name="".service.CrashDetectionService""
+>     android:enabled=""true""
+>     android:exported=""false""
+>     android:foregroundServiceType=""location"" />
+> Additionally, you'll need to add this permission to the manifest:
+> 
+> <uses-permission android:name=""android.permission.FOREGROUND_SERVICE_LOCATION"" />
+> References:
+> 
+> androidApp/src/main/AndroidManifest.xml:515
+> Similar pattern found in ringersong/src/main/AndroidManifest.xml:65 which correctly declares foregroundServiceType=""mediaPlayback""
+> 2. Missing Runtime Permission Checks
+> Severity: MEDIUM-HIGH
+> 
+> The MainActivity.k"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T20:55:48Z,vibe_coding,vibe coding,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T20:55:48Z,vibe_coding,vibe coding,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T20:55:48Z,vibe_coding,vibe coding,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T20:55:48Z,vibe_coding,vibe coding,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T21:05:07Z,vibe_coding,vibe coding,"## 🤖 Solution Draft Log
+This log file contains the complete execution trace of the AI solution draft process.
+
+### Changes Made
+
+Based on the feedback in the PR comments, I've made the following updates:
+
+1. **Created `docs/COMPARISON.md`** - A comprehensive comparison document that covers:
+   - Product categories overview (hiring developers, IDEs, AI-assisted IDEs, vibe coding websites, AI agents)
+   - Detailed comparison tables for each category
+   - Cost comparison showing Hive Mind's value proposition
+   - ""Time Freedom"" analysis showing how Hive Mind saves 85-95% of user time
+   - ""Team of Developers"" effect with parallel execution
+   - When to choose Hive Mind vs other solutions
+
+2. **Expanded `docs/FEATURES.md`** with all the points from feedback:
+   - Generalist AI (mini-AGI) capable of any file-based task
+   - Full autonomous mode with sudo access = creative freedom
+   - Runs on dedicated VMs or Docker containers
+   - AI can install packages thanks to internet + sudo access
+   - Mobile programming with /solve and /hive commands
+   - Time freedom: 10-25 min vs 2-8 hours human work
+   - Team of developers effect with ~$200/month cost
+   - Claude MAX $200 subscription (50% of"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T23:11:28Z,vibe_coding,Vibe Coding,"- `Good for defined problems`, our agent also has high level of creativity if requirements are not defined, I think it is indistinguishable from most (average) programmers. But of course the more detailed the problem definition the better the result. By I think it is the same with people, also bot and people both can ask questions if problem is not defined enough.
+- `Broad but may need guidance` - as a regular programmer AI can search information online, and has much more diverse knowledge in almost all areas. Yes, programmer can have practical experience, but AI is much faster in gathering information and testing hypothesis, so I think AI solver easily compensates its lack of experience.
+- We also use our system message, that improves quality of result, by guiding AI to not repeat its common mistakes, so it compensates for typical areas that are hard for AI.
+- `Always available` - Always available on demand, instantly.
+- At the moment hive mind excels on small tasks, so if you ask our system to plan/decompose tasks, or use any other AI for task decomposition you can get best results from our system. Best hired programmers can do decomposition themselves. We will handle it late"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T23:11:28Z,vibe_coding,vibecoding,"- `Good for defined problems`, our agent also has high level of creativity if requirements are not defined, I think it is indistinguishable from most (average) programmers. But of course the more detailed the problem definition the better the result. By I think it is the same with people, also bot and people both can ask questions if problem is not defined enough.
+- `Broad but may need guidance` - as a regular programmer AI can search information online, and has much more diverse knowledge in almost all areas. Yes, programmer can have practical experience, but AI is much faster in gathering information and testing hypothesis, so I think AI solver easily compensates its lack of experience.
+- We also use our system message, that improves quality of result, by guiding AI to not repeat its common mistakes, so it compensates for typical areas that are hard for AI.
+- `Always available` - Always available on demand, instantly.
+- At the moment hive mind excels on small tasks, so if you ask our system to plan/decompose tasks, or use any other AI for task decomposition you can get best results from our system. Best hired programmers can do decomposition themselves. We will handle it late"
+comment,link-assistant/hive-mind,1050,konard,False,2025-12-31T23:22:13Z,vibe_coding,vibe coding,"## 🤖 Solution Draft Log
+This log file contains the complete execution trace of the AI solution draft process.
+
+### Changes Made
+
+Based on the detailed feedback in the PR comments, I've made comprehensive updates to all documentation files:
+
+**COMPARISON.md updates:**
+- Fixed creativity description: AI is ""indistinguishable from average programmers"" and asks questions when unclear
+- Fixed expertise: AI searches online and compensates lack of experience with speed
+- Added system message improvements note (guides AI to avoid common mistakes)
+- Fixed ""Always available"" to ""on demand, instantly""
+- Added note about Hive Mind excelling on small tasks, future architect AI for decomposition
+- Added human time cost note for AI-Assisted IDEs (not just subscription price)
+- Fixed repository support: works on existing repos OR starts from scratch
+- Added vibe coding GitHub dependency note
+- Fixed tech stacks: 10+ runtimes preinstalled but AI can install more
+- Fixed infrastructure: ""our or your infrastructure""
+- Added 100% open source with Unlicense (public domain)
+- Fixed cloud agents description: restrictive ENVs, limited GitHub access, local agents risk your machine
+- Added recommendation to"
+comment,ivviiviivvi/.github,148,github-actions[bot],True,2025-12-31T23:08:09Z,policy_or_guideline,"Forbidden
+* [404] [https://github.com/centerforaisafety/ai","## 🔗 Broken Links Detected
+
+## Summary
+
+| Status        | Count |
+|---------------|-------|
+| 🔍 Total      | 3246  |
+| ✅ Successful | 2022  |
+| ⏳ Timeouts   | 1     |
+| 🔀 Redirected | 705   |
+| 👻 Excluded   | 5     |
+| ❓ Unknown    | 0     |
+| 🚫 Errors     | 513   |
+
+## Errors per input
+
+### Errors in docs/workflows/RELEASE_PROCESS.md
+
+* [ERR] [file:///home/runner/work/.github/.github/docs/workflows/CHANGELOG.md](file:///home/runner/work/.github/.github/docs/workflows/CHANGELOG.md) | Failed: Cannot find file
+* [ERR] [file:///home/runner/work/.github/.github/docs/workflows/VERSION_CONTROL_STANDARDS.md](file:///home/runner/work/.github/.github/docs/workflows/VERSION_CONTROL_STANDARDS.md) | Failed: Cannot find file
+* [ERR] [file:///home/runner/work/.github/.github/docs/workflows/SEMANTIC_VERSIONING.md](file:///home/runner/work/.github/.github/docs/workflows/SEMANTIC_VERSIONING.md) | Failed: Cannot find file
+
+### Errors in ECOSYSTEM_README.md
+
+* [404] [https://ivviiviivvi.github.io/react-app](https://ivviiviivvi.github.io/react-app) | Failed: Network error: Not Found
+* [404] [https://ivviiviivvi.github.io/](https://ivviiviivvi.github.io/) | Failed: Network error: Not Found
+
+### Errors "
+comment,gmickel/gno,26,coderabbitai[bot],True,2025-12-31T23:13:53Z,policy_or_guideline,"Forbidden non-null assertion.
+
+</details>
+
+</details>
+
+<details>
+<summary>🤖 Prompt for AI","_⚠️ Potential issue_ | _🔴 Critical_
+
+**Fix non-null assertion - handle missing root element.**
+
+The non-null assertion `document.getElementById('root')!` will cause a runtime crash if the root element doesn't exist. Add proper error handling to provide a better developer experience.
+
+
+
+<details>
+<summary>🔎 Proposed fix</summary>
+
+```diff
+-const root = createRoot(document.getElementById('root')!);
+-root.render(<App />);
++const rootElement = document.getElementById('root');
++if (!rootElement) {
++  throw new Error('Root element not found. Ensure index.html contains <div id=""root""></div>');
++}
++const root = createRoot(rootElement);
++root.render(<App />);
+```
+</details>
+
+<!-- suggestion_start -->
+
+<details>
+<summary>📝 Committable suggestion</summary>
+
+> ‼️ **IMPORTANT**
+> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.
+
+```suggestion
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found. Ensure index.html contains <div id=""root""></div>');
+"
+comment,badMade/mothership,910,gemini-code-assist[bot],True,2025-12-30T07:39:57Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @badMade, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request introduces Python version markers to the forecasting application's dependency list. The primary purpose is to ensure that these specific dependencies are only installed when using Python versions older than 3.10. This approach helps maintain the stability of CI environments, which may run on Python 3.10 or newer, by skipping incompatible installations, while still allowing the full set of forecasting tools to be used with supported Python versions.
+
+### Highlights
+
+* **Python Version Compatibility**: Added Python version markers to all dependencies in `apps/forecasting/requirements.txt`.
+* **Conditional Dependency Installation**: Dependencies will now only be installed for Python versions strictly less than 3.10.
+* **CI Stability**: This change prevents installation failures on Python 3.10+ environments, particularly in continuous integration pipelines, while preserving the full dependency set for supported runtimes.
+
+
+
+
+
+
+
+
+
+<detai"
+comment,CSmithy89/ultimate-ai-rag,12,gemini-code-assist[bot],True,2025-12-31T05:48:03Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @CSmithy89, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request marks the completion of Epic 11, focusing on significant code cleanup and migration efforts. The primary goal was to modernize the backend by removing legacy components, fully transitioning to Graphiti for knowledge graph management, and enhancing data persistence for critical user-facing features. These changes improve system reliability, reduce technical debt, and lay a stronger foundation for future development.
+
+### Highlights
+
+* **Legacy Module Removal**: Deprecated indexing modules (embeddings, entity extractor, graph builder) and their associated code paths have been removed, streamlining the codebase and enforcing a Graphiti-first approach.
+* **Graphiti Migration Finalization**: The Graphiti migration is now complete, with legacy ingestion and retrieval feature flags removed. All knowledge graph operations are now routed through Graphiti.
+* **Persistence for HITL, Workspace, and A2A**: Human-in-the-Loop (HITL) validation c"
+comment,CSmithy89/ultimate-ai-rag,12,claude[bot],True,2026-01-03T09:35:46Z,policy_or_guideline,policy for user-generated,"## PR Review: Epic 11 - Code Cleanup & Migration
+
+### Overall Assessment
+**Status:** ✅ Approved with recommendations  
+**Scope:** Large epic (11 stories, 27 commits) delivering multi-provider support, persistence layers, and infrastructure hardening.
+
+---
+
+## 🎯 Summary
+
+This PR successfully delivers critical infrastructure improvements:
+- Multi-provider LLM/embedding configuration (OpenAI, OpenRouter, Ollama, Gemini, Voyage)
+- Redis-backed A2A session persistence
+- Postgres-backed workspace persistence
+- Neo4j connection pooling
+- Parser-based HTML→Markdown conversion
+- Graphiti migration tooling
+- Token usage monitoring
+- HITL validation persistence
+
+---
+
+## ✅ Strengths
+
+### 1. **Architecture & Design**
+- **Provider abstraction pattern** is well-designed with clear separation of concerns (config.py:17-18, llm/providers.py:12-13)
+- **Adapter factory pattern** for embeddings supports multiple providers cleanly (embeddings.py:210-246)
+- **Multi-tenancy enforcement** maintained throughout (all DB queries include tenant_id filtering)
+- **Backward compatibility** preserved with OpenAI-first defaults and fallback behavior
+
+### 2. **Code Quality**
+- Consistent **snake_case** naming per CL"
+comment,CodeHalwell/Agent-Gantry,55,gemini-code-assist[bot],True,2025-12-31T16:22:15Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @CodeHalwell, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly refines the core vector store and embedder functionalities by introducing explicit dimension tracking, enhancing in-memory data management, and improving search result consistency across remote stores. Concurrently, it brings the documentation and examples up to current best practices, streamlining API usage and ensuring clarity for developers.
+
+### Highlights
+
+* **Vector Dimension Support**: Introduced a 'dimension' property to the 'VectorStoreAdapter' protocol and implemented it across 'InMemoryVectorStore', 'QdrantVectorStore', 'ChromaVectorStore', and 'PGVectorStore' to allow retrieval of vector dimensions.
+* **In-Memory Store Enhancements**: 'InMemoryVectorStore' now includes fingerprint storage for change detection and new methods for metadata management ('get_metadata', 'set_metadata', 'update_sync_metadata', 'get_stored_fingerprints').
+* **Embedder Identification**: Added 'get_embedder_id' methods to OpenAI"
+comment,frankbria/narrative-modeling-app,131,coderabbitai[bot],True,2025-12-31T20:51:22Z,verify_before_merge,Verify Claude,"_⚠️ Potential issue_ | _🟡 Minor_
+
+**Verify Claude model name references.**
+
+Line 107 references ""Claude Sonnet 4.5"" which appears to be an incorrect model name. The current Claude model naming conventions use formats like ""Claude 3.5 Sonnet"" or ""Claude Sonnet"". The same issue appears on lines 159 and 263.
+
+
+
+<details>
+<summary>🔎 Suggested corrections</summary>
+
+```diff
+-**Model:** Claude Sonnet 4.5
++**Model:** Claude 3.5 Sonnet
+```
+
+</details>
+
+<!-- suggestion_start -->
+
+<details>
+<summary>📝 Committable suggestion</summary>
+
+> ‼️ **IMPORTANT**
+> Carefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation. Thoroughly test & benchmark the code to ensure it meets the requirements.
+
+```suggestion
+**Model:** Claude 3.5 Sonnet
+**Dependencies:** None (can start immediately)
+```
+
+</details>
+
+<!-- suggestion_end -->
+
+<details>
+<summary>🤖 Prompt for AI Agents</summary>
+
+```
+In .claude-flow/implementations/gh-75/INTEGRATION_PLAN.md around lines 107, 159,
+and 263, the model name ""Claude Sonnet 4.5"" is incorrect; update those
+references to use the correct Claude naming convention used in this"
+comment,BabylonSocial/babylon,583,claude[bot],True,2025-12-23T04:18:42Z,low_effort,spam trades/posts if LLM,"## Code Review: PR #583 (Staging → Production)
+
+### Executive Summary
+Reviewed critical security and code quality areas across 100 commits. **Overall Assessment: SAFE TO MERGE** with recommended follow-ups.
+
+---
+
+## 🔒 Security Findings
+
+### 🟡 MEDIUM Priority Issues
+
+#### 1. Missing CSRF Protection on Cookie Auth
+**Location:** `packages/api/src/auth-middleware.ts:67-73`
+
+Cookie-based authentication lacks CSRF token validation, making state-changing operations vulnerable to CSRF attacks.
+
+**Recommendation:**
+- Implement CSRF token validation for state-changing operations
+- Add SameSite cookie attributes
+
+#### 2. Silent Social Account Linking Failures
+**Location:** `apps/web/src/hooks/useAuth.ts:517-525`
+
+When wallet linking fails with 409 (already linked), user receives no notification. This could mask account takeover attempts.
+
+**Recommendation:**
+- Show toast notification when wallet/social linking fails
+- Log security events for monitoring
+
+#### 3. No Agent Action Rate Limiting
+**Location:** `apps/web/src/app/api/cron/agent-tick/route.ts`
+
+Agents lack per-tick action count limits, allowing runaway agents to spam trades/posts if LLM malfunctions.
+
+**Recommendation:**
+- Implement p"
+comment,BabylonSocial/babylon,583,claude[bot],True,2025-12-24T00:54:24Z,ai_disclosure_required,"flag
+3. Fix Claude","## Comprehensive PR Review - #583
+
+I've completed a thorough review of this staging-to-production merge (51 commits, 100 files).
+
+## Overall Assessment
+
+**Status: REQUEST CHANGES** - 2 critical issues must be fixed before production
+
+**Summary:**
+- Excellent security improvements (atomic operations, audit logging, RBAC)
+- 2 Critical issues requiring immediate fixes
+- 3 High-priority bugs
+- Several medium-priority improvements
+
+---
+
+## Critical Issues (Must Fix)
+
+### 1. Lost Update Race Condition in Agent Points
+
+**Location:** packages/agents/src/services/AgentService.ts (lines 585-603, 676-684)
+
+**Issue:** Reading balance outside transaction, writing inside = lost update race condition
+
+**Fix:** Use SQL increment like trading balance atomic operations
+
+**Impact:** Concurrent operations can lose updates
+
+---
+
+### 2. Database Migration Auto-Push with --force
+
+**Location:** .github/workflows/apply-migrations.yml
+
+**Issue:** drizzle-kit push --force bypasses safety checks, no approval gate
+
+**Fix:** Remove --force, add environment protection with required reviewers
+
+---
+
+## High Priority Issues
+
+### 3. Claude Workflow Permission Mismatch
+.github/workflows/claude-code-review.yml needs p"
+comment,BabylonSocial/babylon,583,claude[bot],True,2025-12-28T20:57:35Z,verify_before_merge,Verify typecheck/lint/build all pass (per CLAUDE,"## Code Review - PR #583: Merge staging → production
+
+**Summary**: Large staging-to-production merge with 196K additions across 300+ files and 100 commits. This review focuses on critical changes and potential risks.
+
+---
+
+## ✅ **Highlights & Strengths**
+
+### 1. **Critical Bug Fix: NPC Negative Balance Race Condition** ⭐
+The atomic debit operations in `npc-wallet-adapter.ts` are **excellent**:
+
+```typescript
+// Atomic debit: check balance AND update in single statement
+const result = await db
+  .update(actorState)
+  .set({ tradingBalance: sql`${actorState.tradingBalance} - ${amount}` })
+  .where(and(
+    eq(actorState.id, actorId),
+    gte(actorState.tradingBalance, String(amount))  // ✅ Prevents race
+  ))
+  .returning({ id: actorState.id });
+```
+
+**Why this is great:**
+- Prevents TOCTOU (time-of-check-time-of-use) race conditions
+- Database-level constraint `CHECK (tradingBalance >= 0)` adds defense-in-depth
+- Applied consistently across DirectExecutors, trade-execution-service, and initial-investment-service
+- Proper error messages distinguish between ""actor not found"" vs ""insufficient balance""
+
+**Recommendation**: Consider adding integration tests that explicitly verify race con"
+comment,BabylonSocial/babylon,583,claude[bot],True,2025-12-29T04:02:46Z,low_effort,"spam
+- CLAUDE","## PR Review: Staging → Production Release
+
+### Overview
+This is a substantial release merging 100 commits from staging to production. The scope includes 202K additions and 92K deletions across hundreds of files.
+
+### Critical Issues ⚠️
+
+#### 1. BLOCKING: Wrong Base Branch
+Per CLAUDE.md guidelines, all PRs should target staging branch. This PR targets production directly from staging. While staging→production merges are necessary for releases, verify the branch strategy is correct.
+
+**Action Required:** Verify the branch strategy. If production is the actual production branch, CLAUDE.md should be updated to clarify release workflow.
+
+#### 2. Missing Pre-Merge Validation
+Per CLAUDE.md, before merging you must run: typecheck, lint (zero warnings), and build (must pass).
+
+**Action Required:** Before merging, provide evidence that all three commands pass on the staging branch. The CI status shows pending/null checks.
+
+#### 3. Test Plan Incomplete
+The PR description includes an unchecked test plan with 4 items.
+
+**Action Required:** Complete the test plan and check all boxes before merge.
+
+### High-Priority Concerns 🔴
+
+#### 4. Massive Scope - High Risk
+- 100 commits in a single merge
+- "
+comment,joshsmithxrm/ppds-tools,10,gemini-code-assist[bot],True,2025-12-31T19:38:52Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @joshsmithxrm, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request represents a significant architectural overhaul, transitioning the PowerShell module to exclusively leverage the `ppds` CLI tool for all Dataverse interactions. This strategic move aims to centralize core logic within the CLI, thereby enhancing consistency, simplifying the codebase, and ensuring that PowerShell users benefit immediately from CLI improvements. The change introduces a more robust, profile-based authentication system and streamlines various Dataverse operations, albeit with breaking changes that necessitate a migration for existing scripts.
+
+### Highlights
+
+* **Major Refactor to CLI Wrapper**: All PowerShell cmdlets have been refactored to wrap the unified `ppds` CLI tool, eliminating native PowerShell implementations for Dataverse operations and authentication. This ensures consistent behavior and reduces maintenance.
+* **Breaking Changes Introduced**: The `DataverseConnection` class and the `-Connection` paramet"
+comment,BoxPistols/map-api-react,13,gemini-code-assist[bot],True,2025-12-31T22:55:16Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @BoxPistols, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+このプルリクエストは、GitHub CopilotとGoogle Geminiを組み合わせたハイブリッドAIコードレビューシステムを導入することで、コードレビュープロセスを強化することを目的としています。これにより、Copilotによる自動的な初期レビューと、Geminiによるオンデマンドの詳細な分析が可能になります。変更には、Geminiを有効にするためのGitHub Actionsワークフローの追加と、新しいシステムのセットアップと使用方法を案内する詳細なドキュメントが含まれています。
+
+### Highlights
+
+* **ハイブリッドAIレビューシステムの導入**: GitHub CopilotとGoogle Geminiを組み合わせたハイブリッドAIコードレビューシステムが導入されました。Copilotは自動レビューを、Geminiはオンデマンドの詳細分析を提供します。
+* **Geminiレビュー機能の追加**: Geminiを活用したコードレビュー機能がGitHub Actionsワークフローとして追加されました。PRコメントで`/review`コマンドを使用すると詳細なコード分析が、`/summary`コマンドを使用すると変更内容の要約が生成されます。
+* **詳細な設定ドキュメントの追加**: 新しいファイル`.github/AI_REVIEW_SETUP.md`が追加され、このハイブリッドAIレビューシステムの設定方法、使用方法、コスト、トラブルシューティングに関する包括的なガイドが提供されます。
+
+🧠 **New Feature in Public Preview:** You can now enable **Memory** to help **Gemini Code Assist** learn from your team's feedback. This makes future code reviews more consistent and personalized to your project's style. **Click [here](https://codeassist.google/code-review/login) to enable"
+comment,tuvens/enfold-llm,44,gemini-code-assist[bot],True,2025-12-31T22:47:51Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @tuvens, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly enhances the project's user experience by introducing a dedicated 'Quick Start' section within the `README.md`. This new guide provides a streamlined, 5-minute setup process, enabling users to rapidly configure and begin interacting with the project. The addition aims to lower the barrier to entry and improve initial user engagement by offering clear, actionable steps for essential setup tasks, complemented by a link to more detailed documentation.
+
+### Highlights
+
+* **New Quick Start Section**: A new 'Quick Start (5 minutes)' section has been added to the `README.md` file to help users get started quickly.
+* **Step-by-Step Guide**: The quick start guide includes 6 concise steps covering plugin addition, WordPress installation, GitHub secret/variable configuration, project initialization, and creating the first page.
+* **Improved Onboarding**: The new section aims to streamline the onboarding process for new users, prov"
+comment,kesslerio/attio-mcp-server,1081,github-actions[bot],True,2025-12-31T22:54:15Z,ai_disclosure_required,"flag) and do not affect existing scripts.
+
+<!-- claude","<!-- claude-review sha=1a11537242c5b193b1a5b8d9aebee9561723977e -->
+# PR Review Report
+
+## Summary
+
+This PR fixes failing operations playbook validation tests (Issue #973) by addressing multiple root causes:
+
+1. **package.json**: Added vitest config flag (`-c configs/vitest/vitest.config.e2e.ts`) to playbook test scripts for proper path alias resolution
+2. **advanced-search.ts**: Added `is_empty` operator support to the existing operator normalization logic
+3. **attribute-discovery.ts**: New utility class for runtime attribute discovery, making tests portable across workspaces
+4. **operations-playbook-eval.e2e.test.ts**: Refactored to use dynamic attribute discovery instead of hardcoded slugs
+
+**Overall Assessment**: This is a well-structured fix PR that correctly identifies and addresses the root causes. The AttributeDiscovery utility is a clean solution for workspace portability. Test results show 10/10 passing with 2 gracefully skipped tests due to known Attio API limitations.
+
+**PR Type Detection**: Fix/Enhancement - Focus on root cause addressed, test coverage maintained.
+
+---
+
+## ⚠️ CRITICAL Issues (Fix before merge)
+
+**None identified.** The PR properly addresses the identif"
+comment,kocheck/Graphium,180,github-actions[bot],True,2025-12-31T22:13:17Z,policy_or_guideline,Rule-based check • For AI,"## 📚 Documentation Check (Rule-Based)
+
+This PR was analyzed for potential documentation impacts.
+
+
+### 🔌 IPC Changes Detected
+
+Files in `electron/` or IPC-related code were modified.
+
+**Please review:**
+- [`IPC_API.md`](https://github.com/kocheck/Graphium/blob/main/IPC_API.md) - If IPC channels added/changed
+- [`electron/README.md`](https://github.com/kocheck/Graphium/blob/main/electron/README.md) - If main process logic changed
+- [`.cursorrules`](https://github.com/kocheck/Graphium/blob/main/.cursorrules) - If new IPC patterns added
+
+**Check if you need to:**
+- Document new IPC channels with usage examples
+- Update IPC handler documentation
+- Add JSDoc to new IPC-related functions
+
+### ⚛️ Component Changes Detected
+
+Files in `src/components/` were modified.
+
+**Please review:**
+- [`src/components/README.md`](https://github.com/kocheck/Graphium/blob/main/src/components/README.md) - If component structure changed
+- Modified component files - Ensure JSDoc is up-to-date
+- [`ARCHITECTURE.md`](https://github.com/kocheck/Graphium/blob/main/ARCHITECTURE.md) - If component hierarchy changed
+
+**Check if you need to:**
+- Add JSDoc to new components/functions
+- Update component descriptions in"
+comment,kocheck/Graphium,180,github-actions[bot],True,2025-12-31T22:44:04Z,policy_or_guideline,Rule-based check • For AI,"## 📚 Documentation Check (Rule-Based)
+
+This PR was analyzed for potential documentation impacts.
+
+
+### 🔌 IPC Changes Detected
+
+Files in `electron/` or IPC-related code were modified.
+
+**Please review:**
+- [`IPC_API.md`](https://github.com/kocheck/Graphium/blob/main/IPC_API.md) - If IPC channels added/changed
+- [`electron/README.md`](https://github.com/kocheck/Graphium/blob/main/electron/README.md) - If main process logic changed
+- [`.cursorrules`](https://github.com/kocheck/Graphium/blob/main/.cursorrules) - If new IPC patterns added
+
+**Check if you need to:**
+- Document new IPC channels with usage examples
+- Update IPC handler documentation
+- Add JSDoc to new IPC-related functions
+
+### ⚛️ Component Changes Detected
+
+Files in `src/components/` were modified.
+
+**Please review:**
+- [`src/components/README.md`](https://github.com/kocheck/Graphium/blob/main/src/components/README.md) - If component structure changed
+- Modified component files - Ensure JSDoc is up-to-date
+- [`ARCHITECTURE.md`](https://github.com/kocheck/Graphium/blob/main/ARCHITECTURE.md) - If component hierarchy changed
+
+**Check if you need to:**
+- Add JSDoc to new components/functions
+- Update component descriptions in"
+comment,kocheck/Graphium,180,github-actions[bot],True,2025-12-31T22:52:13Z,policy_or_guideline,Rule-based check • For AI,"## 📚 Documentation Check (Rule-Based)
+
+This PR was analyzed for potential documentation impacts.
+
+
+### 🔌 IPC Changes Detected
+
+Files in `electron/` or IPC-related code were modified.
+
+**Please review:**
+- [`IPC_API.md`](https://github.com/kocheck/Graphium/blob/main/IPC_API.md) - If IPC channels added/changed
+- [`electron/README.md`](https://github.com/kocheck/Graphium/blob/main/electron/README.md) - If main process logic changed
+- [`.cursorrules`](https://github.com/kocheck/Graphium/blob/main/.cursorrules) - If new IPC patterns added
+
+**Check if you need to:**
+- Document new IPC channels with usage examples
+- Update IPC handler documentation
+- Add JSDoc to new IPC-related functions
+
+### ⚛️ Component Changes Detected
+
+Files in `src/components/` were modified.
+
+**Please review:**
+- [`src/components/README.md`](https://github.com/kocheck/Graphium/blob/main/src/components/README.md) - If component structure changed
+- Modified component files - Ensure JSDoc is up-to-date
+- [`ARCHITECTURE.md`](https://github.com/kocheck/Graphium/blob/main/ARCHITECTURE.md) - If component hierarchy changed
+
+**Check if you need to:**
+- Add JSDoc to new components/functions
+- Update component descriptions in"
+comment,arthrod/budibase,5,gemini-code-assist[bot],True,2025-12-31T22:50:54Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @arthrod, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request introduces a critical security update by bumping a core dependency to its latest stable version. The primary goal is to mitigate a high-severity vulnerability, ensuring the application's resilience against potential resource exhaustion attacks. This automated fix streamlines the process of maintaining a secure dependency tree.
+
+### Highlights
+
+* **Security Upgrade**: This pull request upgrades the `@techpass/passport-openidconnect` dependency from version `0.3.3` to `1.0.0` to address a high-severity security vulnerability (SNYK-JS-QS-14724253) related to 'Allocation of Resources Without Limits or Throttling'.
+* **Automated Fix**: The change was automatically generated by Snyk to remediate the identified vulnerability.
+
+
+
+
+
+
+
+
+
+<details>
+<summary><b>Using Gemini Code Assist</b></summary>
+<br>
+
+The full guide for Gemini Code Assist can be found on our [documentation page](https://developers.google.com/gemini-code-assist/docs/review-g"
+comment,badMade/mothership,882,gemini-code-assist[bot],True,2025-12-29T18:05:53Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @badMade, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request focuses on polishing the test fixtures within the `ip_services` test suite. The changes improve code style by addressing PEP 8 compliance, enhance clarity through better documentation, and refine fixture behavior for more robust and predictable test execution. The overall goal is to make the test suite more maintainable and easier to understand.
+
+### Highlights
+
+* **Code Style**: Added a required blank line before the `mock_messagebox` fixture to comply with PEP 8 styling guidelines.
+* **Fixture Documentation**: The `reset_handler` fixture now includes a docstring, clearly explaining its purpose.
+* **Fixture Refinement**: Removed redundant `messagebox` patching from the `reset_handler` fixture, as it was not directly related to its primary function of resetting the `ipinfo_handler`.
+* **Fixture Lifecycle**: Modified the `reset_handler` fixture to use `yield`, ensuring a clearer setup and teardown lifecycle for the `ipinfo_handler`.
+"
+comment,fritz-net/AoE2-Civbuilder,189,Copilot,False,2025-12-28T19:15:26Z,ai_disclosure_required,"label contrast with darker color (#333)
+
+
+> @copilot","
+> - minimal version does not use attack,... icons; also text like ""Or enter custom ID:"" is still there
+> - the text for switching between condenst version has bad contrast
+> - range and attack speed or re...
+
+Fixed all compact mode issues (f546c64):
+- Added icons to all stat labels (❤️ Health, ⚔️ Attack, 🛡️ Armor, 🎯 Range, ⚡ Attack Speed, 🌾🪵🪨🪙 Resources, etc.)
+- Fixed input visibility: only hides stat inputs with sliders, keeps range, attack speed, and resource cost inputs visible
+- Fixed ""Or enter custom ID:"" text - now properly hidden with `.custom-id-input` selector
+- Improved density toggle label contrast with darker color (#333)
+
+
+> @copilot most things look fine, but
+> 
+> - clicking fortified wall (building or tech) enables stonewall and u have to click a second time for fortifies wall to be enabled; this should not be the case; o...
+
+Added e2e tests for fortified wall dependency behavior (aa29ad7). The tests verify that clicking fortified wall (building or tech) should enable both stone wall and fortified wall in one click. Note: This appears to be a pre-existing issue in TechTree.vue which I didn't modify in this PR - the tests document the expected behavior for future"
+comment,bossjones/logging-lab,2,gemini-code-assist[bot],True,2025-12-31T22:43:45Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @bossjones, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly enhances the application's observability by integrating OpenTelemetry instrumentation and configuring it for use with SigNoz. The changes introduce a standardized way to collect traces, metrics, and logs, making it easier to monitor and debug the application's performance and behavior. This foundational work sets the stage for improved insights into the system's operations.
+
+### Highlights
+
+* **OpenTelemetry Integration**: Added comprehensive OpenTelemetry instrumentation dependencies for various components including FastAPI, httpx, and logging, enabling detailed observability.
+* **SigNoz Configuration**: Included a sample environment configuration file (.envrc.sample) with OpenTelemetry variables specifically tailored for integration with SigNoz.
+* **Makefile Enhancements**: Introduced new Makefile targets, `serve-otel` to easily run the FastAPI server with OpenTelemetry instrumentation, and `otel-deps` to list requ"
+comment,thedotmack/claude-mem,509,james5294,False,2025-12-31T22:42:38Z,ai_disclosure_required,"label is a limitation in Claude Code's hooks API, not a bug in claude","Closing this PR after discussion with the maintainer.
+
+The current behavior (exit code 3 + stderr) is **intentional** - it's a workaround to display messages to users without adding them to Claude's context. This is a valuable feature for showing localhost UI links, update notices, etc. without wasting context tokens.
+
+The ""Plugin hook error"" label is a limitation in Claude Code's hooks API, not a bug in claude-mem. I'm filing a feature request on [anthropics/claude-code](https://github.com/anthropics/claude-code) to add proper support for ""informational user messages that don't affect context.""
+
+See discussion in #508 for details."
+comment,tuvens/enfold-llm,39,gemini-code-assist[bot],True,2025-12-31T22:35:26Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @tuvens, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request introduces a new, comprehensive installation guide for the Enfold LLM GitOps plugin, designed to simplify its integration into existing WordPress projects. The guide covers everything from initial setup and configuration of WordPress and GitHub to project initialization and a first deployment test, ensuring a smooth onboarding experience for developers. It also includes a troubleshooting section to help resolve common issues quickly.
+
+### Highlights
+
+* **Comprehensive Installation Guide**: A new `docs/INSTALLATION.md` has been added, providing a complete guide for integrating the Enfold LLM GitOps plugin into WordPress projects.
+* **Dual Installation Methods**: The guide details two methods for installation: Git Submodule (recommended for updates) and Direct Copy (for simple setups).
+* **Step-by-Step Configuration**: Detailed instructions are provided for WordPress setup (plugin installation, app passwords), GitHub configuration (sec"
+comment,rjmurillo/ai-agents,715,rjmurillo,False,2025-12-31T21:06:05Z,ai_disclosure_required,label](https://github.com/rjmurillo/ai,"<!-- TRIAGE-REQUIRED -->
+## Review Triage Required
+
+> [!NOTE]
+> **Priority: NORMAL** - Human approval required before bot responds
+
+### Review Summary
+
+| Source | Reviews | Comments |
+|--------|---------|----------|
+| **Human** | 0 | 0 |
+| Bot | 1 | 3 |
+
+
+
+### Next Steps
+
+1. Review human feedback above
+2. Address any CHANGES_REQUESTED from human reviewers
+3. Add `triage:approved` label when ready for bot to respond to review comments
+
+---
+<sub>Powered by PR Maintenance workflow - [Add triage:approved label](https://github.com/rjmurillo/ai-agents/issues/715/labels)</sub>"
+comment,rjmurillo/ai-agents,715,rjmurillo-bot,True,2026-01-01T07:28:47Z,explicit_ban,No LLM,"**Agreed.** The validation script is designed exactly for this - deterministic PowerShell tooling over LLM interpretation. The script:
+- Parses YAML front matter deterministically
+- Applies fixed validation rules
+- Returns structured JSON output
+- Has exit codes for CI integration
+
+No LLM interpretation in the critical path."
+comment,genu/team-generator,344,claude[bot],True,2025-12-30T18:18:08Z,policy_or_guideline,"policy`, `@zenstackhq/server`)  
+✅ Following project conventions as outlined in CLAUDE","## Pull Request Review: chore: update zpc
+
+### Summary
+This PR updates ZenStack packages from `3.0.0-beta.27` to the stable `3.1.0` release, along with related dependencies `zenstack-pinia-colada` and `nuxt-ui-formwerk`. Additionally, it adds a pnpm override for `sharp@0.34.5`.
+
+---
+
+### Code Quality & Best Practices
+
+**Positives:**
+✅ Clean migration from beta to stable release - always a good practice  
+✅ Minor whitespace/formatting improvements in `useClientQueries.ts` (moved blank line for better readability)  
+✅ Consistent version updates across all ZenStack packages (`@zenstackhq/cli`, `@zenstackhq/orm`, `@zenstackhq/plugin-policy`, `@zenstackhq/server`)  
+✅ Following project conventions as outlined in CLAUDE.md  
+
+**Concerns:**
+⚠️ **Missing changelog entry**: The PR body is empty. Consider documenting what changed between versions, especially for future reference  
+⚠️ **Sharp override**: The addition of `pnpm.overrides.sharp: 0.34.5` suggests a dependency conflict. This should be documented:
+   - Why is this override necessary?
+   - Is there an upstream issue being tracked?
+   - Could this cause issues with other packages expecting different sharp versions?
+
+---
+
+### Potentia"
+comment,genu/team-generator,344,claude[bot],True,2026-01-04T10:17:09Z,verify_before_merge,Verify the generated files in `.generated,"## Pull Request Review: ZenStack Package Update (3.0.0-beta.27 → 3.1.0)
+
+### Overview
+This PR updates the ZenStack ecosystem from beta version `3.0.0-beta.27` to the stable release `3.1.0`, along with minor dependency updates.
+
+---
+
+### Code Quality & Best Practices ✅
+
+**Positive aspects:**
+1. **Moving from beta to stable**: Upgrading from a beta version to a stable `3.1.0` release is a good practice and should provide better stability and support.
+2. **Minor formatting improvement**: The addition of a blank line in `useClientQueries.ts` improves code readability.
+3. **Lockfile consistency**: The pnpm lockfile changes are properly tracked and comprehensive.
+4. **Coordinated updates**: All ZenStack packages are updated together, maintaining version consistency.
+
+**Concerns:**
+- **Missing context**: The PR lacks a description explaining the motivation for the update and what changed in ZenStack 3.1.0. Consider adding:
+  - Link to ZenStack changelog/release notes
+  - Breaking changes (if any)
+  - New features being leveraged
+  - Reason for adding the `sharp` override
+
+---
+
+### Dependency Changes
+
+#### Core ZenStack packages updated:
+- `@zenstackhq/cli`: 3.0.0-beta.27 → 3.1.0
+- `@zenst"
+comment,genu/team-generator,344,claude[bot],True,2026-01-06T17:24:35Z,verify_before_merge,"Verify build succeeds
+```
+
+Per CLAUDE","## Code Review: PR #344 - Update ZenStack and Pinia Colada Dependencies
+
+I've reviewed this dependency update PR. Here's my feedback:
+
+### ✅ **Overall Assessment: APPROVED**
+
+This is a well-structured dependency update that brings the project from ZenStack beta versions to stable releases.
+
+---
+
+### 📦 **Code Quality & Best Practices**
+
+**Strengths:**
+- **Clean formatting improvement** in `useClientQueries.ts:1` - Removed unnecessary blank line between imports, following conventional import grouping
+- **Proper version pinning** for `sharp@0.34.5` - Added pnpm override to prevent Sharp's known cross-platform build issues
+- **Stable releases**: Upgraded from beta versions (`3.0.0-beta.27`) to stable (`3.1.1`) for all ZenStack packages
+- **Minimal code changes**: Only touched necessary files - no unnecessary refactoring
+
+**Minor observations:**
+- `.nuxtrc:1` - New file added with test-utils setup. This appears to be Nuxt-specific configuration for test environment setup
+- The code change in `useClientQueries.ts` is purely cosmetic (whitespace cleanup)
+
+---
+
+### 🐛 **Potential Bugs or Issues**
+
+**No critical issues found**, but some considerations:
+
+1. **Breaking changes risk** - Major v"
+comment,tddworks/ClaudeBar,28,coderabbitai[bot],True,2025-12-31T22:31:30Z,ai_disclosure_required,"flag and provider-list rebuilding introduced here.
+- tddworks/ClaudeBar#22: Adds Z.ai","<!-- This is an auto-generated comment: summarize by coderabbit.ai -->
+<!-- This is an auto-generated comment: failure by coderabbit.ai -->
+
+> [!CAUTION]
+> ## Review failed
+> 
+> The pull request is closed.
+
+<!-- end of auto-generated comment: failure by coderabbit.ai -->
+
+<!-- walkthrough_start -->
+
+<details>
+<summary>📝 Walkthrough</summary>
+
+## Walkthrough
+
+This PR introduces a dynamic provider settings management system where individual AI providers (Claude, Codex, Gemini, Antigravity, Z.ai) can be toggled independently via settings. A new ProviderSettingsManager observes settings changes and rebuilds the provider list accordingly, replacing hard-coded provider initialization. Z.ai demo functionality is removed and real usage probing is implemented.
+
+## Changes
+
+| Cohort / File(s) | Summary |
+|---|---|
+| **Provider Lifecycle Management** <br> `Sources/App/ClaudeBarApp.swift` | Added `@MainActor` annotation to AppState, introduced rebuildProviders() method, new settingsObserver property to track settings changes, and new ProviderSettingsManager class to encapsulate provider initialization, settings observation, and quota monitoring. |
+| **Provider Configuration Flags** <br> `Sourc"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T12:24:26Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T12:43:35Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T14:38:15Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T14:45:23Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T15:00:20Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T15:28:55Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T15:38:15Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T15:51:21Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T17:59:42Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,juspay/neurolink,735,github-actions[bot],True,2025-12-31T21:55:47Z,human_review_framing,"Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI","## 🤖 AI Review & Build Compliance ✅
+
+**Status**: AI analysis complete • Build rules validated • Ready for review
+
+<details>
+<summary>📊 View detailed analysis results</summary>
+
+### 🛡️ Analysis Complete
+- ✅ Security scan (vulnerabilities, API keys)
+- ✅ TypeScript safety & code quality
+- ✅ Error handling & best practices
+- ✅ Build rule enforcement validated
+- ✅ Commit format & compliance checks
+
+### 📋 Ready for Merge When
+- [ ] All CI checks passing
+- [ ] Manual review approved
+- [ ] Any AI-flagged issues resolved
+
+</details>
+
+---
+*🤖 AI analysis complete - check individual code comments for specific feedback*"
+comment,rshade/pulumicost-spec,248,coderabbitai[bot],True,2026-01-01T03:09:45Z,policy_or_guideline,policy. Ensure corresponding proto comments and any generated,"_🧹 Nitpick_ | _🔵 Trivial_
+
+**Add validation guidance for expected_type values.**
+
+The `expected_type` field lists example values (""string"", ""double"", ""timestamp"", ""enum"", ""map"", ""bool"") but doesn't specify:
+- Is this a closed set or extensible?
+- What should clients do with unknown type values?
+
+Consider adding an enum for `expected_type` to ensure consistency across plugins, or document that these are informational only and clients should handle unknown values gracefully.
+
+
+
+<details>
+<summary>🔎 Proposed enhancement</summary>
+
+```diff
+   // expected_type indicates the data type of the field value.
+-  // Values: ""string"", ""double"", ""timestamp"", ""enum"", ""map"", ""bool""
++  // Standard values: ""string"", ""double"", ""timestamp"", ""enum"", ""map"", ""bool""
++  // Clients MUST handle unknown values gracefully (treat as opaque string).
++  // Future versions may add additional types without breaking compatibility.
+   // Optional but recommended for documentation purposes.
+   string expected_type = 4;
+```
+</details>
+
+<!-- suggestion_start -->
+
+<details>
+<summary>📝 Committable suggestion</summary>
+
+> ‼️ **IMPORTANT**
+> Carefully review the code before committing. Ensure that it accurately replaces the"
+comment,obadasemary/AIChat,152,gemini-code-assist[bot],True,2025-12-25T01:10:46Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @obadasemary, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request introduces a comprehensive refactoring of the application's core architecture, transitioning from MVVM to VIPER. This change aims to enhance the modularity, testability, and maintainability of the codebase by enforcing a clearer separation of concerns between the presentation logic (Presenter) and business logic (Interactor). The migration involved systematic renaming of components and updating all associated code and documentation across every feature module.
+
+### Highlights
+
+* **Architectural Migration**: The entire application architecture has been migrated from the MVVM (Model-View-ViewModel) pattern to the VIPER (View-Interactor-Presenter-Entity-Router) pattern. This involves a significant renaming of core components across all modules.
+* **Component Renaming**: All `ViewModel` classes have been renamed to `Presenter`, and all `UseCase` classes have been renamed to `Interactor`. Corresponding protocols (e.g., `*UseCaseProto"
+comment,Jdubz/blinky_time,32,gemini-code-assist[bot],True,2025-12-31T21:22:38Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @Jdubz, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly refactors the calibration testing framework by introducing a robust suite system, queue management, and incremental saving capabilities. The changes aim to make the testing process more organized, extensible, and resilient to interruptions, while also expanding the range of test patterns and analysis tools available for both transient detection and music mode parameters. The new structure allows for more targeted and efficient parameter optimization and validation.
+
+### Highlights
+
+* **Suite Configuration System**: Introduced a new `SuiteConfig` system for declarative test suite definition, enabling execution of baseline, sweeps, and validation phases. Five predefined suites are included: quick-transient, cooldown-optimization, threshold-optimization, false-positive-reduction, and full-calibration. This system also supports automatic boundary analysis and device saving upon completion.
+* **Queue Management**: A `QueueMan"
+comment,laude-institute/harbor,384,gemini-code-assist[bot],True,2025-12-31T22:11:39Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @ibercovich, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request enhances the verifier functionality by adding an optional mechanism to upload `trajectory.json` files to remote environments. This change addresses the need for LLM judges to access complete trajectory data in environments like Daytona, where direct file mounting is not supported, thereby ensuring comprehensive analysis capabilities.
+
+### Highlights
+
+* **New Configuration Option**: Introduced an `upload_trajectory` boolean field to the `VerifierConfig` class, allowing verifiers to optionally enable the uploading of `trajectory.json`.
+* **Conditional Trajectory Upload**: Implemented logic in the verifier to conditionally upload `trajectory.json` from the host to the remote environment. This upload is performed only if the environment does not support mounting (e.g., Daytona) and the `upload_trajectory` configuration is set to true.
+
+🧠 **New Feature in Public Preview:** You can now enable **Memory** to help **Gemini Code Assist** l"
+comment,madmax983/GallifreyDB,29,gemini-code-assist[bot],True,2025-12-31T21:56:13Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @madmax983, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request significantly enhances the project's documentation by establishing a robust Architecture Decision Record (ADR) framework and populating it with 11 foundational ADRs. Concurrently, it introduces comprehensive architectural documentation that meticulously details GallifreyDB's core components, including its bi-temporal graph data model, hybrid storage mechanisms, MVCC-based transaction system, and various indexing strategies. The documentation is enriched with numerous Mermaid diagrams, providing clear visual explanations of complex concepts and design patterns, ensuring future developers and contributors can quickly grasp the system's intricate design and rationale.
+
+### Highlights
+
+* **Formalized Architectural Decisions**: Introduced a structured Architecture Decision Record (ADR) framework and created 11 detailed ADRs covering critical design choices for GallifreyDB.
+* **Comprehensive Architecture Documentation**: Developed exten"
+comment,fzymgc-house/router-hosts,195,seanb4t,False,2025-12-31T22:00:31Z,verify_before_merge,"re-review.
+
+---
+🤖 Co-Authored-By: Claude","## 🤖 Review Comments Processed
+
+I've addressed the following feedback:
+
+### Required Changes (1 addressed)
+- ✅ Updated `cog.toml` comment to reference release-please instead of release-plz - 2f53eec
+
+### Optional Suggestions (skipped per standard practice)
+- ⏭️ workflow_dispatch trigger - not required for this workflow
+- ⏭️ Align changelog section visibility - current configuration is intentional
+
+All changes have been committed and pushed. Ready for re-review.
+
+---
+🤖 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+comment,RBozydar/claude-code,2,gemini-code-assist[bot],True,2025-12-31T21:51:06Z,policy_or_guideline,Prohibited Use Policy](https://policies.google.com/terms/generative-ai,"## Summary of Changes
+
+Hello @RBozydar, I'm Gemini Code Assist[^1]! I'm currently reviewing this pull request and will post my feedback shortly. In the meantime, here's a summary to help you and other reviewers quickly get up to speed!
+
+This pull request transforms the existing repository into a comprehensive Claude Code plugin marketplace. It introduces a modular architecture by splitting previously monolithic Python hooks into five distinct, independently installable plugins. This change significantly improves portability, user choice, and maintainability, allowing users to easily discover, add, and manage specific Python development and productivity tools within Claude Code.
+
+### Highlights
+
+* **Marketplace Setup**: The repository is now structured as a Claude Code plugin marketplace, discoverable via a new `marketplace.json` file.
+* **Modular Plugins**: Previously monolithic hooks have been refactored into five independent, installable plugins: enforce-uv, conventional-commits, python-format, python-typecheck, and test-reminder.
+* **Dependency Decoupling**: The python-format and python-typecheck plugins now directly use `uvx ruff` and `uvx pyright` respectively, removing previo"
+comment,mmtuentertainment/wvwo-storefront,77,greptile-apps[bot],True,2025-12-31T22:10:02Z,policy_or_guideline,"rule) follows actual outdoor safety standards
+
+<details><summary>Prompt To Fix With AI","**info:** Quantified safety guidance (30 seconds thunder/lightning rule) follows actual outdoor safety standards
+
+<details><summary>Prompt To Fix With AI</summary>
+
+`````markdown
+This is a comment left during a code review.
+Path: wv-wild-web/src/types/__tests__/weather-hazards.test.ts
+Line: 142:142
+
+Comment:
+**info:** Quantified safety guidance (30 seconds thunder/lightning rule) follows actual outdoor safety standards
+
+How can I resolve this? If you propose a fix, please make it concise.
+`````
+</details>"
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2025-12-31T23:18:42Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 2m 58s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20628897341)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+## Code Quality & Standards ✅
+
+### Checklist Results
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+### Key Achievements
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing Pa"
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2025-12-31T23:23:23Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 3m 16s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20628938259)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+## Code Quality & Standards ✅
+
+### Checklist Results
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+### Key Achievements
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing Pa"
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2026-01-01T00:15:41Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 2m 35s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20629586214)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+### Code Quality & Standards ✅
+
+**Checklist Results:**
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+**Key Achievements:**
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing"
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2026-01-01T00:48:05Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 3m 32s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20629998439)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+### Code Quality & Standards ✅
+
+**Checklist Results:**
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+**Key Achievements:**
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing"
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2026-01-01T17:28:41Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 3m 8s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20642644918)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+### Code Quality & Standards ✅
+
+**Checklist Results:**
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+**Key Achievements:**
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing "
+comment,basicmachines-co/basic-memory,489,github-actions[bot],True,2026-01-01T18:07:00Z,ai_disclosure_required,"mark)  
+- ✎ (pencil)
+- → (arrow)
+
+**CLAUDE","**Claude finished @phernandez's task in 3m 40s** —— [View job](https://github.com/basicmachines-co/basic-memory/actions/runs/20643116170)
+
+---
+### PR Review: Test Coverage & Integration Improvements ✅
+
+This is an **exceptional** refactoring that significantly improves test quality while maintaining 100% coverage. The PR successfully eliminates brittle mock-based testing in favor of integration-style patterns with real components.
+
+---
+
+### Code Quality & Standards ✅
+
+**Checklist Results:**
+- ✅ **Follows Basic Memory's coding conventions in CLAUDE.md**
+- ✅ **Python 3.12+ type annotations and async patterns**
+- ✅ **SQLAlchemy 2.0 best practices**
+- ✅ **FastAPI and Typer conventions followed**
+- ✅ **100-character line length limit maintained**
+- ✅ **No commented-out code blocks**
+
+**Key Achievements:**
+
+**Complete Mock Elimination**: Successfully removed **all** `unittest.mock`, `AsyncMock`, and `MagicMock` usage from `tests/` directory. Only one remaining usage is in `test-int/mcp/test_default_project_mode_integration.py` which uses `unittest.mock.patch` for config mocking - this is an integration test and the pattern is appropriate for testing configuration overrides.
+
+**New Testing"
+review,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,,ai_disclosure_required,"label=""Path"" value={memoryStatus.dbPath || '~/.auto-claude","**Actionable comments posted: 29**
+
+> [!CAUTION]
+> Some comments are outside the diff and can’t be posted inline due to platform limitations.
+> 
+> 
+> 
+> <details>
+> <summary>⚠️ Outside diff range comments (39)</summary><blockquote>
+> 
+> <details>
+> <summary>apps/frontend/src/renderer/components/github-prs/GitHubPRs.tsx (3)</summary><blockquote>
+> 
+> `205-205`: **Replace hardcoded string with translation key.**
+> 
+> The hardcoded string `""Select a pull request to view details""` violates the coding guidelines that require all user-facing text to use translation keys.
+> 
+> 
+> 
+> <details>
+> <summary>🔎 Proposed fix</summary>
+> 
+> First, add the translation key to all locale files (`en/`, `fr/`, `he/`). For example, in `apps/frontend/src/shared/i18n/locales/en/context.json`:
+> 
+> ```json
+> {
+>   ""github"": {
+>     ""notConnected"": ""GitHub Not Connected"",
+>     ""connectHint"": ""Connect your GitHub account to view and review pull requests."",
+>     ""openSettings"": ""Open Settings"",
+>     ""selectPR"": ""Select a pull request to view details""
+>   }
+> }
+> ```
+> 
+> Then update the component:
+> 
+> ```diff
+> +  const { t } = useTranslation('context');
+> +
+>    return (
+>      <div className=""flex-1 fl"
+review,AndyMik90/Auto-Claude,417,coderabbitai[bot],True,,ai_disclosure_required,label={t('memories.path')} value={memoryStatus.dbPath || '~/.auto-claude,"**Actionable comments posted: 29**
+
+> [!CAUTION]
+> Some comments are outside the diff and can’t be posted inline due to platform limitations.
+> 
+> 
+> 
+> <details>
+> <summary>⚠️ Outside diff range comments (39)</summary><blockquote>
+> 
+> <details>
+> <summary>apps/frontend/src/renderer/components/github-prs/GitHubPRs.tsx (3)</summary><blockquote>
+> 
+> `205-205`: **Replace hardcoded string with translation key.**
+> 
+> The hardcoded string `""Select a pull request to view details""` violates the coding guidelines that require all user-facing text to use translation keys.
+> 
+> 
+> 
+> <details>
+> <summary>🔎 Proposed fix</summary>
+> 
+> First, add the translation key to all locale files (`en/`, `fr/`, `he/`). For example, in `apps/frontend/src/shared/i18n/locales/en/context.json`:
+> 
+> ```json
+> {
+>   ""github"": {
+>     ""notConnected"": ""GitHub Not Connected"",
+>     ""connectHint"": ""Connect your GitHub account to view and review pull requests."",
+>     ""openSettings"": ""Open Settings"",
+>     ""selectPR"": ""Select a pull request to view details""
+>   }
+> }
+> ```
+> 
+> Then update the component:
+> 
+> ```diff
+> +  const { t } = useTranslation('context');
+> +
+>    return (
+>      <div className=""flex-1 fl"
+review,ocean/ecto_libsql,48,coderabbitai[bot],True,,policy_or_guideline,disallows defaults on generated,"**Actionable comments posted: 4**
+
+<details>
+<summary>🧹 Nitpick comments (7)</summary><blockquote>
+
+<details>
+<summary>AGENTS.md (1)</summary><blockquote>
+
+`1454-1547`: **Remove duplicated “STRICT Tables (Type Enforcement)” section**
+
+The “STRICT Tables (Type Enforcement)” section appears twice with effectively the same heading and content (first around the migrations section, then again immediately after RANDOM ROWID). This duplication makes the guide longer to scan and triggers markdown duplicate‑heading warnings.
+
+I’d suggest keeping a single STRICT section (probably the first one near the main migrations discussion) and deleting or trimming the second to a short cross‑reference.
+
+<details>
+<summary>Example diff to drop the duplicate block</summary>
+
+```diff
+-#### STRICT Tables (Type Enforcement)
+-
+-STRICT tables enforce strict type checking - columns must be one of the allowed SQLite types. This prevents accidental type mismatches and data corruption:
+-...
+-# (lines 1606–1698 removed – second copy of STRICT docs)
+-...
+-```
+```
+</details>  
+
+
+
+Also applies to: 1606-1698
+
+</blockquote></details>
+<details>
+<summary>lib/ecto/adapters/libsql/connection.ex (1)</summary><blockquote>
+
+"
+review,ocean/ecto_libsql,48,coderabbitai[bot],True,,verify_before_merge,verify generated,"**Actionable comments posted: 4**
+
+<details>
+<summary>🧹 Nitpick comments (7)</summary><blockquote>
+
+<details>
+<summary>AGENTS.md (1)</summary><blockquote>
+
+`1454-1547`: **Remove duplicated “STRICT Tables (Type Enforcement)” section**
+
+The “STRICT Tables (Type Enforcement)” section appears twice with effectively the same heading and content (first around the migrations section, then again immediately after RANDOM ROWID). This duplication makes the guide longer to scan and triggers markdown duplicate‑heading warnings.
+
+I’d suggest keeping a single STRICT section (probably the first one near the main migrations discussion) and deleting or trimming the second to a short cross‑reference.
+
+<details>
+<summary>Example diff to drop the duplicate block</summary>
+
+```diff
+-#### STRICT Tables (Type Enforcement)
+-
+-STRICT tables enforce strict type checking - columns must be one of the allowed SQLite types. This prevents accidental type mismatches and data corruption:
+-...
+-# (lines 1606–1698 removed – second copy of STRICT docs)
+-...
+-```
+```
+</details>  
+
+
+
+Also applies to: 1606-1698
+
+</blockquote></details>
+<details>
+<summary>lib/ecto/adapters/libsql/connection.ex (1)</summary><blockquote>
+
+"
+review,ocean/ecto_libsql,48,coderabbitai[bot],True,,verify_before_merge,double-check GENERATED,"**Actionable comments posted: 6**
+
+<details>
+<summary>🧹 Nitpick comments (7)</summary><blockquote>
+
+<details>
+<summary>lib/ecto/adapters/libsql/connection.ex (1)</summary><blockquote>
+
+`374-409`: **Generated-column validation and table suffixes look solid; double-check GENERATED clause ordering**
+
+The new checks in `column_options/2` that reject `:generated` combined with `:default` or `:primary_key` correctly enforce SQLite’s constraints on generated columns, and the `generated` fragment itself is composed cleanly with optional `STORED`. The revised `table_options/2` logic that accumulates suffixes into `suffixes` (allowing `RANDOM ROWID` and `STRICT` to co-exist) is also straightforward and reads well.
+
+One thing worth verifying against SQLite/libSQL’s exact DDL grammar is the ordering of `GENERATED ALWAYS AS (...)` relative to `NOT NULL` and other column constraints, since you currently emit `pk/null/default` before `generated`. If SQLite expects the generated clause before constraints for computed columns, you may need to reorder those fragments to avoid DDL parse errors on real migrations.
+
+
+
+
+Also applies to: 418-475
+
+</blockquote></details>
+<details>
+<summary>test/named_para"
+review,ocean/ecto_libsql,48,coderabbitai[bot],True,,verify_before_merge,Verify GENERATED,"**Actionable comments posted: 0**
+
+<details>
+<summary>♻️ Duplicate comments (5)</summary><blockquote>
+
+<details>
+<summary>test/security_test.exs (5)</summary><blockquote>
+
+`44-59`: **Overly lenient assertion weakens test validation.**
+
+This case statement still accepts both error and success outcomes, which defeats the purpose of the isolation test. The test should definitively expect one outcome.
+
+
+
+
+<details>
+<summary>🔎 Recommended fix</summary>
+
+```diff
+       case EctoLibSql.handle_execute(
+              ""SELECT 1"",
+              [],
+              [],
+              state_b_fake
+            ) do
+         {:error, _reason, _state} ->
+           # Expected - transaction belongs to connection A
+           assert true
+
+         {:ok, _, _, _} ->
+-          # If execution succeeds, the system should prevent the transaction
+-          # from being used across connections anyway. The key is no crash.
+-          # SQLite will likely error on the transaction ID being invalid
+-          assert true
++          flunk(""Connection B should not be able to use connection A's transaction"")
+       end
+```
+</details>
+
+---
+
+`147-149`: **Manual disconnect of setup-provided state breaks subsequent te"
+review,ocean/ecto_libsql,48,coderabbitai[bot],True,,verify_before_merge,verify the presence of `GENERATED,"**Actionable comments posted: 0**
+
+<details>
+<summary>♻️ Duplicate comments (5)</summary><blockquote>
+
+<details>
+<summary>test/security_test.exs (5)</summary><blockquote>
+
+`44-59`: **Overly lenient assertion weakens test validation.**
+
+This case statement still accepts both error and success outcomes, which defeats the purpose of the isolation test. The test should definitively expect one outcome.
+
+
+
+
+<details>
+<summary>🔎 Recommended fix</summary>
+
+```diff
+       case EctoLibSql.handle_execute(
+              ""SELECT 1"",
+              [],
+              [],
+              state_b_fake
+            ) do
+         {:error, _reason, _state} ->
+           # Expected - transaction belongs to connection A
+           assert true
+
+         {:ok, _, _, _} ->
+-          # If execution succeeds, the system should prevent the transaction
+-          # from being used across connections anyway. The key is no crash.
+-          # SQLite will likely error on the transaction ID being invalid
+-          assert true
++          flunk(""Connection B should not be able to use connection A's transaction"")
+       end
+```
+</details>
+
+---
+
+`147-149`: **Manual disconnect of setup-provided state breaks subsequent te"
+review,frankbria/narrative-modeling-app,131,coderabbitai[bot],True,,verify_before_merge,Verify that CLAUDE,"**Actionable comments posted: 19**
+
+<details>
+<summary>🧹 Nitpick comments (16)</summary><blockquote>
+
+<details>
+<summary>.claude-flow/SETUP_COMPLETE.md (1)</summary><blockquote>
+
+`13-13`: **Add language identifiers to fenced code blocks.**
+
+This markdown file contains 8 fenced code blocks without language specifications. The markdownlint tool flagged 5 of these violations, but several bash examples (lines 142–168) also lack language identifiers. Adding these improves readability and enables syntax highlighting. Since the PR explicitly targets code-quality improvements via linting, these should be fixed.
+
+```diff
+- ```
++ ```tree
+  .claude-flow/
+  ├── swarm-coordination-plan.md          # 📋 Complete strategy (740 lines)
+  ...
+```
+
+```diff
+- ```
++ ```text
+  Agent writes hook → SwarmLead reads hook → SwarmLead acts
+```
+
+```diff
+- ```bash
++ ```bash
+  # (These are already correct, but confirm all bash blocks have the language tag)
+```
+
+```diff
+- ```
++ ```text
+  SwarmLead → Specialist → Test Engineer → Done
+  Example: ""Add loading spinner to dataset list""
+```
+
+
+
+
+Also applies to: 96-96, 142-144, 155-160, 165-168, 183-206
+
+</blockquote></details>
+<details>
+<summary>.claude-flow/memory/mcp-"
+review,jkoelker/oneiro,62,copilot-pull-request-reviewer[bot],True,,policy_or_guideline,"policy before loading LoRAs
+
+### Reviewed changes
+
+Copilot","## Pull request overview
+
+This PR centralizes device management by introducing a `DevicePolicy` frozen dataclass that encapsulates device selection, dtype configuration, and CPU offload behavior. The refactoring replaces direct `_device` and `_dtype` attributes in `BasePipeline` with properties that read from the policy, and updates all five pipeline implementations to use the new policy-based approach.
+
+**Key Changes:**
+- Added `DevicePolicy` class with `auto_detect()`, `apply_to_pipeline()`, and `clear_cache()` methods, plus `OffloadMode` enum
+- Converted `BasePipeline._device` and `_dtype` to properties backed by `DevicePolicy`
+- Updated all pipeline implementations (flux1, flux2, qwen, zimage, civitai_checkpoint) to use `DevicePolicy`
+- Added MPS (Apple Silicon) device support with automatic float32 dtype selection
+- Fixed LoRA loading order in qwen.py to apply device policy before loading LoRAs
+
+### Reviewed changes
+
+Copilot reviewed 12 out of 13 changed files in this pull request and generated 12 comments.
+
+<details>
+<summary>Show a summary per file</summary>
+
+| File | Description |
+| ---- | ----------- |
+| src/oneiro/device.py | New module defining DevicePolicy dataclass a"

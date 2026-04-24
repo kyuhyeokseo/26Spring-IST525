@@ -1,0 +1,1539 @@
+mention_uid,repo_name,pr_number,speaker_role,timing_phase,mention_location,mention_body,llm_primary_label,coder2_label,coder2_notes
+tadoogie/test#23:issue_comment:3700700072,tadoogie/test,23,other_commenter,late,issue_comment,@copilot You are full of crap! The text search button is NOT appearing on the sources tab where it should be.,Critique,Critique,directly criticizes copilot output
+NVIDIA/TensorRT-LLM#9677:issue_comment:3701356657,NVIDIA/TensorRT-LLM,9677,other_commenter,late,issue_comment,"[PR_Github #30218](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30218/) [ run ] completed with state `SUCCESS`. Commit: `7742ccb` 
+[/LLM/main/L0_MergeRequest_PR pipeline #23261](https://nv/trt-llm-cicd/job/main/job/L0_MergeRequest_PR/23261/) completed with status: 'FAILURE'
+
+⚠️ **Action Required:**
+- Please check the failed tests and fix your PR
+- If you cannot view the failures, ask the CI triggerer to share details
+- Once fixed, request an NVIDIA team member to trigger CI again",Critique,Other,false positive: 'LLM' appears only in CI URL; comment is CI status
+Entze/frost#37:review:3621463081,Entze/frost,37,reviewer,middle,review,"@copilot Your suggestions are too specific and more or less copies of the original files.
+
+Please try again by reading the documentation and summarizing the most important things.
+
+Keep to the specifics of the original issue, for example:
+
+- 3 Lines or less -> TOML based task
+- Else -> File based task",Critique,Critique,criticizes copilot suggestions
+PriorityLexusVB/AFTERMARKET-MENU#107:issue_comment:3703008720,PriorityLexusVB/AFTERMARKET-MENU,107,other_commenter,middle,issue_comment,"@copilot please review meticulously, and then fix the following CI failure: Orders package lane radios Elite, Platinum, Gold, Not in Packages
+Can add a feature to a package lane and then remove it
+Key issues from the logs:
+
+Test expects a radio button to be checked after clicking ""Not in Packages"" but the relevant input is not checked.
+Test expects the mock function (vi.fn()) to be called with specific arguments when removing a feature from a package lane, but it is not.
+Root causes and solutions:
+
+1. Radio Button ""Not in Packages"" Not Checked
+In ProductHub.tsx, the radio group for package placement renders like this:
+
+TSX
+{packageOrder.map((colNum) => (
+  <label key={colNum} className=""flex items-center gap-2"">
+    <input
+      type=""radio""
+      name={`pkg-${feature.id}`}
+      checked={feature.column === colNum}
+      onChange={() => handlePackagePlacement(feature, colNum)}
+    />
+    <span>{columnLabels[colNum]}</span>
+  </label>
+))}
+<label className=""flex items-center gap-2"">
+  <input
+    type=""radio""
+    name={`pkg-${feature.id}`}
+    checked={feature.column === undefined}
+    onChange={() => handlePackagePlacement(feature, undefined)}
+  />
+  <span>Not in Packages</span>
+</label>
+If a feature’s column is set to undefined, the ""Not in Packages"" radio should be checked. However, if your handlePackagePlacement() or test mock doesn’t truly update the feature.column to undefined, this break will happen.
+
+How to Fix
+Make sure that:
+
+handlePackagePlacement(feature, undefined) is being called and updates the state appropriately.
+Your test's mock of updateFeature and local state logic matches what’s expected in the UI.
+Example update in your test after the click:
+
+ts
+await userEvent.click(within(row).getByLabelText('Not in Packages'));
+await waitFor(() => expect(screen.getByLabelText('Not in Packages')).toBeChecked());
+Also, ensure that state mutation after update is propagating. In your component, the relevant line is:
+
+ts
+if (feature.column === column) return;
+Double check that undefined is not being confused with other falsy values in your handler.
+
+2. Mock Function Not Being Called (“vi.fn()” Assertion Failure)
+Log:
+
+Code
+AssertionError: expected ""vi.fn()"" to be called with arguments: [ 'feature-1', ObjectContaining{…} ]
+This means after removing a feature from a package, updateFeature is not being called as expected. The handlePackagePlacement method is responsible for this call.
+
+How to Fix
+Ensure the handler runs the call on transition to undefined (“Not in Packages”).
+If the logic is short-circuiting early (if (feature.column === column) return;) because feature.column and column are both undefined, the call won't happen.
+Before that check, ensure feature.column is reliably not undefined when starting; otherwise, the early return will wrongly prevent calling updateFeature.
+Consider changing:
+
+ts
+if (feature.column === column) return;
+to:
+
+ts
+if ((feature.column ?? null) === (column ?? null)) return;
+This ensures both null and undefined are considered equivalent, avoiding undesired early returns.
+
+Summary
+To resolve the failing tests:
+
+Ensure state for feature.column truly updates to undefined when ""Not in Packages"" is clicked.
+Modify or enhance the equality check in your handler to properly detect transitions between ""any package"" and ""Not in Packages"".
+Confirm updateFeature (or your mock) is called as required during these transitions.
+Code suggestion:
+
+TSX
+const handlePackagePlacement = async (feature: ProductFeature, column: 1 | 2 | 3 | undefined) => {
+  if ((feature.column ?? null) === (column ?? null)) return;
+  // ...rest of handler
+};
+Review these areas to ensure your UI and tests behave consistently.
+
+For direct code review, see: [src/components/ProductHub.tsx@221f8d2](https://github.com/PriorityLexusVB/AFTERMARKET-MENU/blob/221f8d2a5d01ac3ef4eeba13d3518f850df2cf69/src/components/ProductHub.tsx) and [src/components/ProductHub.test.tsx@221f8d2](https://github.com/PriorityLexusVB/AFTERMARKET-MENU/blob/221f8d2a5d01ac3ef4eeba13d3518f850df2cf69/src/components/ProductHub.test.tsx).",Critique,Suggestion,asks copilot to fix CI failure
+Open-J-Proxy/ojp#196:issue_comment:3702830616,Open-J-Proxy/ojp,196,other_commenter,early,issue_comment,"@copilot I have told you a few times now, do not push code without compiling it first
+
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.449 s
+[INFO] Finished at: 2025-12-31T14:40:20Z
+[INFO] ------------------------------------------------------------------------
+Error:  Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project ojp-jdbc-driver: Compilation failure: Compilation failure: 
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/xa/baseline/containers/SQLServerXATestContainer.java:[284,26] method getTestDatabase() is already defined in class org.openjproxy.xa.baseline.containers.SQLServerXATestContainer
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/CockroachDBConnectionExtensiveTests.java:[315,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.CockroachDBConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/CockroachDBConnectionExtensiveTests.java:[316,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.CockroachDBConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/CockroachDBConnectionExtensiveTests.java:[317,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.CockroachDBConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/ConcurrencyTimeoutTest.java:[64,25] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.ConcurrencyTimeoutTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/ConcurrencyTimeoutTest.java:[81,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.ConcurrencyTimeoutTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/Db2ConnectionExtensiveTests.java:[40,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.Db2ConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/Db2ConnectionExtensiveTests.java:[86,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.Db2ConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/Db2ConnectionExtensiveTests.java:[141,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.Db2ConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/Db2ConnectionExtensiveTests.java:[191,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.Db2ConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleConnectionExtensiveTests.java:[38,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleConnectionExtensiveTests.java:[74,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleConnectionExtensiveTests.java:[111,9] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleConnectionExtensiveTests
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[64,17] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[116,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[129,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[135,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[140,17] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[142,17] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[166,17] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/OracleXAIntegrationTest.java:[206,13] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.OracleXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/openjproxy/jdbc/SqlServerXAIntegrationTest.java:[311,17] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class openjproxy.jdbc.SqlServerXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeIntegrationTest.java:[714,21] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeIntegrationTest.java:[718,29] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeIntegrationTest.java:[733,21] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeIntegrationTest.java:[738,33] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeIntegrationTest.java:[741,33] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[249,21] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[293,21] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[897,25] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[901,33] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[918,25] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[923,37] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  /home/runner/work/ojp/ojp/ojp-jdbc-driver/src/test/java/org/openjproxy/grpc/client/MultinodeXAIntegrationTest.java:[926,37] cannot find symbol
+Error:    symbol:   variable log
+Error:    location: class org.openjproxy.grpc.client.MultinodeXAIntegrationTest
+Error:  -> [Help 1]",Critique,Critique,scolds copilot for past behavior + dump
+Open-J-Proxy/ojp#196:issue_comment:3701854354,Open-J-Proxy/ojp,196,other_commenter,early,issue_comment,"@copilot 
+
+[INFO] Results:
+[INFO] 
+Error:  Failures: 
+Error:    DB2XABasicTest.testXAConnectionCreation:141 Auto-commit should be disabled for XA connections ==> expected: <false> but was: <true>
+Error:  Errors: 
+Error:    DB2XABasicTest.testBasicXATransactionLifecycle:176 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testOnePhaseCommitOptimization:249 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testReadOnlyTransactionOptimization:283 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testTransactionBranchJoining:384 » SqlNonTransientConnection [jcc][10335][10809][4.33.31] Invalid operation: Connection is closed. ERRORCODE=-4470, SQLSTATE=08003
+Error:    DB2XABasicTest.testTransactionFailureMarking:440 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testTransactionSuspensionAndResumption:335 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testXATransactionRollback:214 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+[INFO] 
+Error:  Tests run: 933, Failures: 1, Errors: 7, Skipped: 675",Critique,Suggestion,pastes errors at copilot expecting fix
+NVIDIA/TensorRT-LLM#10252:issue_comment:3701251039,NVIDIA/TensorRT-LLM,10252,other_commenter,late,issue_comment,"[PR_Github #30205](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30205/) [ run ] completed with state `SUCCESS`. Commit: `d628399` 
+[/LLM/main/L0_MergeRequest_PR pipeline #23250](https://nv/trt-llm-cicd/job/main/job/L0_MergeRequest_PR/23250/) completed with status: 'FAILURE'
+
+⚠️ **Action Required:**
+- Please check the failed tests and fix your PR
+- If you cannot view the failures, ask the CI triggerer to share details
+- Once fixed, request an NVIDIA team member to trigger CI again",Critique,Other,"CI status notification, false positive on 'LLM' in URL"
+NVIDIA/TensorRT-LLM#9677:issue_comment:3701050574,NVIDIA/TensorRT-LLM,9677,other_commenter,late,issue_comment,"[PR_Github #30208](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30208/) [ run ] completed with state `FAILURE`. Commit: `c548b8e` 
+[/LLM/main/L0_MergeRequest_PR pipeline #23253](https://nv/trt-llm-cicd/job/main/job/L0_MergeRequest_PR/23253/) completed with status: 'FAILURE'
+
+⚠️ **Action Required:**
+- Please check the failed tests and fix your PR
+- If you cannot view the failures, ask the CI triggerer to share details
+- Once fixed, request an NVIDIA team member to trigger CI again",Critique,Other,"CI status notification, false positive on 'LLM' in URL"
+jchoi2x/hocuspocus#3:review_comment:2655940945,jchoi2x/hocuspocus,3,reviewer,early,review_comment,"@copilot This needs to go away and abstracted out. Runtime specific imports should only happen in one segregated location in the code, in the runtime adapter.",Critique,Critique,tells copilot the abstraction is bad
+NREL/HPC#827:issue_comment:3702979013,NREL/HPC,827,other_commenter,early,issue_comment,"@copilot The pull request was not made, something went wrong",Critique,Critique,reports copilot failure to act
+link-assistant/hive-mind#1050:issue_comment:3702887329,link-assistant/hive-mind,1050,author,early,issue_comment,"- `Hive Mind runs in full autonomous mode.` With no permission limitations, sudo access to virtual machine, that means AI can have as much creative freedom as real programmer.
+- `Runs on dedicated VMs` or locally in isolated docker container, means any unintended damage (which can also happen with any developer, as sometimes everyone makes mistakes) is limited to docker image with temporary file system. We still recommend never run this software directly on developer machine.
+- `AI can install packages` thanks not only to internet access, but also due to sudo access to virtual machine/docker container. Note that we support both remote dedicated VMs, and also local VMs.
+- `Manage AI workers from your phone with `/solve` and `/hive` commands.` as both Telegram and GitHub are available on phone. No tablet, no notebook, no PC required. Also no IDE, or vibe coding apps (like Cursor) or vibe coding websites.'
+- It frees user time - as when AI solver works it takes around 10-15 minutes on Sonnet 4.5 and 15-25 minutes on Opus 4.5 (avarage values), and not more than 4-5 working iterations per one issue in Pull Request continue mode. So at best what human developer does in 2-8 hours, can be actually done in 10-15 minutes. So user is free to do other things while AI solver is working, that means user can keep creating and starting issues execution, that means our AI solver feels like a team of hired developers. With massively parallelizable issues execution, with a cost of only $200 per month.
+- Claude MAX $200 subscription is now at 50% discount, so actually it has $400 value, that is the reason it beats almost all other solutions on market, as our solution is specifically dedicated to usage o best offer on the marked on value/quality balance.
+
+Make sure we expand on these points.
+
+And also add COMPARISON.md - first with focus of comparision of product categories - like hiring developers, IDEs, vibe coding IDEs, vibe coding websites and so on.
+
+At the moment I think this solution has highest possible efficiency of the flow, meaning we give user back as much free time as possible.
+
+Our solution is generalist or general AI (mini AGI), that is capable of working on wide range of tasks (almost all which can be done with files in repository, not only just programming).",Explaination,Meta discussion,discusses Hive Mind/AI usage philosophy and norms
+arcade-cabinet/protocol-silent-night#68:issue_comment:3702985149,arcade-cabinet/protocol-silent-night,68,other_commenter,early,issue_comment,"## ✅ CI Failure Fixed
+
+### Root Cause
+The E2E visual regression tests were failing because they clicked character selection buttons but **never clicked the ""COMMENCE OPERATION"" button** on the mission briefing screen. Tests were stuck on the briefing screen trying to interact with gameplay elements, causing:
+- Navigation timeouts (waiting for scheduled navigations to finish)
+- Browser closing prematurely during screenshot operations
+- Missing FIRE button in touch control tests (still on briefing screen)
+
+### Changes Made
+Updated `e2e/visual-regression.spec.ts` to properly complete the navigation flow:
+
+**Mobile & Responsive Tests:**
+- `should render mobile gameplay correctly` - Added briefing screen navigation
+- `should render touch controls on mobile` - Added briefing + wait for FIRE button visibility
+
+**HUD Tests:**
+- `should render HUD correctly during gameplay` - Added ""COMMENCE OPERATION"" click
+- `should render score and objectives correctly` - Added briefing navigation
+
+**Movement Tests:**
+- `should render character movement correctly` - Complete navigation flow
+- `should render firing animation correctly` - Complete navigation flow
+
+**Combat & End Game Tests:**
+- `should render combat with enemies` - Added briefing navigation
+- `should render player taking damage` - Added briefing navigation
+- `should render game over screen` - Added briefing navigation
+
+### Test Pattern
+All tests now follow this flow:
+```typescript
+// Select character
+await santaButton.click();
+
+// Click through briefing screen
+await page.getByRole('button', { name: /COMMENCE OPERATION/i }).click();
+
+// Wait for game to load, then interact with gameplay
+await page.waitForTimeout(3000);
+```
+
+This matches the pattern already used in `component-snapshots.spec.ts` and `full-gameplay.spec.ts` which were passing.
+
+### Expected Impact
+- Fixes 64 failing visual regression tests
+- Tests will now properly reach gameplay state before taking screenshots
+- Navigation timeouts resolved
+- Browser closing issues eliminated
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)",Explanation,Explanation,post-fix root cause / changes report
+fzymgc-house/router-hosts#195:issue_comment:3702956689,fzymgc-house/router-hosts,195,author,late,issue_comment,"## 🤖 Review Response
+
+### Re: Chart.yaml Version Quoting
+
+Verified this is **not needed**. YAML parses semver strings correctly:
+
+```bash
+$ echo 'version: 0.8.0' | yq -e '.version | type'
+!!str
+```
+
+The `0.8.0` pattern has multiple dots, so YAML interprets it as a string, not a float. Only single-dot numbers like `0.8` would be parsed as floats.
+
+### Status
+- ✅ cog.toml comment already fixed (2f53eec)
+- ✅ Chart.yaml versions are fine as-is
+- ⏭️ Optional suggestions noted for future consideration
+
+Ready to merge when CI passes.
+
+---
+🤖 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",Explanation,Explanation,describes provenance + fix rationale (Claude co-authored)
+tuvens/enfold-llm#39:issue_comment:3702986152,tuvens/enfold-llm,39,author,late,issue_comment,"## Fixes Applied
+
+I've implemented all the changes requested by Gemini Code Assist:
+
+### Changes Made:
+1. **Fixed GitHub secret names** - Changed from WP_USERNAME/WP_APP_PASSWORD to USERNAME/APP_PASSWORD to match the actual workflow file expectations
+2. **Updated configuration structure** - Replaced the simplified JSON structure with the complete template structure from templates/.claude-wp.json
+3. **Fixed copy command** - Changed `cp -r /tmp/enfold-llm/templates/* .` to `cp -r /tmp/enfold-llm/templates/. .` to ensure hidden files (.github) are copied
+4. **Added missing newline** - Added newline at end of file per convention
+
+These fixes ensure the installation guide will work correctly and prevent users from encountering authentication errors or incomplete setups.
+
+All issues have been resolved and the PR is ready for final merge.",Explanation,Explanation,lists what was implemented per Gemini's review
+joshlebed/claude-extras#11:issue_comment:3702965995,joshlebed/claude-extras,11,author,early,issue_comment,"* **#12** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/12?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a>
+* **#11** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a> 👈 <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-view-in-graphite"" target=""_blank"">(View in Graphite)</a>
+* `main`
+
+
+<h2></h2>
+
+This stack of pull requests is managed by <a href=""https://graphite.dev?utm-source=stack-comment""><b>Graphite</b></a>. Learn more about <a href=""https://stacking.dev/?utm_source=stack-comment"">stacking</a>.
+<!-- Current dependencies on/for this PR: -->",Explanation,Other,Graphite stack comment; matches 'claude' only in repo name
+freenet/freenet-core#2521:issue_comment:3702976317,freenet/freenet-core,2521,author,early,issue_comment,"## Review Fixes Applied (5d29e56b)
+
+Addressed all critical issues identified in the three parallel reviews:
+
+### 1. TOCTOU Race + Rate Limit Bypass (Critical)
+**Problem:** The version mismatch flag was cleared *before* calling `check_if_update_available()`. If rate limiting kicked in, the flag was lost and new mismatches would be ignored until the next mismatch occurred.
+
+**Fix:** Introduced `UpdateCheckResult` enum with three variants:
+- `Skipped` - rate limited, flag NOT cleared (preserved for later)
+- `NoUpdateAvailable` - checked GitHub, no update, flag cleared
+- `UpdateAvailable(version)` - update available, flag cleared
+
+Now the flag is only cleared when we actually perform a GitHub check.
+
+### 2. Graceful Shutdown Before Exit 42
+**Problem:** The node would return `UpdateNeededError` without properly closing peer connections.
+
+**Fix:** Added `shutdown_handle.shutdown().await` before returning the error, ensuring peer connections are properly closed.
+
+### 3. macOS Wrapper Backoff
+**Problem:** The wrapper had only `sleep 2` after update, risking rapid restart loops on repeated failures.
+
+**Fix:** Added exponential backoff (10s → 300s max) for both update failures and non-zero exit codes. Resets on successful update or successful run.
+
+### 4. Broken Test
+**Problem:** Test asserted `Restart=on-failure` but code was changed to `Restart=always`.
+
+**Fix:** Updated test to expect `Restart=always` and added assertion for `ExecStopPost`.
+
+### Note on `record_update_failure()`
+The function is marked `#[allow(dead_code)]` with a comment. Wiring it up requires modifying the update command to detect failures, which should be a follow-up. The current backoff mechanisms in the wrapper scripts provide protection in the meantime.
+
+[AI-assisted - Claude]",Explanation,Other,no clear AI mention in visible body; likely false positive
+AWeber-Imbi/imbi-api#148:issue_comment:3702943449,AWeber-Imbi/imbi-api,148,author,late,issue_comment,"🤖 *This comment was posted by Claude on behalf of @gmr*
+
+## PR Monitor Summary - Monitoring iteration #1 of 10
+
+### CI/CD Status
+✅ All checks passing:
+- OSSAR-Scan: success
+- test (3.12, 3.13, 3.14): all success
+- CodeRabbit: success
+
+### Code Review Feedback Addressed
+
+#### ✅ Docstring References (Already Fixed in 6aeb818)
+The incorrect references to `aj.errors.DatabaseError` were already corrected to `DatabaseError` in commit 6aeb818. No further action needed.
+
+#### ✅ Resilient Error Handling (Implemented in 7c952ea)
+Implemented CodeRabbit's suggestions for robust `asyncio.gather` error handling in `src/imbi/app.py`:
+
+**Startup initialization:**
+- Added `return_exceptions=True` to prevent task cancellation on failure
+- Implemented cleanup logic to close successfully initialized services before re-raising exceptions
+- Added error logging for failed service initialization
+
+**Shutdown:**
+- Added `return_exceptions=True` to ensure all services get cleanup opportunity
+- Implemented warning-level logging for shutdown failures (non-blocking)
+- Ensures graceful degradation during shutdown
+
+This prevents resource leaks and ensures proper cleanup in both successful and failed scenarios (confidence: ~95%).
+
+#### ✅ Version Constraints Discussion (Already Resolved)
+The thread about adding version constraints to new dependencies (`clickhouse-connect`, `orjson`, `sentry-sdk`) was resolved through discussion. Since the project uses `uv.lock` for reproducibility, leaving dependencies unpinned in `pyproject.toml` is consistent with the project's existing pattern.
+
+### Review Threads Resolved
+- ✅ Resolved: `src/imbi/app.py:23` - asyncio.gather startup error handling
+- ✅ Resolved: `src/imbi/app.py:45` - asyncio.gather shutdown error handling
+- ✅ Already Resolved: Docstring reference corrections
+- ✅ Already Resolved: Version constraints discussion
+
+### Test Results
+All 261 tests pass with 95% coverage. The error handling improvements maintain full test coverage.
+
+### Status
+🟢 **All issues addressed.** The PR is ready for review - all CI checks passing, all actionable code review feedback implemented, and all review threads resolved.",Explanation,Explanation,Claude-on-behalf-of provenance + status
+arcade-cabinet/protocol-silent-night#68:issue_comment:3703112467,arcade-cabinet/protocol-silent-night,68,other_commenter,early,issue_comment,"## 🔧 CI Failure Auto-Fix Applied
+
+### Root Cause Analysis
+The E2E visual regression tests were failing due to **non-deterministic WebGL rendering timing** in CI. The tests were taking screenshots before the game fully initialized and animations settled, causing pixel differences between test runs.
+
+### Issues Identified
+1. **Inconsistent loading states**: Tests were racing with the loading screen animation
+2. **Canvas not fully initialized**: Screenshots captured during WebGL initialization
+3. **Animation timing variations**: CSS/WebGL animations not fully settled before capture
+4. **Missing element visibility checks**: Tests didn't wait for UI elements to be rendered
+
+### Changes Applied
+
+#### Visual Regression Tests (e2e/visual-regression.spec.ts)
+- ✅ Added explicit `INITIALIZING SYSTEMS` visibility check with 45s timeout
+- ✅ Added canvas visibility wait + 1s stabilization before gameplay screenshots
+- ✅ Added character button visibility wait for menu screenshots  
+- ✅ Increased game initialization wait: 5s → 7s for better stability
+- ✅ Added 500ms-1s animation settle waits before all screenshots
+
+#### Component Snapshot Tests (e2e/component-snapshots.spec.ts)
+- ✅ Applied same loading screen + canvas visibility pattern
+- ✅ Added 1s stabilization after canvas effects applied
+- ✅ Increased wait times consistently across character render tests
+
+### Expected Impact
+These changes ensure **deterministic rendering** by waiting for:
+1. Loading screen to fully disappear
+2. Game canvas to be visible and rendered
+3. Animations and effects to settle
+4. UI elements to be fully painted
+
+The increased wait times account for CI environment performance variations while maintaining test reliability.
+
+### Testing
+- ✅ TypeScript type check passed
+- ✅ Build successful
+- 🔄 Waiting for CI E2E tests to validate fix
+
+---
+🤖 Auto-fix generated by Claude Code",Explanation,Explanation,Auto-fix root cause documentation
+JoA-MoS/garage#190:issue_comment:3703028783,JoA-MoS/garage,190,author,late,issue_comment,"### Code review
+
+No issues found. Checked for bugs and CLAUDE.md compliance.
+
+🤖 Generated with [Claude Code](https://claude.ai/code)",Explanation,Explanation,Claude Code generated provenance line
+AndyMik90/Auto-Claude#417:issue_comment:3698032464,AndyMik90/Auto-Claude,417,author,early,issue_comment,"## Summary
+
+This PR adds complete Hebrew (he) translation support to the Auto-Claude UI, including:
+
+### Translation Coverage
+- ✅ 30+ translation JSON files (en + he locales)
+- ✅ All UI components, dialogs, settings, and features
+- ✅ RTL (Right-to-Left) support with proper text direction
+- ✅ i18next v23+ with namespace support and pluralization
+
+### Code Quality Fixes
+- Added `type=""button""` to prevent unintended form submissions
+- Fixed JSON syntax error (extra closing brace in `settings.json`)
+- Implemented proper i18next pluralization (removed manual logic)
+- Added missing translation keys for consistency
+- Used IPC constants instead of hardcoded strings
+- **Enhanced AI responses**: Added instruction for AI to respond in user's language
+
+### Technical Details
+- Framework: i18next with React hooks (`useTranslation`)
+- Structure: Organized by feature domain (common, settings, tasks, etc.)
+- Language detection: Auto-detects from system locale with manual override
+- Tested locally and working correctly
+
+---
+
+### Note on Workflow Approvals
+I notice that 7 workflows are awaiting approval from maintainers. As a first-time contributor, I don't have permission to trigger these checks myself. The code is ready for review, and I'm happy to make any additional changes based on feedback.
+
+Looking forward to your review! 🙏",Explanation,Explanation,PR description; mentions 'Enhanced AI responses'
+arcade-cabinet/protocol-silent-night#68:issue_comment:3704087088,arcade-cabinet/protocol-silent-night,68,other_commenter,early,issue_comment,"## ✅ E2E Test Fixes Applied
+
+Fixed the failing E2E tests by addressing timing/race condition issues in CI environments.
+
+### Root Cause
+The tests were failing because they used fixed timeouts (`waitForTimeout(2000)`) instead of waiting for actual game state transitions. In CI environments, game initialization can take longer, causing tests to interact with the game before it was fully ready.
+
+### Changes Made
+
+**Character Selection & Weapon Tests:**
+- ✅ Wait for `PHASE_1` state and `playerClass` initialization before assertions
+- ✅ Increased key press duration from 200ms → 300ms for CI reliability  
+- ✅ Increased bullet spawn timeout from 5s → 10s
+- ✅ Reduced HUD render wait from 2s → 500ms (after state check)
+
+**Boss Battle Tests:**
+- ✅ Wait for `PHASE_BOSS` state transition explicitly
+- ✅ Wait for `bossActive === true` before damage checks
+- ✅ Wait for `WIN` state after boss defeat
+
+**Complete Playthrough Tests:**
+- ✅ Proper state checks for all phase transitions (PHASE_1 → PHASE_BOSS → WIN)
+- ✅ Explicit waits for boss activation and victory
+
+### Why This Works
+Instead of guessing how long operations will take, we now:
+1. Check the actual game state via `useGameStore.getState()`
+2. Use `page.waitForFunction()` to poll until conditions are met
+3. Only proceed when the game is truly ready for interaction
+
+This makes tests deterministic and resilient to CI environment variations.
+
+🤖 *Generated with [Claude Code](https://claude.com/claude-code)*",Explanation,Explanation,test fixes report; describes process
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655936915,ardallie/plan-and-jam-with-claude-code,2,author,late,review_comment,"[x] Resolved - Added explicit `subagent_type: ""plan-create""` parameter to line 13 in .claude/commands/plan-create.md",Justification,Explanation,resolution acknowledgement note
+freenet/freenet-core#2523:issue_comment:3703006768,freenet/freenet-core,2523,author,early,issue_comment,"## Addressing Review Feedback
+
+Thanks for the thorough reviews! Here's my response to the key concerns:
+
+### 1. `state: None` vs `state: Some(Completed)` for intermediate nodes
+
+The reviewers correctly spotted that I changed from `state: Some(Completed)` to `state: None` for intermediate nodes forwarding Subscribed responses. 
+
+**This is intentional and correct.** Looking at the existing NotFound forwarding path (lines 916-924), intermediate nodes already use `state: None` when forwarding responses. The pattern is:
+- **Intermediate nodes forwarding responses**: `state: None` (operation continues at requester's side)
+- **Originator receiving final response**: `state: Some(...)` (operation terminates, needs state for `to_host_result()`)
+
+The original code having `state: Some(Completed)` for intermediate nodes was actually the inconsistency. My change aligns with the established pattern.
+
+### 2. Fourth `get_peer_location_by_addr()` call site not updated (line 787)
+
+This is **intentional**. The call at line 787 is for `set_upstream()` - registering who we get updates FROM (not who wants updates from us). If this lookup fails:
+- The subscription still succeeds
+- We just won't have the upstream source cached initially
+- The next update from upstream will establish it
+
+This is a best-effort optimization that doesn't affect the subscribed/not-subscribed response. The critical bug was returning `Subscribed` without registering **downstream** subscribers.
+
+### 3. `NotFound` semantic overloading
+
+Valid concern. Ideally we'd have a distinct `SubscribeMsgResult::TransientFailure` variant. However:
+- This requires protocol changes (stdlib update, version coordination)
+- The practical effect is the same: client should retry
+- The 5-retry with 3.1s total delay makes this failure mode extremely rare
+
+I'll file a follow-up issue for cleaner semantics if this becomes problematic in practice.
+
+### 4. 3.1s total timeout
+
+The exponential backoff (100+200+400+800+1600ms) matches the existing `CONTRACT_WAIT_TIMEOUT_MS` pattern in this file. The worst case only triggers when a peer remains transient for the entire duration, which indicates a more serious connection issue. In healthy networks, the fast path (immediate success) is the common case.
+
+[AI-assisted - Claude]",Justification,Justification,defends design choice with reasoning
+Scetrov/evefrontier-rs#51:issue_comment:3703062938,Scetrov/evefrontier-rs,51,author,late,issue_comment,"## Review Comments Addressed
+
+All 5 Copilot review comments have been addressed in commit e913659:
+
+### 1. Spec Documentation (spec.md)
+✅ **Addressed**: Updated feature spec to document fuel color styling (orange for hop cost, magenta for remaining) and padding fixes as core feature requirements (FR-3, FR-4) and acceptance criteria.
+
+### 2. Dead Code in output.rs (calculate_route_fuel)
+✅ **Addressed**: Added clarifying Rustdoc comment in `attach_fuel()` explaining the architectural decision:
+- `attach_fuel()` uses inline gate step handling for performance in CLI/Lambda scenarios
+- `calculate_route_fuel()` remains exported and is actively used in tests and public API for complete route fuel calculations with static/dynamic mass modes
+- No dead code issue; the design is intentional for different use cases
+
+### 3. CHANGELOG.md Documentation
+✅ **Addressed**: Enhanced CHANGELOG entries to highlight:
+- Color-coded fuel display (orange/magenta distinction)
+- Padding alignment fixes for planet/moon labels
+These visual enhancements are now clearly documented for user awareness.
+
+### 4. Spec 015 Task Status (tasks.md)
+✅ **Addressed**: T024 (security audit) was already marked completed; verified in commit.
+
+### 5. Duplicate Heading (docs/fixtures/README.md)
+✅ **Addressed**: Removed duplicate ""### Routing Examples"" section and normalized ship_data.csv section heading.
+
+### Test Results
+All checks pass:
+- ✅ `cargo fmt --all --check`
+- ✅ `nx run-many --target=build --all` (12 projects)
+- ✅ `nx run-many --target=clippy --all` (12 projects)
+- ✅ `nx run-many --target=test --all` (47 tests)
+- ✅ `cargo audit` (1 allowed warning on yanked cmov 0.3.1)",Justification,Justification,defends each addressed Copilot comment
+AWeber-Imbi/imbi-api#148:issue_comment:3702945466,AWeber-Imbi/imbi-api,148,author,late,issue_comment,"🤖 *This comment was posted by Claude on behalf of @gmr*
+
+## PR Monitor Update - Monitoring iteration #2 of 10
+
+### CI/CD Status Update
+✅ **All CI checks passing after latest commit (7c952ea):**
+- OSSAR-Scan: success
+- test (3.12): success ✅
+- test (3.13): success ✅
+- test (3.14): success ✅
+- bandit: success
+- binskim: success
+- eslint: success
+
+### Review Status
+✅ All review threads resolved
+✅ No new comments or issues detected
+✅ No unresolved review feedback
+
+### Exit Condition Met
+🟢 **Monitoring complete** - All CI checks passing AND all review threads resolved. The PR is in excellent shape and ready for merge.",Justification,Explanation,Claude-posted CI status update
+NVIDIA/TensorRT-LLM#10252:issue_comment:3688413472,NVIDIA/TensorRT-LLM,10252,other_commenter,early,issue_comment,[PR_Github #29687](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/29687/) [ run ] triggered by Bot. Commit: `746b71f`,Justification,Other,"CI bot trigger, false positive on 'LLM' in URL"
+badMade/mothership#882:issue_comment:3704372181,badMade/mothership,882,author,late,issue_comment,"@claude fix failing checks
+[CI / CI Status (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173890/job/59291246783?pr=882)
+CI / CI Status (pull_request)Failing after 2s
+[CI / CI Status (push)](https://github.com/badMade/mothership/actions/runs/20649173369/job/59291295900?pr=882)
+CI / CI Status (push)Failing after 4s
+[CI / Lint & Static Analysis (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173890/job/59291076692?pr=882)
+CI / Lint & Static Analysis (pull_request)Failing after 12s
+[CI / Lint & Static Analysis (push)](https://github.com/badMade/mothership/actions/runs/20649173369/job/59291123052?pr=882)
+CI / Lint & Static Analysis (push)Failing after 12s
+[CI / Run Tests (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173890/job/59291076701?pr=882)
+CI / Run Tests (pull_request)Failing after 3m
+[CI / Run Tests (push)](https://github.com/badMade/mothership/actions/runs/20649173369/job/59291123036?pr=882)
+CI / Run Tests (push)Failing after 5m
+[CI / Test on Node 20 (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173890/job/59291076684?pr=882)
+CI / Test on Node 20 (pull_request)Failing after 2m
+[CI / Test on Node 20 (push)](https://github.com/badMade/mothership/actions/runs/20649173369/job/59291123038?pr=882)
+CI / Test on Node 20 (push)Failing after 2m
+[CI Tests / Full Test Suite (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173874/job/59291035035?pr=882)
+CI Tests / Full Test Suite (pull_request)Failing after 3m
+[CI Tests / Full Test Suite (push)](https://github.com/badMade/mothership/actions/runs/20649173370/job/59291033725?pr=882)
+CI Tests / Full Test Suite (push)Failing after 3m
+[Metamorph / Metamorph automation (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173888/job/59291035034?pr=882)
+Metamorph / Metamorph automation (pull_request)Failing after 2m
+skipped checks
+[CI / Build Workspace (pull_request)](https://github.com/badMade/mothership/actions/runs/20649173890/job/59291143522?pr=882)
+CI / Build Workspace (pull_request)Skipped 1 hour ago
+[CI / Build Workspace (push)](https://github.com/badMade/mothership/actions/runs/20649173369/job/59291168310?pr=882)
+CI / Build Workspace (push)Skipped",Justification,Suggestion,asks claude to fix failing checks
+thedotmack/claude-mem#509:issue_comment:3702987321,thedotmack/claude-mem,509,author,late,issue_comment,"Closing this PR after discussion with the maintainer.
+
+The current behavior (exit code 3 + stderr) is **intentional** - it's a workaround to display messages to users without adding them to Claude's context. This is a valuable feature for showing localhost UI links, update notices, etc. without wasting context tokens.
+
+The ""Plugin hook error"" label is a limitation in Claude Code's hooks API, not a bug in claude-mem. I'm filing a feature request on [anthropics/claude-code](https://github.com/anthropics/claude-code) to add proper support for ""informational user messages that don't affect context.""
+
+See discussion in #508 for details.",Justification,Justification,defends current behavior as intentional
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655936991,ardallie/plan-and-jam-with-claude-code,2,author,late,review_comment,"[x] Resolved - Changed title to ""Synthesise a revised prompt from the conversation"" in .claude/commands/plan-prompt.md:1",Justification,Explanation,resolution acknowledgement
+karpathy/llm-council#116:issue_comment:3702964847,karpathy/llm-council,116,other_commenter,late,issue_comment,"wow, looks great! i custom created this for my llm council and it works great: short ai written summary.
+
+ MCP Server & Direct Provider Support
+I've just rolled out two major additions to the LLM Council to make it even more powerful for agent-based workflows:
+
+Model Context Protocol (MCP) Server: You can now use the entire Council as a ""tool"" inside other agents (like Claude Desktop or Cursor). Use the consult_council tool to get a high-quality, synthesized answer derived from the 3-stage debate and peer-review process.
+Direct Provider Integration: Added native support for OpenAI, Google (Gemini), and Anthropic APIs. You can now connect directly to these providers for lower latency and improved reliability (toggleable via 
+config.py
+).
+
+Key Highlights:
+
+Agent-Ready: Your other agents can now tap into the council's ""collective wisdom"" with a single tool call.
+Fast & Reliable: Direct API connections bypass middle-men for faster response times.
+WSL2 Compatible: Includes a specific bridge config for Windows/WSL users.",Justification,Other,endorsement + describes own setup
+Open-J-Proxy/ojp#196:issue_comment:3701954206,Open-J-Proxy/ojp,196,other_commenter,early,issue_comment,"@copilot 
+
+[INFO] Results:
+[INFO] 
+Error:  Errors: 
+Error:    DB2XABasicTest.testBasicXATransactionLifecycle:179 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testOnePhaseCommitOptimization:252 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testReadOnlyTransactionOptimization:286 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testTransactionBranchJoining:387 » SqlNonTransientConnection [jcc][10335][10809][4.33.31] Invalid operation: Connection is closed. ERRORCODE=-4470, SQLSTATE=08003
+Error:    DB2XABasicTest.testTransactionFailureMarking:443 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testTransactionSuspensionAndResumption:338 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+Error:    DB2XABasicTest.testXATransactionRollback:217 » SqlSyntaxError DB2 SQL Error: SQLCODE=-206, SQLSTATE=42703, SQLERRMC=TEST_NAME, DRIVER=4.33.31
+[INFO] 
+Error:  Tests run: 933, Failures: 0, Errors: 7, Skipped: 675",Justification,Suggestion,pastes errors at copilot for fix
+Aries-Serpent/_codex_#2672:issue_comment:3702984070,Aries-Serpent/_codex_,2672,other_commenter,late,issue_comment,"# Design: Quantum-Math Orchestrator Agent (Cognitive Brain)
+
+| Field | Description | Allowed Values / Notes | Example |
+|---|---|---|---|
+| Agent ID | Unique identifier (semver optional) | kebab/snake case + version | quantum-math-orchestrator-agent.v1 |
+| Operating Aspect | Cognitive Brain subsystem | Mathematics, Physics, Evaluation, Experimentation | Mathematics |
+| Purpose | One-sentence goal | Actionable, measurable | Factor Copilot-provided variables and AfterMath logsets into deterministic equations; compute in sandbox; implement validated formulation in codebase via PR |
+| Inputs | Data required | repo, ref, variables from Copilot Agent, AfterMath logsets, constraints, units, tolerances | variables:{A,B,C}, units:{A: s, B: m, C: kg}, logs: docs/system/AFTERMATH.md |
+| Triggers (Pro+/Team) | Invocation mode | Pro+: MCP chat/command; Team: Actions (workflow_dispatch/schedule) | Pro+: “/quantum solve vars:A,B,C”; Team: workflow_dispatch on copilot/* |
+| Tools (MCP) | Copilot MCP tools used | repo-read, artifact-fetch, md-render, sandbox-exec (safe shell), pr-comment | repo-read, sandbox-exec |
+| Workflows (Actions) | GitHub Actions jobs used | Reusable workflows with minimal permissions | quantum_math_compute.yml |
+| Outputs / Artifacts | Files, comments, statuses produced | md/json/yaml, PR notes, job summaries, computed results | cognitive_brain/math/solutions.json, MATH_BRIEF.md, PR with implementation |
+| Repo Paths (R/W) | Read/Write scopes in repo | R: src/*, docs/system/*; W: src/math/quantum/*, tests/math/*, docs/system/* (briefs) | Write: src/math/quantum/formulation.py, tests/math/test_formulation.py |
+| State & Memory | How state is stored/updated | Snapshot+diff of variables, units, equations, solution | cognitive_brain/math/history/snapshot_v1.json |
+| PDA/AfterMath Hooks | Where PDA loop status is updated | Append to docs/system/AFTERMATH.md under “MATH Formulations” | AFTERMATH.md anchors: math-updates |
+| Guardrails | Safety constraints | Enforce units/dimensions; numerical stability check; PR required; no direct merge | require unit-consistency; tolerance ≤1e-6; PR as draft |
+| Security | Auth/scopes | Team: OIDC contents:write (src/tests/docs), PR:write; Pro+: local; least privilege | contents:write (src/tests/docs), pull_requests:write |
+| Metrics | Observability signals | dimension_consistency_rate, solution_accuracy, ci_green_rate, perf_delta, stability_score | solution_accuracy ≥0.99 |
+| Success Criteria | Pass conditions | All tests green; units consistent; deterministic solution within tolerance; PR created | CI green; tolerance met; lint pass |
+| Failure Handling | Compensation/retry | Re-solve with adjusted constraints; rollback implementation; open issue | revert commit; label PR “needs-math-review” |
+| Mode | Execution environment | Pro+ (local MCP) and Team (Actions) | Team |
+| Versioning | Change management | semver for formulation; changelog per equation set | v1.0.0; FORMULATION_CHANGELOG.md |
+
+| Subsystem | Step | Description | Input/Output | Tooling (MCP/Actions) | Metrics | Risks | Guardrails |
+|---|---|---|---|---|---|---|---|
+| Intake | Variable Harvest | Parse Copilot Agent variables and AfterMath tags (constraints, context) | In: variables, AFTERMATH.md → Out: typed set with units | repo-read | coverage_of_vars | Missing units | Require units; infer via policy map |
+| Formalization | Equation Modeling | Build symbolic equations (dimensional analysis, conservation laws) | In: typed vars → Out: sympy model | md-render template, sandbox-exec | dimension_consistency_rate | Incorrect dimensions | Enforce unit checks; reject on mismatch |
+| Computation | Deterministic Solve | Solve equations; propagate uncertainty; run stability tests | In: model → Out: numeric solution, intervals | sandbox-exec (Python/sympy/numpy) | stability_score, solution_accuracy | Numerical instability | Condition numbers; fallback solver |
+| Verification | Test Synthesis | Auto-generate unit tests (AAA pattern) validating solution | In: solution → Out: tests/math/test_formulation.py | md-render, repo-write (tests) | ci_green_rate | Overfitting tests | Include negative/edge cases |
+| Implementation | Code Injection | Write formulation module and helper functions | In: model+solution → Out: src/math/quantum/formulation.py | repo-write (src), PR open | lint_pass_rate | Code style violations | Black/Ruff; type hints required |
+| Publication | Brief & PR | Publish math brief and open draft PR | In: artifacts → Out: MATH_BRIEF.md + PR | pr-comment, contents:write (docs) | review_latency | Reviewer overload | Summary + citations + diff stats |
+| Feedback | AfterMath Update | Append math update to AFTERMATH | In: brief → Out: AFTERMATH.md append | contents:write (docs) | loop_adherence | Merge conflicts | Anchored append section |
+
+| Mathematical Toolset | Purpose | Notes |
+|---|---|---|
+| Dimensional Analysis | Validate unit consistency across equations | Reject mismatches; unit coercion rules |
+| Symbolic Algebra (sympy) | Construct and simplify equations | Record assumption set for reproducibility |
+| Numerical Solvers | Deterministic roots/optimizations | Use bounded tolerances; record solver config |
+| Uncertainty Propagation | Bound error via intervals | Track variance; attach confidence score |
+| Stability Checks | Condition number, sensitivity | Abort on ill-conditioned systems |
+| Unit Handling | SI base units with conversion | Store unit map per variable |
+| Verification Templates | AAA tests with parametrize | Edge cases, negative tests, tolerance checks |
+
+| Actions Workflow | Jobs | Permissions | Triggers | Artifacts |
+|---|---|---|---|---|
+| quantum_math_compute.yml | harvest → formalize → compute → verify → implement → publish | contents:read, contents:write (src/tests/docs), pull_requests:write | workflow_dispatch, schedule, PR labels (“math:run”) | solutions.json, MATH_BRIEF.md, formulation.py, tests, job summary |
+
+| Outputs | Location | Format | Content Guarantees |
+|---|---|---|---|
+| formulation.py | src/math/quantum/ | Python | Type hints, unit checks, docstrings, deterministic logic |
+| test_formulation.py | tests/math/ | Python | AAA pattern, parametrize, tolerance assertions |
+| solutions.json | cognitive_brain/math/ | JSON | Variables, units, solver config, results, stability |
+| MATH_BRIEF.md | docs/system/ | Markdown | Summary, equations, units, solver notes, implications |
+| AFTERMATH append | docs/system/AFTERMATH.md | Markdown | “MATH Formulations” section with links and deltas |
+| PR (draft) | Repository | — | References files; summary; guardrails noted |
+
+| Policy | Rule | Threshold |
+|---|---|---|
+| Tolerance | Max absolute/relative error | ≤1e-6 |
+| Units | All variables must have units | 100% coverage |
+| Tests | Min test cases per equation set | ≥6 (incl. edge cases) |
+| Style | Linting and type hints required | Black/Ruff; mypy clean |
+| PR | Must be draft and reviewed | 2 reviewers minimum |
+
+| SLO/SLA | Target | Measurement |
+|---|---|---|
+| Dimension Consistency | 100% | dimension_consistency_rate |
+| Solution Accuracy | ≥0.99 | accuracy against known baselines |
+| CI Green Rate | 100% | test pass rate |
+| Stability Score | ≥0.8 | normalized metric |
+| Review Latency | ≤48h | time to first review |
+
+| Failure Conditions | Action | Compensation |
+|---|---|---|
+| Unit Mismatch | Abort, request units via comment | Open issue; tag “needs-units” |
+| Solver Instability | Switch solver; relax constraints | Log risk_notes.md; retry once |
+| CI Failure | Revert implementation; keep tests | PR label “needs-math-review” |
+| Low Stability Score | Hold PR; add more tests | Create follow-up hypothesis ticket |
+
+| Repo-Specific Use Case (@Aries-Serpent/_codex_) | Entry Paths | Outputs / Destinations |
+|---|---|---|
+| Implement deterministic physics-inspired formulations for codex pipeline components; validate via math tests; publish briefs and PRs | docs/system/AFTERMATH.md (tags); src/* modules needing math; tests/* | src/math/quantum/formulation.py, tests/math/test_formulation.py, cognitive_brain/math/solutions.json, docs/system/MATH_BRIEF.md, PR (draft) |",Meta discussion,Meta discussion,design proposal for AI agent infrastructure
+rjmurillo/ai-agents#715:review_comment:2655910884,rjmurillo/ai-agents,715,reviewer,early,review_comment,@rjmurillo-bot This sounds like it fits vexjoy's philosophy of using a skill and tools rather than relying on the LLM,Meta discussion,Meta discussion,explicit philosophy: skill+tools vs LLM
+karlokarate/FishIT-Player#543:review:3621131515,karlokarate/FishIT-Player,543,reviewer,early,review,"You are Copilot working on PR #543 in https://github.com/karlokarate/FishIT-Player.
+
+Goal:
+Turn PR #543 into “Gold” quality: correct, policy-driven, no masked failures, stable across providers, and fully verified.
+Do NOT invent new modules. Build on the PR’s existing changes.
+
+Hard rules:
+- No stubs. Real code + real tests.
+- No secrets in logs or exports.
+- No “demo stream” fallbacks (must not mask errors).
+- Keep Xtream logic Xtream-only (no Telegram/TdLib contamination).
+- Prefer policy-driven behavior: allowed_output_formats is SSOT, not hardcoded assumptions.
+- Verify with CI + local Gradle tasks.
+
+Work items (must complete in order):
+
+1) Verify PR #543 status and CI
+- Pull PR #543 locally or in Codespace.
+- Run:
+  ./gradlew clean
+  ./gradlew :app-v2:assembleDebug
+  ./gradlew test
+  ./gradlew connectedDebugAndroidTest (if available)
+- If GitHub Actions is awaiting approval, request/trigger the run and ensure it completes green.
+- Collect failures (if any) and fix them within PR #543 (no new PR).
+
+2) Fix Xtream output format selection to be strictly policy-driven
+- Locate output selection logic added/modified in PR #543 (XtreamPlaybackSourceFactoryImpl).
+- Ensure selection is:
+  - Prefer ""m3u8"" if allowed_output_formats contains it
+  - Else prefer ""ts"" if allowed_output_formats contains it
+  - Else allow ""mp4"" ONLY if allowed_output_formats contains it
+  - Else fail fast with actionable error
+- Remove any rule like “mp4 only if it is the sole format” (too strict and provider-hostile).
+- Ensure container_extension (e.g., mkv) is NEVER used as an output format unless it is one of {m3u8, ts, mp4} AND is allowed.
+
+3) Ensure lazy re-init is safe and bounded (no deadlocks, no layer leaks)
+- Confirm PR #543 lazy re-init:
+  - reads stored credentials (redacted logs)
+  - calls initialize() with timeout (<=3s)
+  - does not run blocking IO on main thread
+- If initialization fails:
+  - do NOT start playback
+  - surface a clear PlaybackSourceException message that distinguishes:
+    - “not connected / no credentials”
+    - “credentials invalid”
+    - “server unreachable”
+- Ensure the lazy init attempt is idempotent and protected from parallel calls (use mutex or equivalent).
+
+4) URI safety validation: prevent regressions
+- Confirm the “safe prebuilt URI” validator applies ONLY to context.uri (user-provided/prebuilt) and never blocks session-derived Xtream URLs.
+- Add tests for:
+  - session-derived URLs are built even when prebuilt URI is unsafe
+  - unsafe prebuilt URIs are rejected with actionable error
+- Ensure no false positives on legitimate Xtream paths (/movie/{user}/{pass}/... etc.) when they are built internally.
+
+5) Remove all masked-failure behavior
+- Confirm PR removed any fallback content (e.g., Big Buck Bunny).
+- Ensure PlaybackSourceResolver propagates errors (and UI surfaces them) rather than silently substituting content.
+- Add/adjust a test verifying that on factory failure we do not return any demo/test source.
+
+6) Tests: make Gold-grade regression coverage
+Add/update unit tests (fast, deterministic):
+- Format selection:
+  - allowed={m3u8,ts} -> chooses m3u8 for VOD/SERIES/LIVE
+  - allowed={ts} -> chooses ts
+  - allowed={mp4} -> chooses mp4
+  - allowed empty/missing -> fails with clear error
+- Lazy init:
+  - capabilities null -> init attempted -> proceeds if init succeeds
+  - init fails -> throws actionable error, no playback start
+- Prebuilt URI safety:
+  - unsafe prebuilt rejected
+  - safe prebuilt accepted
+  - session-derived path unaffected by validator
+
+7) Documentation + review notes inside PR
+- Update/append a short PR description section:
+  - “Why allowed_output_formats is SSOT”
+  - “Why container_extension is metadata only”
+  - “Why no demo fallback”
+  - “What lazy init does and its timeout”
+- Add a checklist in PR description:
+  - [ ] All tests green
+  - [ ] CI green
+  - [ ] No secrets logged
+  - [ ] No demo fallback
+
+Deliverables:
+- All fixes committed to PR #543 branch
+- CI green
+- Updated PR description + checklist
+- A short comment in PR summarizing the final behavior:
+  - output format policy (m3u8>ts>mp4 if allowed)
+  - lazy init behavior and failure messaging
+  - no masked failures
+
+Acceptance criteria:
+- PR #543 passes all builds/tests and removes any provider-hostile hardcoding.
+- Xtream playback uses allowed_output_formats as SSOT and never misuses container_extension.
+- No silent demo fallback. Errors are surfaced clearly and reproducibly.
+```0",Meta discussion,Suggestion,long task spec to copilot
+Aries-Serpent/_codex_#2672:issue_comment:3702930152,Aries-Serpent/_codex_,2672,other_commenter,middle,issue_comment,"# Implement the complete CI Testing Agent infrastructure per specification 
+
+## Context
+
+The ci-testing-agent is currently documented (`.github/agents/ci-testing-agent.md`) but lacks the full modular implementation structure. This task implements the complete infrastructure to make it a standalone, testable, containerized agent. This is to improve 'cognitive brain' objectives reflect on the updated `cognitive brain`. Leverage the existing cacheset as needed, as well as continue PDA loop + AfterMath tags process MUST EXPLICITLY MAINTAIN and REMAIN ACTIVE for ALL `Cognitive Brain` related task and task that would effect the overall project and existing aspects and components of `Cognitive Brain`. 
+
+After completing all given task, perform 5 comprehensive self-review passes:
+**Pass 1: Code Quality**
+**Pass 2: Coverage**
+**Pass 3: Reliability**
+**Pass 4: Documentation**
+**Pass 5: Integration**
+
+**DO NOT PROCEED until all 5 passes show 0 concerns.**
+
+## Success Criteria
+
+✅ Coverage: __
+✅ Test Count: __
+✅ Pass Rate: 100% (all tests passing)
+✅ No Regressions: All existing tests still pass
+✅ Documentation: All required docs updated
+✅ Self-Review: 5 passes complete, 0 concerns
+
+## If Token Budget Low
+
+1. Prioritize critical path tests (Codex, Agents)
+2. Document remaining work
+3. Commit progress: `git add tests/ docs/ && git commit -m ""feat(tests): Phase 9.1 progress - [N] tests added""`
+4. Create continuation prompt for next session
+5. Response to this session's comment to Post a comment starting with
+> @copilot
+
+## Completion Steps
+
+1. Run final validation
+2. Update documentation (Dashboard, Roadmap, Test Summary, etc)
+3. Commit
+4. Create Next Phase 9.x continuation prompt
+5. Post Phase 9.x prompt as Response to this session's comment starting with
+> @copilot
+6. Verify response prompt posted successfully
+
+## PDA Loop & AfterMath Tags
+
+**Apply throughout execution:**
+- Use Perception-Decision-Action loop for each major step
+- Tag insights with #AFTERMATH_* tags
+- Document lessons learned
+- Create session report at completion
+
+**AfterMath Tags to Use:**
+- #AFTERMATH_DECISION - Major decisions
+- #AFTERMATH_LESSON_LEARNED - Insights gained
+- #AFTERMATH_QUALITY_CHECK - Quality validations
+- #AFTERMATH_METRIC - Measurements
+- #AFTERMATH_BLOCKER_RESOLVED - Issues overcome
+- #AFTERMATH_PATTERN_IDENTIFIED - Recurring patterns
+- #AFTERMATH_NEXT_STEPS - Continuation actions
+
+## Previous References
+
+- Full execution guide: `.github/COPILOT_AGENT_PHASE9_1_PROMPT.md` (21KB)
+- Status update: `.github/COGNITIVE_BRAIN_STATUS_UPDATE.md` (18KB)
+- AfterMath example: `.github/AFTERMATH_PR2668_SESSION_REPORT.md` (10KB)
+- Dashboard: `docs/system/CODEBASE_DASHBOARD.md`
+- Cognitive map: `docs/system/CODEBASE_COGNITIVE_MAP.md`
+
+------
+
+## Specification
+
+Full implementation plan available in `.github/CI_TESTING_AGENT_IMPLEMENTATION_PLAN.md` however THIS CONTEXT IS MORE UP TO DATE!
+
+## Required Directory Structure
+
+```
+.github/agents/ci-testing-agent/
+├── Dockerfile                  # Pinned Python 3.12-slim base
+├── cli.py                      # Entry point (manifest + task payload)
+├── requirements.txt            # pytest, coverage, GitPython, PyYAML
+├── manifest.yaml               # Agent configuration
+├── agent/
+│   ├── __init__.py
+│   ├── generator.py            # Test scaffolding logic
+│   ├── executor.py             # Sandbox command runner  
+│   ├── validator.py            # Coverage delta evaluator
+│   └── reporter.py             # Artifact uploader, PR/commit helpers
+├── tests/
+│   ├── unit/                   # Mocked OpenAI/network
+│   │   ├── __init__.py
+│   │   ├── test_generator.py
+│   │   ├── test_executor.py
+│   │   ├── test_validator.py
+│   │   └── test_reporter.py
+│   ├── contract/               # Sample request/response pairs
+│   │   ├── __init__.py
+│   │   └── test_cli_interface.py
+│   └── integration/            # Sandbox repo run
+│       ├── __init__.py
+│       └── test_sandbox_run.py
+└── docs/
+    └── runbook.md              # Operations guide
+```
+
+## Implementation Tasks
+
+### Phase 1: Directory Structure & Manifest (10 min)
+
+Create all directories and the manifest file:
+
+```bash
+cd /home/runner/work/_codex_/_codex_
+mkdir -p .github/agents/ci-testing-agent/{agent,tests/{unit,contract,integration},docs}
+```
+
+**manifest.yaml** content:
+```yaml
+name: CI Testing Agent
+version: 1.0.0
+description: Specialized agent for debugging and fixing CI/CD pipeline issues, test failures, and build problems
+created: 2025-12-29
+updated: 2025-12-31
+
+capabilities:
+  - ci_pipeline_debugging
+  - test_failure_analysis
+  - import_path_resolution
+  - dependency_management
+  - lint_format_fixes
+
+runtime:
+  python_version: ""3.12""
+  base_image: ""python:3.12-slim""
+  dependencies:
+    - pytest>=8.0.0
+    - pytest-cov>=4.1.0
+    - hypothesis>=6.100
+    - GitPython>=3.1.0
+    - PyYAML>=6.0
+
+entry_point: cli.py
+tools:
+  - bash
+  - git
+  - pytest
+  - coverage
+```
+
+### Phase 2: Core Modules (60 min)
+
+**Key Requirements for Each Module**:
+
+1. **cli.py**: 
+   - Accept `--manifest`, `--task`, `--workspace` arguments
+   - Load YAML manifest and JSON task
+   - Route to appropriate component (generator/executor/validator)
+   - Handle errors gracefully
+
+2. **agent/generator.py**:
+   - `TestGenerator` class with `generate(task)` method
+   - Extract functions from Python modules using AST
+   - Generate test scaffolds using AAA pattern
+   - Return list of generated test files
+
+3. **agent/executor.py**:
+   - `SandboxExecutor` class with `execute(task)` method
+   - Run subprocess commands with timeout
+   - Capture stdout/stderr
+   - Support parallel execution
+
+4. **agent/validator.py**:
+   - `CoverageValidator` class with `validate(task)` method
+   - Parse coverage reports (baseline vs current)
+   - Compute coverage delta
+   - Identify gaps below threshold
+
+5. **agent/reporter.py**:
+   - `ArtifactReporter` class with `report(result)` method
+   - Generate JSON and Markdown reports
+   - Save to `.reports/` directory
+   - Support GitHub Actions artifact upload
+
+**Implementation Guidelines**:
+- Use type hints throughout
+- Include comprehensive docstrings
+- Follow existing codebase patterns
+- Add error handling for edge cases
+- Use pathlib for file operations
+- Mock external dependencies in tests
+
+### Phase 3: Dockerfile & Requirements (10 min)
+
+**Dockerfile**:
+```dockerfile
+FROM python:3.12.3-slim
+WORKDIR /agent
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY agent/ ./agent/
+COPY cli.py .
+COPY manifest.yaml .
+ENTRYPOINT [""python"", ""cli.py""]
+```
+
+**requirements.txt**:
+```
+pytest==8.0.0
+pytest-cov==4.1.0
+pytest-randomly==4.0.1
+coverage[toml]==7.13.0
+hypothesis>=6.100
+GitPython>=3.1.0
+PyYAML>=6.0
+```
+
+### Phase 4: Tests (60 min)
+
+**Unit Tests** (`tests/unit/`):
+- Mock all external dependencies
+- Test each module independently
+- Cover happy path and error cases
+- Use pytest fixtures
+
+**Contract Tests** (`tests/contract/`):
+- Validate CLI request/response schemas
+- Test task type routing
+- Ensure backward compatibility
+
+**Integration Tests** (`tests/integration/`):
+- Create temporary sandbox repository
+- Execute full agent workflow
+- Verify artifact generation
+- Test end-to-end scenarios
+
+### Phase 5: Documentation (20 min)
+
+**docs/runbook.md** must include:
+- Overview and architecture
+- Usage examples (direct, Docker, GitHub Copilot Pro+ in IDE)
+- Task type specifications with JSON schemas
+- Troubleshooting guide
+- Monitoring and maintenance procedures
+
+## Success Criteria
+
+✅ All directories and files exist  
+✅ CLI accepts manifest and task, routes correctly  
+✅ All 4 core modules (generator, executor, validator, reporter) implemented  
+✅ Dockerfile builds successfully  
+✅ All unit tests pass (100% pass rate)  
+✅ Contract tests validate schemas  
+✅ Integration test runs complete workflow  
+✅ Runbook documentation complete  
+✅ Code follows project conventions (type hints, docstrings, error handling)
+
+## Validation Commands
+
+```bash
+# Structure verification
+ls -la .github/agents/ci-testing-agent/
+tree .github/agents/ci-testing-agent/
+
+# Import verification
+cd .github/agents/ci-testing-agent
+python -c ""from agent.generator import TestGenerator; print('✓ Generator imports')""
+python -c ""from agent.executor import SandboxExecutor; print('✓ Executor imports')""
+python -c ""from agent.validator import CoverageValidator; print('✓ Validator imports')""
+python -c ""from agent.reporter import ArtifactReporter; print('✓ Reporter imports')""
+
+# CLI test
+python cli.py --help
+
+# Unit tests
+pytest tests/unit/ -v
+
+# Docker build
+docker build -t ci-testing-agent .
+
+# Integration test
+pytest tests/integration/ -v
+```
+
+## Implementation
+
+1. Start with structure: Create all directories and empty files first  
+2. Implement incrementally: One module at a time, test as you go  
+3. Use existing patterns: Reference existing test files for patterns  
+4. Mock liberally: Unit tests should not hit real filesystems/networks  
+5. Document as you code: Add docstrings immediately  
+6. Validate continuously: Run tests after each module
+
+## Quality Standards
+
+- Type Safety: Use type hints for all function signatures  
+- Documentation: Comprehensive docstrings with Args, Returns, Raises  
+- Error Handling: Try/except blocks with informative messages  
+- Testing: Aim for 90%+ coverage of new code  
+- Code Style: Follow PEP 8, use Black/Ruff formatting  
+- Security: Validate all file paths, sanitize subprocess inputs
+
+## Timeline
+
+| Phase | Duration | Tasks |
+|-------|----------|-------|
+| Phase 1 | 10 min | Directory structure + manifest |
+| Phase 2 | 60 min | Core modules (4 files) |
+| Phase 3 | 10 min | Dockerfile + requirements |
+| Phase 4 | 60 min | Tests (unit/contract/integration) |
+| Phase 5 | 20 min | Documentation (runbook) |
+| Total | ~2.5 hours | Complete implementation |
+
+## After Completion
+
+1. Commit all files with descriptive message  
+2. Update `.github/agents/ci-testing-agent.md` to reference new structure  
+3. Add entry to main AGENTS.md documentation  
+4. Create example task payloads in `docs/examples/`  
+5. Update CI workflows to potentially use containerized agent
+
+## GitHub-Native Eligibility & Features (Pro+ and Team only)
+
+| Capability | Copilot Pro+ (individual) | GitHub Team (org) | Notes |
+|---|---|---|---|
+| Copilot Chat & Inline | ✅ | — | IDE and GitHub.com chat experiences for individual users |
+| Copilot MCP Extensions | ✅ | — | Use MCP servers in VS Code to integrate tools with Copilot |
+| GitHub Actions CI/CD | — | ✅ | Team includes Actions minutes, secrets, reusable workflows |
+| Issues & PR automation | — | ✅ | Labels, assignees, templates, required reviews/checks |
+| Repo governance | — | ✅ | Protected branches, required checks, role-based permissions |
+
+- Orchestration pattern: Copilot Pro+ invokes MCP tools locally; those tools interact with GitHub (e.g., trigger Actions via workflow dispatch, comment on PRs) under Team repo policies and permissions. No higher-tier subscription is required.
+
+## References (Pro+ and Team only)
+
+- Copilot MCP (how-to): [Using Model Context Protocol](https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp)  
+- VS Code MCP servers: [Use MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)  
+- GitHub Actions overview: [About GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)  
+- Teams and permissions: [About teams](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-teams), [Managing repository settings](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features)
+
+## Target Branch Context
+
+- Primary: `copilot/sub-pr-2668-another-one`  
+- Fallback: `main` (if primary branch not available)
+
+## Discovered CI-Agent-Related Files
+
+| Path | Purpose | Link |
+|---|---|---|
+| .github/agents/API_REFERENCE.md | Agent API reference context | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/API_REFERENCE.md |
+| .github/agents/ARCHITECTURE.md | Architecture patterns for agents | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/ARCHITECTURE.md |
+| .github/agents/FINAL_SUMMARY.md | High-level agent program summary | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/FINAL_SUMMARY.md |
+| .github/agents/GAP_ANALYSIS.md | Gap analysis for agent features | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/GAP_ANALYSIS.md |
+| .github/agents/GITHUB_APP_SETUP.md | Setup guidance for GitHub App | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/GITHUB_APP_SETUP.md |
+| .github/agents/IMPLEMENTATION_COMPLETE.md | Implementation completion criteria | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/IMPLEMENTATION_COMPLETE.md |
+| .github/agents/LIVE_API_TESTING.md | Live API testing procedures | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/LIVE_API_TESTING.md |
+| .github/agents/README.md | Agents directory overview | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/README.md |
+| .github/agents/REVIEWER_USAGE.md | Reviewer/usage guidelines | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/REVIEWER_USAGE.md |
+| .github/agents/SECRETS_CONFIGURATION.md | Secrets/permissions for agents | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/SECRETS_CONFIGURATION.md |
+| .github/agents/TOKEN_USAGE_FOR_AGENTS.md | Token usage patterns | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/TOKEN_USAGE_FOR_AGENTS.md |
+| .github/agents/VALIDATION_CHECKLIST.md | Validation criteria/checklists | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/VALIDATION_CHECKLIST.md |
+| .github/agents/__init__.py | Python package marker | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/__init__.py |
+| .github/agents/ci-testing-agent.md | CI Testing Agent doc to update | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/ci-testing-agent.md |
+| .github/agents/codex-reviewer.agent.yml | Example agent config (reference) | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/codex-reviewer.agent.yml |
+| .github/agents/codex_reviewer/ | Reviewer agent assets | https://github.com/Aries-Serpent/_codex_/tree/copilot/sub-pr-2668-another-one/.github/agents/codex_reviewer |
+| .github/agents/deploy/ | Deployment-related assets | https://github.com/Aries-Serpent/_codex_/tree/copilot/sub-pr-2668-another-one/.github/agents/deploy |
+| .github/agents/github_app/ | GitHub App configs | https://github.com/Aries-Serpent/_codex_/tree/copilot/sub-pr-2668-another-one/.github/agents/github_app |
+| .github/agents/requirements.txt | Python deps for agents | https://github.com/Aries-Serpent/_codex_/blob/copilot/sub-pr-2668-another-one/.github/agents/requirements.txt |
+| .github/agents/scripts/ | Helper scripts | https://github.com/Aries-Serpent/_codex_/tree/copilot/sub-pr-2668-another-one/.github/agents/scripts |
+| .github/agents/tests/ | Agent-related tests | https://github.com/Aries-Serpent/_codex_/tree/copilot/sub-pr-2668-another-one/.github/agents/tests |
+
+## Update Objectives for `.github/agents/ci-testing-agent.md`
+
+| Objective | Description | Source of Truth |
+|---|---|---|
+| Add Implementation Blueprint | Insert the full modular implementation plan (dir structure, manifest, modules, Dockerfile, tests, runbook) | This plan document |
+| Align with Pro+/Team | Clarify GitHub-native constraints and governance (Copilot Pro+ individual use; Team-level repo policies and Actions) | Pro+/Team docs (links above) |
+| MCP Integration | Document how MCP tools connect Copilot Chat to Actions workflows (invocations, guardrails) | MCP docs and VS Code MCP server guide |
+| Validation & QA | Add Success Criteria, Validation Commands, and QA expectations | Plan sections + VALIDATION_CHECKLIST.md |
+| Cross-linking | Reference ARCHITECTURE, API_REFERENCE, SECRETS, TOKEN_USAGE docs | Discovered files table |
+
+## Proposed Table of Contents for Updated `.github/agents/ci-testing-agent.md`
+
+| Section | Content Summary | Action |
+|---|---|---|
+| Overview & Scope | CI Testing Agent purpose, GitHub-native constraints | Insert concise overview; link to ARCHITECTURE.md |
+| Directory Structure | Full tree under `.github/agents/ci-testing-agent/` | Insert structure block |
+| Manifest | YAML manifest with capabilities/runtime/tools | Insert manifest.yaml spec |
+| Modules | CLI, generator, executor, validator, reporter | Insert responsibilities and design |
+| Dockerfile & Requirements | Containerization and deps | Insert Dockerfile and requirements.txt |
+| Tests | Unit/Contract/Integration test plans | Insert testing guidance and paths |
+| Runbook | Operations guide content list | Insert required sections for docs/runbook.md |
+| Validation Commands | CLI, unit/integration, docker build commands | Insert validation commands block |
+| Success Criteria | Pass/fail criteria, coverage | Insert checklist |
+| Security & Governance | Least privilege, audit, approvals | Summarize using SECRETS & TOKEN docs |
+| MCP Extensions | How Copilot Chat leverages MCP tools | Embed official docs summary |
+| References | Official docs and internal links | Add citations and cross-links |
+
+## Edit Plan: Step-by-Step Changes
+
+| Step | Edit Type | File/Section | Action |
+|---|---|---|---|
+| 1 | Insert | Overview | Add Pro+/Team constraints and scope |
+| 2 | Insert | Directory Structure | Add target tree and creation commands |
+| 3 | Insert | Manifest | Include YAML block from spec |
+| 4 | Insert | Modules | Detail responsibilities (CLI/generator/executor/validator/reporter) with type hints/docstrings expectations |
+| 5 | Insert | Dockerfile & Requirements | Provide Dockerfile+requirements with pinned versions |
+| 6 | Insert | Tests | Outline test folders, mocking policy, fixtures |
+| 7 | Insert | Runbook | Add required sections; link to docs/runbook.md |
+| 8 | Insert | Validation Commands | Add CLI/help, pytest, docker build, integration |
+| 9 | Insert | Success Criteria | Add checklist and coverage targets |
+| 10 | Insert | Security & Governance | Summarize secrets/tokens least privilege; link SECRETS_CONFIGURATION.md & TOKEN_USAGE_FOR_AGENTS.md |
+| 11 | Insert | MCP Extensions | Add official docs summaries (as above) |
+| 12 | Linkage | Cross-links | Add links to ARCHITECTURE, API_REFERENCE, VALIDATION_CHECKLIST |
+| 13 | Review | Consistency | Ensure language, tables, headings match repo conventions |
+
+## Acceptance Criteria
+
+- Includes full agent implementation blueprint (manifest, modules, Dockerfile, tests, runbook, validation commands).  
+- Aligns strictly with Copilot Pro+ (individual) and GitHub Team (org) capabilities—no higher-tier subscription references.  
+- Documents MCP-based extension usage and Actions orchestration pattern within Team repo governance.  
+- Cross-links to existing architecture, API, secrets, token, and validation docs.  
+- Uses tables and structured sections consistent with repository style.",Meta discussion,Meta discussion,discusses cognitive brain agent infrastructure
+DamienLove/pulselink#311:issue_comment:3703000950,DamienLove/pulselink,311,other_commenter,middle,issue_comment,"@jules.google.com
+🔴 Critical Issues
+1. Missing Foreground Service Type Declaration (Android 14+ Compatibility)
+Severity: HIGH
+
+The CrashDetectionService uses accelerometer data for crash detection, which may require location permissions when deployed as a foreground service on Android 14+ (API 34). The service declaration in AndroidManifest.xml:515-517 is missing the required android:foregroundServiceType attribute.
+
+Impact: On Android 14+, this service will crash when started without a proper foreground service type.
+
+Recommendation:
+
+<service
+    android:name="".service.CrashDetectionService""
+    android:enabled=""true""
+    android:exported=""false""
+    android:foregroundServiceType=""location"" />
+Additionally, you'll need to add this permission to the manifest:
+
+<uses-permission android:name=""android.permission.FOREGROUND_SERVICE_LOCATION"" />
+References:
+
+androidApp/src/main/AndroidManifest.xml:515
+Similar pattern found in ringersong/src/main/AndroidManifest.xml:65 which correctly declares foregroundServiceType=""mediaPlayback""
+2. Missing Runtime Permission Checks
+Severity: MEDIUM-HIGH
+
+The MainActivity.kt:750-758 code starts the CrashDetectionService without verifying that required runtime permissions (location, activity recognition) have been granted. On Android 6.0+ (API 23+), this could lead to:
+
+Service crashes
+Silent failures
+Poor user experience
+Recommendation: Add permission checks before starting the service:
+
+LaunchedEffect(state.settings.crashDetectionEnabled) {
+    val intent = Intent(context, com.pulselink.service.CrashDetectionService::class.java)
+    if (state.settings.crashDetectionEnabled) {
+        // Check for required permissions first
+        val hasLocationPermission = ContextCompat.checkSelfPermission(
+            context, 
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        
+        if (!hasLocationPermission) {
+            // Request permission or show rationale
+            return@LaunchedEffect
+        }
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent)
+        } else {
+            context.startService(intent)
+        }
+    } else {
+        context.stopService(intent)
+    }
+}
+⚠️ Issues & Concerns
+3. Test Coverage is Missing
+Severity: MEDIUM
+
+No tests were added for the crash detection functionality changes. The existing ExtensionsStoreTest.kt only tests data models, not the actual service lifecycle or permission handling.
+
+Recommendation: Add tests for:
+
+Service start/stop based on settings
+Permission state handling
+Android version compatibility (O+ vs pre-O)
+Edge cases (rapid toggles, service already running, etc.)
+4. Package Lock File Should Be Gitignored
+Severity: LOW
+
+The PR includes a 38-line addition to web/pnpm-lock.yaml for @playwright/test. This dependency appears to be a dev dependency that was auto-added.
+
+Observations:
+
+No .gitignore entry for pnpm-lock.yaml was found
+Lock files for package managers are often committed, but the addition of Playwright seems unrelated to the stated PR goals
+If Playwright is intentionally being added, this should be mentioned in the PR description
+Recommendation: Clarify whether the Playwright addition is intentional. If not, consider reverting it.
+
+5. Web CSS Implementation
+Severity: VERY LOW
+
+The addition of .mono { font-family: monospace; } to web/src/App.css:1285 is functional but could be improved:
+
+Observations:
+
+The class is appended at the end of the file after a closing brace (line 1284)
+No specificity or fallback fonts are provided
+Modern CSS might benefit from CSS custom properties for font families
+Recommendation (optional enhancement):
+
+.mono { 
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Monaco, Consolas, monospace; 
+}
+6. Removed Comment Context
+Severity: LOW
+
+The comment ""Crash detection is temporarily disabled pending foreground service/location policy work"" was removed from MainActivity.kt:749-750. This suggests the foreground service policy work may not have been completed.
+
+Question: Has the foreground service/location policy work mentioned in the original comment been fully addressed? The PR doesn't mention this.
+
+✅ Positive Aspects
+Correct API Level Handling: The code correctly uses startForegroundService() for Android O+ and falls back to startService() for earlier versions (MainActivity.kt:751-758)
+
+Service Lifecycle: The service properly implements foreground service with notification (CrashDetectionService.kt:36, 44)
+
+Clean UI Toggle: The ExtensionsStoreScreen change is minimal and clean (line 144)
+
+Linting Fix: Adding /* eslint-env node */ to playwright.config.js is a good practice
+
+Documentation: The pulselink.txt changelog entry provides good traceability
+
+🔒 Security Considerations
+Location Permission: The crash detection service has access to location permissions (manifest declares ACCESS_FINE_LOCATION). Ensure users are clearly informed about how this data is used.
+
+Foreground Service Abuse: Ensure the service properly stops when disabled to prevent background battery drain
+
+🎯 Recommendations Summary
+Must Fix (before merge):
+Add android:foregroundServiceType=""location"" to CrashDetectionService declaration
+Add FOREGROUND_SERVICE_LOCATION permission to manifest
+Implement runtime permission checks before starting the service
+Should Fix:
+Add test coverage for crash detection service lifecycle
+Clarify intent of Playwright dependency addition
+Nice to Have:
+Enhance CSS with fallback fonts
+Document completion of ""foreground service/location policy work""
+Code Quality: 6/10
+The changes work for the immediate use case but lack defensive programming (permission checks, error handling) and test coverage.
+
+Risk Assessment: MEDIUM-HIGH
+The missing foreground service type and permission checks could cause crashes on newer Android versions and negative user experiences.
+
+Overall Recommendation: Request changes to address critical issues before merging.
+
+Review completed with repository context. No CLAUDE.md style guide was found, so standard Android/Kotlin best practices were applied.
+
+This branch has not been deployed
+No deployments
+Merge info
+Checks awaiting conflict resolution
+2 successful checks
+
+
+This branch has conflicts that must be resolved
+Use the [web editor](https://github.com/DamienLove/pulselink/pull/311/conflicts) or the command line to resolve conflicts before continuing.
+
+androidApp/src/main/java/com/pulselink/ui/screens/ExtensionsStoreScreen.kt
+pulselink.txt
+web/src/App.css",Meta discussion,Suggestion,code review report sent to jules agent
+tuvens/enfold-llm#39:issue_comment:3702984755,tuvens/enfold-llm,39,author,middle,issue_comment,"## Gemini Review Addressed
+
+Thank you for the thorough review\! I'll address each comment:
+
+### Critical Issues:
+- ✅ **GitHub secret names**: Will fix to use correct names (USERNAME/APP_PASSWORD)
+- ✅ **Configuration file structure**: Will update to match templates/.claude-wp.json structure
+
+### High Priority:
+- ✅ **Copy command**: Will change to use `cp -r /tmp/enfold-llm/templates/. .` to include hidden files
+- ✅ **Troubleshooting secret names**: Will update to use correct secret names
+
+### Medium Priority:
+- ✅ **Final newline**: Will add missing newline at end of file
+
+All issues will be fixed before merging.",Other,Explanation,explains how Gemini review was addressed
+strawgate/kb-yaml-to-lens#473:issue_comment:3702924105,strawgate/kb-yaml-to-lens,473,author,early,issue_comment,"@claude let's refocus these docs on installing/using the extension, we always have the readme in the repo for those developing it",Other,Suggestion,directs claude to refocus docs
+NVIDIA/spark-rapids-tools#2011:issue_comment:3705968807,NVIDIA/spark-rapids-tools,2011,other_commenter,late,issue_comment,Ignore this PR. I was testing Github's Copilot AI.,Other,Meta discussion,explicit norm/test claim about Copilot AI
+Kilo-Org/kilocode#4591:issue_comment:3703042028,Kilo-Org/kilocode,4591,other_commenter,middle,issue_comment,"i am pleased this PR tries to introduce it as a seperate selection, instead of deleting claude code (as it can still be saved through a refactor) like [RooCode did](https://github.com/RooCodeInc/Roo-Code/pull/10077)",Other,Meta discussion,opinion about claude-code handling vs RooCode
+NVIDIA/TensorRT-LLM#9677:issue_comment:3703619039,NVIDIA/TensorRT-LLM,9677,other_commenter,late,issue_comment,"[PR_Github #30319](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30319/) [ run ] completed with state `SUCCESS`. Commit: `bae71e2` 
+[/LLM/main/L0_MergeRequest_PR pipeline #23353](https://nv/trt-llm-cicd/job/main/job/L0_MergeRequest_PR/23353/) completed with status: 'SUCCESS'
+Pipeline passed with automatic retried tests. Check the [rerun report](https://urm.nvidia.com/artifactory/sw-tensorrt-generic/llm-artifacts//LLM/main/L0_MergeRequest_PR/23353/test-results/rerun_report.html) for details.",Other,Other,"CI status notification, false positive"
+joshlebed/claude-extras#11:issue_comment:3702996792,joshlebed/claude-extras,11,author,late,issue_comment,"### Merge activity
+
+* **Dec 31, 10:55 PM UTC**: A user started a stack merge that includes this pull request via [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/11).
+* **Dec 31, 10:55 PM UTC**: @joshlebed merged this pull request with [Graphite](https://app.graphite.com/github/pr/joshlebed/claude-extras/11).",Other,Other,Graphite merge log; false positive on 'claude'
+NVIDIA/TensorRT-LLM#10252:issue_comment:3700719342,NVIDIA/TensorRT-LLM,10252,other_commenter,late,issue_comment,[PR_Github #30205](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30205/) [ run ] triggered by Bot. Commit: `d628399`,Other,Other,"CI bot trigger, false positive"
+NVIDIA/TensorRT-LLM#9677:issue_comment:3701087938,NVIDIA/TensorRT-LLM,9677,other_commenter,late,issue_comment,[PR_Github #30218](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30218/) [ run ] triggered by Bot. Commit: `7742ccb`,Other,Other,"CI bot trigger, false positive"
+NVIDIA/TensorRT-LLM#10252:issue_comment:3702722416,NVIDIA/TensorRT-LLM,10252,other_commenter,late,issue_comment,[PR_Github #30298](https://nv/trt-llm-cicd/job/helpers/job/PR_Github/30298/) [ run ] triggered by Bot. Commit: `0dc78ea`,Other,Other,"CI bot trigger, false positive"
+onyx-dot-app/onyx#7149:review_comment:2656014127,onyx-dot-app/onyx,7149,reviewer,late,review_comment,do we want the default to be something newer for openai? gpt 5?,Other,Meta discussion,asks about default openai model (norms about default)
+toddwseattle/toddwseattle-astro#5:issue_comment:3702970749,toddwseattle/toddwseattle-astro,5,reviewer,early,issue_comment,"@copilot change ""Invention"" to ""NUvention""",Suggestion,Suggestion,direct copilot task
+Hack23/cia#8153:issue_comment:3702965388,Hack23/cia,8153,other_commenter,late,issue_comment,@copilot apply changes based on the comments in [this thread](https://github.com/Hack23/cia/pull/8153#pullrequestreview-3621477032),Suggestion,Suggestion,delegate apply-changes task
+julienstroheker/AzHexGate#28:issue_comment:3702992148,julienstroheker/AzHexGate,28,reviewer,early,issue_comment,"@copilot fix following CI Error 
+
+```
+un unformatted=$(gofmt -l .)
+The following files are not formatted:
+client/cmd/start_test.go
+client/tunnel/listener.go
+client/tunnel/listener_test.go
+Error: Process completed with exit code 1.
+```",Suggestion,Suggestion,fix CI error task
+THEDEV077/SpringBootProject1#3:issue_comment:3702974281,THEDEV077/SpringBootProject1,3,other_commenter,late,issue_comment,"@copilot je veux faire maintenant le backend de vendeur ou je veux 
+1. Gestion des produits
+
+Ajouter un produit
+
+saisir le nom du produit
+
+définir la description
+
+fixer le prix
+
+définir la quantité disponible
+
+ajouter une ou plusieurs images du produit
+
+Modifier les informations d’un produit existant
+
+Supprimer un produit
+
+Consulter la liste de ses produits
+
+Consulter les détails d’un produit
+
+2. Gestion des images produit
+
+Ajouter des images à un produit
+
+Supprimer une image d’un produit
+
+Consulter les images associées à un produit
+Avis clients
+
+Consulter les avis et notes laissés par les clients sur ses produits
+
+Visualiser la moyenne des notes par produit",Suggestion,Suggestion,task spec in French
+nqou-net/www.nqou.net#227:issue_comment:3703078138,nqou-net/www.nqou.net,227,other_commenter,early,issue_comment,@copilot 未完了の作業を実行してください,Suggestion,Suggestion,task spec in Japanese
+mgradwohl/tasksmack#303:issue_comment:3703550713,mgradwohl/tasksmack,303,reviewer,middle,issue_comment,"@copilot ok, do phase 6 & 7 in a separate pr. which branch will you base off, this one?",Suggestion,Suggestion,asks copilot to do phase 6 & 7
+chippr-robotics/prediction-dao-research#371:issue_comment:3703060702,chippr-robotics/prediction-dao-research,371,other_commenter,early,issue_comment,@copilot update the integration tests which use the owner address for a vault and add both contracts to the manticore torture-test.yml,Suggestion,Suggestion,task: update integration tests
+lorenzogm/opticasuarez#331:issue_comment:3703078429,lorenzogm/opticasuarez,331,other_commenter,late,issue_comment,@copilot try again,Suggestion,Suggestion,retry continuation
+Open-J-Proxy/ojp#196:issue_comment:3698819428,Open-J-Proxy/ojp,196,other_commenter,early,issue_comment,@copilot are you sure you pushed your latest fixes?,Suggestion,Critique,questions whether copilot really did the work
+Hack23/cia#8153:issue_comment:3702206053,Hack23/cia,8153,other_commenter,late,issue_comment,@copilot apply changes based on the comments in [this thread](https://github.com/Hack23/cia/pull/8153#pullrequestreview-3620831958),Suggestion,Suggestion,delegate apply-changes task

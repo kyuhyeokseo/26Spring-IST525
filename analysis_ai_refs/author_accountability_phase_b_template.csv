@@ -1,0 +1,278 @@
+mention_uid,repo_name,pr_number,user_login,timing_phase,mention_location,mention_body,accountability_label,accountability_rationale,coder2_label,coder2_notes
+joshsmithxrm/ppds-tools#10:issue_comment:3702998355,joshsmithxrm/ppds-tools,10,joshsmithxrm,late,issue_comment,"## Addressing Review Feedback
+
+Thanks for the thorough reviews! I've addressed the feedback in commit 1e23be9:
+
+### Fixed Issues
+
+1. **README path mismatch** (Gemini) ✅
+   - Added explicit `-OutputPath ""./registrations.json""` to make the example clearer
+
+2. **CHANGELOG version terminology** (Gemini) ✅  
+   - Changed ""v2.x Pattern"" → ""v1.2.x Pattern"" for consistency with version 1.2.0
+
+3. **Redundant Export-ModuleMember -Alias** (Gemini) ✅
+   - Removed from psm1, centralized alias creation with `New-Alias` + `Export-ModuleMember`
+
+4. **Redundant Set-Alias -Scope Global** (Gemini/Copilot) ✅
+   - Removed from Copy-DataverseData.ps1, centralized in psm1
+
+5. **PSAvoidUsingUsernameAndPasswordParams lint failure** ✅
+   - Added rule exclusion with comment explaining rationale (CLI wrapper pattern)
+
+### Intentionally Not Changed
+
+6. **--deviceCode camelCase** (Copilot)
+   - This matches the PAC CLI auth parameters intentionally for user familiarity. When switching between `pac auth` and `ppds auth`, users don't have to remember different parameter naming conventions. This was a deliberate design decision to reduce cognitive load for Power Platform developers already familiar with PAC CLI.
+
+7. **All auth args camelCase** (Copilot)
+   - Same rationale as above - consistency with PAC CLI.
+
+8. **Secrets in command line** (Copilot)
+   - Valid concern, but this is inherent to CLI wrappers. The CLI itself handles credential storage securely (DPAPI-encrypted profiles). The `Write-Verbose` logging could potentially be improved to redact secrets in a future enhancement, but for now this matches the standard CLI wrapper pattern used by other PowerShell modules.
+
+9. **Missing null handling for Get-DataverseProfile** (Copilot)
+   - This is already handled - line 258 has `Write-Warning ""Could not determine profile name""` when the profile can't be determined.",defensive_justification,'Intentionally Not Changed' section defending decisions against AI reviewer critique,process_documentation,describes how AI-generated review feedback was processed
+jkoelker/oneiro#62:issue_comment:3702989792,jkoelker/oneiro,62,jkoelker,middle,issue_comment,"@dobbyphus review this again, also check out the resolved comments from copilot to see if they were really resolved. ignore the one it said about AGENTS.md",fault_to_ai,'ignore the one it said about AGENTS.md' — Copilot got a comment wrong,fault_to_ai,
+juspay/neurolink#735:issue_comment:3702946475,juspay/neurolink,735,murdore,late,issue_comment,"**Item 6: Test File Provider Heuristic - ✅ FIXED**
+
+In `zod-schema-test-function.ts`:
+- Changed `isGeminiProvider` to `isGeminiModel`
+- Now checks MODEL name for 'gemini' instead of provider name
+- Correctly handles Vertex provider running Claude models (which support tools + JSON schema)",other,describes code fix in file that interacts with Claude/Gemini models,other,
+juspay/neurolink#735:review_comment:2655486514,juspay/neurolink,735,murdore,early,review_comment,"Fixed in latest commit. Updated description to: ""Token budget for extended thinking - Anthropic Claude and Gemini 2.5+ models (5000-100000)""",other,describes product feature description that mentions Claude/Gemini models,other,
+ardallie/plan-and-jam-with-claude-code#2:review_comment:2655936991,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,review_comment,"[x] Resolved - Changed title to ""Synthesise a revised prompt from the conversation"" in .claude/commands/plan-prompt.md:1",other,resolution note; AI appears only in filename path,other,
+joshlebed/claude-extras#11:issue_comment:3702965995,joshlebed/claude-extras,11,joshlebed,early,issue_comment,"* **#12** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/12?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a>
+* **#11** <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-icon"" target=""_blank""><img src=""https://static.graphite.dev/graphite-32x32-black.png"" alt=""Graphite"" width=""10px"" height=""10px""/></a> 👈 <a href=""https://app.graphite.com/github/pr/joshlebed/claude-extras/11?utm_source=stack-comment-view-in-graphite"" target=""_blank"">(View in Graphite)</a>
+* `main`
+
+
+<h2></h2>
+
+This stack of pull requests is managed by <a href=""https://graphite.dev?utm-source=stack-comment""><b>Graphite</b></a>. Learn more about <a href=""https://stacking.dev/?utm_source=stack-comment"">stacking</a>.
+<!-- Current dependencies on/for this PR: -->",other,Graphite stack comment; AI keyword only in repo name 'claude-extras',other,
+frankbria/narrative-modeling-app#131:issue_comment:3702875913,frankbria/narrative-modeling-app,131,frankbria,early,issue_comment,"## Update: Package Lock and Workflow Files
+
+Added commit `6ff59be` with the following changes:
+
+### Package Management
+- **Updated `package-lock.json`** after running `npm install`
+  - Ensures dependency versions are locked for the new `@types/jest` package
+  - Resolves any transitive dependency updates
+
+### Workflow Files (.claude-flow/)
+Added 38 workflow orchestration files:
+- Agent specifications and coordination guides
+- Memory architecture and implementation tracking
+- GitHub issue #75 implementation planning
+- Progress hooks and artifact tracking
+- Metrics and performance monitoring
+
+**Note**: The `.claude-flow/` directory contains workflow orchestration files for automated development processes. These files track implementation progress, agent coordination, and quality gates for the feature store implementation.
+
+### Files Added
+- 38 `.claude-flow/` files (workflow orchestration)
+- 2 `package-lock.json` updates (frontend dependency locking)
+
+**Total commits in PR**: 2
+1. `d9f4c28` - Code quality improvements (linting/type-checking)
+2. `6ff59be` - Package lock and workflow files",process_documentation,describes .claude-flow/ workflow orchestration files and their purpose,other,comment only summarizes project updates and mentions .claude-flow as a directory
+ardallie/plan-and-jam-with-claude-code#2:issue_comment:3702971609,ardallie/plan-and-jam-with-claude-code,2,ardallie,late,issue_comment,"## Review response
+
+All review comments have been addressed.
+
+---
+
+### Medium severity
+
+**[x] Missing subagent type specification** (.claude/commands/plan-create.md:13)
+- **Modified:** `.claude/commands/plan-create.md`
+- **Change:** Added explicit `subagent_type: ""plan-create""` parameter to the Task tool invocation instruction
+
+**[x] Redundant issue fetch in plan-validate** (.claude/commands/plan-validate.md:15-18)
+- **Modified:** `.claude/commands/plan-validate.md`
+- **Change:** Replaced defensive note with conditional instruction to use existing context if already loaded via `/plan-resume`, otherwise fetch
+
+**[x] Inconsistent issue number syntax**
+- **Modified:** `.claude/commands/plan-prompt.md`
+- **Change:** Added `(e.g., 85)` example to usage line to match other commands
+
+---
+
+### Low severity
+
+**[x] Title heading inconsistency** (.claude/commands/plan-prompt.md:1)
+- **Modified:** `.claude/commands/plan-prompt.md`
+- **Change:** Changed title from ""Save a reusable prompt from the conversation"" to ""Synthesise a revised prompt from the conversation""
+
+**[x] Hardcoded path in agent file** (.claude/agents/plan-create.md:12)
+- **Modified:** `.claude/agents/plan-create.md`
+- **Change:** Added note under step 1 documenting that path must match where plan mode writes files
+
+**[x] Missing repository context** (multiple files)
+- **Modified:** `.claude/agents/plan-create.md`
+- **Change:** Added requirement documenting that `gh` command must be run from within a git repository
+
+**[x] Inconsistent error handling granularity**
+- **Modified:** `.claude/commands/plan-create.md`, `.claude/agents/plan-create.md`
+- **Change:** Enhanced error handling sections to include permission issues, matching detail level of other commands",process_documentation,itemized response to Copilot/Claude review in claude-coded repo,process_documentation,
+Scetrov/evefrontier-rs#51:issue_comment:3703062938,Scetrov/evefrontier-rs,51,Scetrov,late,issue_comment,"## Review Comments Addressed
+
+All 5 Copilot review comments have been addressed in commit e913659:
+
+### 1. Spec Documentation (spec.md)
+✅ **Addressed**: Updated feature spec to document fuel color styling (orange for hop cost, magenta for remaining) and padding fixes as core feature requirements (FR-3, FR-4) and acceptance criteria.
+
+### 2. Dead Code in output.rs (calculate_route_fuel)
+✅ **Addressed**: Added clarifying Rustdoc comment in `attach_fuel()` explaining the architectural decision:
+- `attach_fuel()` uses inline gate step handling for performance in CLI/Lambda scenarios
+- `calculate_route_fuel()` remains exported and is actively used in tests and public API for complete route fuel calculations with static/dynamic mass modes
+- No dead code issue; the design is intentional for different use cases
+
+### 3. CHANGELOG.md Documentation
+✅ **Addressed**: Enhanced CHANGELOG entries to highlight:
+- Color-coded fuel display (orange/magenta distinction)
+- Padding alignment fixes for planet/moon labels
+These visual enhancements are now clearly documented for user awareness.
+
+### 4. Spec 015 Task Status (tasks.md)
+✅ **Addressed**: T024 (security audit) was already marked completed; verified in commit.
+
+### 5. Duplicate Heading (docs/fixtures/README.md)
+✅ **Addressed**: Removed duplicate ""### Routing Examples"" section and normalized ship_data.csv section heading.
+
+### Test Results
+All checks pass:
+- ✅ `cargo fmt --all --check`
+- ✅ `nx run-many --target=build --all` (12 projects)
+- ✅ `nx run-many --target=clippy --all` (12 projects)
+- ✅ `nx run-many --target=test --all` (47 tests)
+- ✅ `cargo audit` (1 allowed warning on yanked cmov 0.3.1)",process_documentation,describes how each of 5 Copilot review comments was processed,process_documentation,
+tuvens/enfold-llm#44:issue_comment:3702996278,tuvens/enfold-llm,44,tuvens,late,issue_comment,"## Gemini Review Response
+
+Great catch on the consistency issues\! I'll address all points:
+
+### High Priority Issues:
+1. ✅ **Fix secret names consistency** - Will change to USERNAME/APP_PASSWORD to match all other docs
+2. ✅ **Add missing .claude-wp.json step** - Critical omission, will add between steps 4-5
+
+### Medium Priority:
+3. ✅ **Clarify plugin upload** - Will specify zip requirement for WordPress upload
+
+Implementing all fixes to ensure Quick Start accuracy.",process_documentation,itemized fixes promised in response to Gemini review,process_documentation,
+freenet/freenet-core#2521:issue_comment:3703008881,freenet/freenet-core,2521,sanity,late,issue_comment,"## CI Failure Analysis & Fix
+
+### Debugging Process
+
+The `test_small_network_get_failure` test was failing with:
+```
+[ERROR freenet::transport::connection_handler] Failed to establish gateway connection 
+  error=decryption error peer_addr=127.0.0.1:56810 direction=""inbound""
+```
+
+**Systematic investigation:**
+1. Identified the failing test was `test_small_network_get_failure` - a second GET operation times out after repeated ""decryption error"" failures
+2. Checked other open PRs for related fixes
+3. Found PR #2522 addresses **exactly this issue** - a race condition in gateway handshake completion
+4. Verified PR #2522 passes all CI tests
+5. Confirmed my changes don't touch the affected code (lines 662-668 in `connection_handler.rs`)
+
+**Root cause:** Race condition between `ongoing_gw_connections.remove()` and `remote_connections.insert()`. When packets arrive in the gap, they fall through to RSA decryption when they should use symmetric encryption → ""decryption error"".
+
+### Fix Applied
+
+Rebased this PR on top of PR #2522 (`fix-2517-gw-handshake-race`), which fixes the race by reordering the operations.
+
+This PR's changes (version mismatch signaling at lines 697-700 and 748-756) are completely separate from the handshake race fix.
+
+[AI-assisted - Claude]",provenance_only,[AI-assisted - Claude] tag on CI debugging report,provenance_only,
+JoA-MoS/garage#189:issue_comment:3702999646,JoA-MoS/garage,189,JoA-MoS,late,issue_comment,"### Code review
+
+No issues found. Checked for bugs and CLAUDE.md compliance.
+
+🤖 Generated with [Claude Code](https://claude.ai/code)",provenance_only,'Generated with Claude Code' tag on routine review,provenance_only,
+freenet/freenet-core#2523:issue_comment:3703006768,freenet/freenet-core,2523,sanity,early,issue_comment,"## Addressing Review Feedback
+
+Thanks for the thorough reviews! Here's my response to the key concerns:
+
+### 1. `state: None` vs `state: Some(Completed)` for intermediate nodes
+
+The reviewers correctly spotted that I changed from `state: Some(Completed)` to `state: None` for intermediate nodes forwarding Subscribed responses. 
+
+**This is intentional and correct.** Looking at the existing NotFound forwarding path (lines 916-924), intermediate nodes already use `state: None` when forwarding responses. The pattern is:
+- **Intermediate nodes forwarding responses**: `state: None` (operation continues at requester's side)
+- **Originator receiving final response**: `state: Some(...)` (operation terminates, needs state for `to_host_result()`)
+
+The original code having `state: Some(Completed)` for intermediate nodes was actually the inconsistency. My change aligns with the established pattern.
+
+### 2. Fourth `get_peer_location_by_addr()` call site not updated (line 787)
+
+This is **intentional**. The call at line 787 is for `set_upstream()` - registering who we get updates FROM (not who wants updates from us). If this lookup fails:
+- The subscription still succeeds
+- We just won't have the upstream source cached initially
+- The next update from upstream will establish it
+
+This is a best-effort optimization that doesn't affect the subscribed/not-subscribed response. The critical bug was returning `Subscribed` without registering **downstream** subscribers.
+
+### 3. `NotFound` semantic overloading
+
+Valid concern. Ideally we'd have a distinct `SubscribeMsgResult::TransientFailure` variant. However:
+- This requires protocol changes (stdlib update, version coordination)
+- The practical effect is the same: client should retry
+- The 5-retry with 3.1s total delay makes this failure mode extremely rare
+
+I'll file a follow-up issue for cleaner semantics if this becomes problematic in practice.
+
+### 4. 3.1s total timeout
+
+The exponential backoff (100+200+400+800+1600ms) matches the existing `CONTRACT_WAIT_TIMEOUT_MS` pattern in this file. The worst case only triggers when a peer remains transient for the entire duration, which indicates a more serious connection issue. In healthy networks, the fast path (immediate success) is the common case.
+
+[AI-assisted - Claude]",provenance_only,[AI-assisted - Claude] tag on review-response argument,defensive_justification,defends their implementation choices against review comments
+link-assistant/hive-mind#1050:issue_comment:3703035073,link-assistant/hive-mind,1050,konard,late,issue_comment,"## 🤖 Solution Draft Log
+This log file contains the complete execution trace of the AI solution draft process.
+
+### Changes Made
+
+Based on the detailed feedback in the PR comments, I've made comprehensive updates to all documentation files:
+
+**COMPARISON.md updates:**
+- Fixed creativity description: AI is ""indistinguishable from average programmers"" and asks questions when unclear
+- Fixed expertise: AI searches online and compensates lack of experience with speed
+- Added system message improvements note (guides AI to avoid common mistakes)
+- Fixed ""Always available"" to ""on demand, instantly""
+- Added note about Hive Mind excelling on small tasks, future architect AI for decomposition
+- Added human time cost note for AI-Assisted IDEs (not just subscription price)
+- Fixed repository support: works on existing repos OR starts from scratch
+- Added vibe coding GitHub dependency note
+- Fixed tech stacks: 10+ runtimes preinstalled but AI can install more
+- Fixed infrastructure: ""our or your infrastructure""
+- Added 100% open source with Unlicense (public domain)
+- Fixed cloud agents description: restrictive ENVs, limited GitHub access, local agents risk your machine
+- Added recommendation to use GitHub Actions CI/CD for production access
+- Fixed isolation: VM or Docker, easy to restore if broken
+- Added ""The code is written while you sleep"" slogan (can produce hundreds of drafts overnight)
+- Fixed ""almost unlimited"" Claude usage (tens of users to use 100% of limit)
+- Fixed defined issues: AI asks questions, clarify on the go via PR comments
+- Fixed mobile access: any device works, not just phone
+- Fixed budget: includes large workloads/task backlogs
+- Fixed hiring recommendation: focus on critical systems (medical, space, high-stakes)
+
+**FEATURES.md updates:**
+- Added creativity and system message info in intro
+- Added CI/CD production recommendation in safety section
+- Fixed runtimes: preinstalled but AI can install more
+- Fixed Telegram section: any device, mobile access is enough
+- Updated comparison table with all new points
+- Added ""The code is written while you sleep"" slogan
+
+**README.md updates:**
+- Updated feature table with new points
+- Added 100% Open Source row
+- Added creativity description
+- Fixed ""almost unlimited"" usage
+- Added slogan in Time Freedom row
+
+All CI checks are passing. Ready for review!
+
+---
+*Now working session is ended, feel free to review and add any feedback on the solution draft.*",provenance_only,AI-generated 'Solution Draft Log' posting on author's behalf,process_documentation,it explains how the AI-generated draft was revised based on feedback not just that AI was used

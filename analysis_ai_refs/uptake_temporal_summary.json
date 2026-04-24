@@ -1,0 +1,171 @@
+{
+  "args": {
+    "labels_csv": "analysis_ai_refs/invocation_uptake_stratified_100_labeled.csv",
+    "aftermath_csv": "analysis_ai_refs/invocation_aftermath_dataset.csv",
+    "n_perm": 5000,
+    "early_window_hours": 24.0,
+    "out_json": "analysis_ai_refs/uptake_temporal_summary.json",
+    "out_md": "analysis_ai_refs/uptake_temporal_summary.md"
+  },
+  "view0_full_100": {
+    "n": 100,
+    "uptake_x_merge_full_chi2": 11.4586,
+    "uptake_x_merge_full_df": 3,
+    "uptake_x_merge_full_p_perm": 0.0058,
+    "uptake_x_merge_2x2_chi2": 9.1259,
+    "uptake_x_merge_2x2_df": 1,
+    "uptake_x_merge_2x2_p_perm": 0.005,
+    "table_uptake_by_merge": {
+      "False": {
+        "counts": {
+          "positive_uptake": 13,
+          "corrective_critique": 16,
+          "continued_delegation": 3
+        },
+        "pct": {
+          "positive_uptake": 40.62,
+          "corrective_critique": 50.0,
+          "continued_delegation": 9.38
+        },
+        "n": 32
+      },
+      "True": {
+        "counts": {
+          "positive_uptake": 49,
+          "corrective_critique": 17,
+          "no_clear_uptake": 1,
+          "continued_delegation": 1
+        },
+        "pct": {
+          "positive_uptake": 72.06,
+          "corrective_critique": 25.0,
+          "no_clear_uptake": 1.47,
+          "continued_delegation": 1.47
+        },
+        "n": 68
+      }
+    }
+  },
+  "view1_response_before_merge": {
+    "n": 85,
+    "n_dropped_post_merge_response": 15,
+    "n_merged_kept": 53,
+    "n_nonmerged_kept": 32,
+    "uptake_x_merge_full_chi2": 6.3106,
+    "uptake_x_merge_full_df": 2,
+    "uptake_x_merge_full_p_perm": 0.044,
+    "uptake_x_merge_2x2_chi2": 5.2421,
+    "uptake_x_merge_2x2_df": 1,
+    "uptake_x_merge_2x2_p_perm": 0.023,
+    "table_uptake_by_merge": {
+      "False": {
+        "counts": {
+          "positive_uptake": 13,
+          "corrective_critique": 16,
+          "continued_delegation": 3
+        },
+        "pct": {
+          "positive_uptake": 40.62,
+          "corrective_critique": 50.0,
+          "continued_delegation": 9.38
+        },
+        "n": 32
+      },
+      "True": {
+        "counts": {
+          "corrective_critique": 17,
+          "positive_uptake": 35,
+          "continued_delegation": 1
+        },
+        "pct": {
+          "corrective_critique": 32.08,
+          "positive_uptake": 66.04,
+          "continued_delegation": 1.89
+        },
+        "n": 53
+      }
+    },
+    "uptake_x_timing_chi2": 4.9598,
+    "uptake_x_timing_df": 4,
+    "uptake_x_timing_p_perm": 0.2841,
+    "table_uptake_by_timing": {
+      "early": {
+        "counts": {
+          "positive_uptake": 24,
+          "corrective_critique": 21,
+          "continued_delegation": 2
+        },
+        "pct": {
+          "positive_uptake": 51.06,
+          "corrective_critique": 44.68,
+          "continued_delegation": 4.26
+        },
+        "n": 47
+      },
+      "late": {
+        "counts": {
+          "positive_uptake": 15,
+          "corrective_critique": 6
+        },
+        "pct": {
+          "positive_uptake": 71.43,
+          "corrective_critique": 28.57
+        },
+        "n": 21
+      },
+      "middle": {
+        "counts": {
+          "corrective_critique": 6,
+          "positive_uptake": 9,
+          "continued_delegation": 2
+        },
+        "pct": {
+          "corrective_critique": 35.29,
+          "positive_uptake": 52.94,
+          "continued_delegation": 11.76
+        },
+        "n": 17
+      }
+    }
+  },
+  "view2_response_before_merge_and_gap": {
+    "min_gap_hours": 1.0,
+    "n": 79,
+    "n_merged_kept": 47,
+    "n_nonmerged_kept": 32,
+    "uptake_x_merge_full_chi2": 5.7553,
+    "uptake_x_merge_full_df": 2,
+    "uptake_x_merge_full_p_perm": 0.0564,
+    "uptake_x_merge_2x2_chi2": 4.9512,
+    "uptake_x_merge_2x2_df": 1,
+    "uptake_x_merge_2x2_p_perm": 0.041,
+    "table_uptake_by_merge": {
+      "False": {
+        "counts": {
+          "positive_uptake": 13,
+          "corrective_critique": 16,
+          "continued_delegation": 3
+        },
+        "pct": {
+          "positive_uptake": 40.62,
+          "corrective_critique": 50.0,
+          "continued_delegation": 9.38
+        },
+        "n": 32
+      },
+      "True": {
+        "counts": {
+          "corrective_critique": 15,
+          "positive_uptake": 31,
+          "continued_delegation": 1
+        },
+        "pct": {
+          "corrective_critique": 31.91,
+          "positive_uptake": 65.96,
+          "continued_delegation": 2.13
+        },
+        "n": 47
+      }
+    }
+  }
+}
